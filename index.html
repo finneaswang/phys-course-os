@@ -157,7 +157,7 @@ var CONCEPTS = {
     '<p>The chain the course hangs on: <b>microscopic behaviour → statistical averages → macroscopic variables → thermodynamic laws</b>.</p>'+
     '<p>Worked mappings from L01: object size ↔ average atomic spacing; temperature ↔ average kinetic energy.</p>', rel:['thermodynamics','temperature','kinetic-energy']},
   'temperature': {t:'Temperature', zh:'温度', st:'intro', body:
-    '<p>A <b>macroscopic variable</b> and a <b>state variable（状态量）</b>: it describes what a system <i>is</i>, not a transfer. At the L01 level of precision: temperature measures the <b>average kinetic energy</b> of a system\u2019s particles.</p>'+
+    '<p>A <b>macroscopic variable</b> and a <b>state variable（状态量）</b>: it describes what a system <i>is</i>, not a transfer. In the model introduced in L01, temperature <b>reflects</b> the average kinetic energy of a system\u2019s particles.</p>'+
     '<p>It sets the <b>direction</b> of spontaneous heat flow (hot → cold) and defines the endpoint of that flow: thermal equilibrium.</p>', rel:['heat','thermal-equilibrium','kinetic-energy','mm']},
   'volume': {t:'Volume', zh:'体积', st:'intro', body:
     '<p>A <b>macroscopic variable</b>: at the microscopic level it reports the <b>average spacing between atoms/molecules</b>. This mapping is why thermal expansion is visible — raise the temperature, the average spacing grows, the measured size grows.</p>', rel:['temperature','thermal-expansion','mm']},
@@ -409,7 +409,7 @@ S.push({tag:'Pre-class · Step 2 / 10', title:'The cold brick — predict first'
 <div id="predict">
   <button class="opt" data-ok="0" data-fb="Look at the temperature difference: −78.5 °C vs ~20 °C. Something dramatic happens at the surface — and it is not silence." onclick="pick(this)">A · Nothing — the brick just sits there, unchanged</button>
   <button class="opt" data-ok="1" data-fb="Right. Water vapour in the air touches a surface far below 0 °C and leaves the gas phase → frost forms almost immediately. Meanwhile heat starts flowing into the brick and it begins warming." onclick="pick(this)">B · Frost forms on the brick's surface</button>
-  <button class="opt" data-ok="0" data-fb="Glowing needs a far higher temperature. Room-temperature objects do radiate — but in the infrared, which your eyes cannot detect. The brick is glowing right now; you just can't see it." onclick="pick(this)">C · The brick glows faintly</button>
+  <button class="opt" data-ok="0" data-fb="Glowing usually means visible light — that needs a far higher temperature. The brick IS emitting thermal radiation right now, mainly in the infrared, which your eyes cannot detect." onclick="pick(this)">C · The brick glows faintly</button>
   <button class="opt" data-ok="0" data-fb="Meltwater only appears once the surface climbs past 0 °C — not in the first minute. First comes frost." onclick="pick(this)">D · Water pools underneath it</button>
   <div class="feedback" id="predfb"></div>
 </div>
@@ -420,7 +420,7 @@ S.push({tag:'Pre-class · Step 2 / 10', title:'The cold brick — predict first'
 <li><b>~1 hr:</b> brick nearly clear, temperature approaching room temperature.</li>
 </ul>
 <div class="demo">` + demoCurve() + `<div class="cap">The brick's temperature over its hour on the desk. It never jumps to room temperature — it approaches, fast at first, then slower. Frost can only exist while the surface is below the 0 °C line.</div></div>
-<details class="check"><summary>Wording trap: "condensation" vs what physically happened</summary><div class="ans">Slides say <i>condensation</i>, but at −78.5 °C the vapour goes from gas <b>straight to solid</b> — deposition (凝华). The photo is unmistakably frost, not liquid. Keep both words in your head; the instructor's shorthand and the strict term differ.</div></details>
+<details class="check"><summary>Wording trap: "condensation" vs what physically happened</summary><div class="ans">Slides say <i>condensation</i>, but at −78.5 °C the vapour goes from gas <b>straight to solid</b> — deposition (凝华). The photo is unmistakably frost, not liquid. For the quiz, answer with the instructor's wording; keep "deposition" as your private precision.</div></details>
 `});
 
 S.push({tag:'Pre-class · Step 3 / 10', title:'The macroscopic view', html:`
@@ -447,7 +447,7 @@ S.push({tag:'Pre-class · Step 4 / 10', title:'The microscopic view', html:`
 <div class="demo">` + demoGas() + `</div>
 </div>
 <div class="demo">` + demoSpectrum() + `<div class="cap">The electromagnetic spectrum. The brick at room temperature radiates in the infrared band — just left of the tiny slice your eyes can see.</div></div>
-<details class="check"><summary>Go deeper: is energy flowing one way, molecule by molecule?</summary><div class="ans">No — and hold onto this. In <i>every single collision</i>, energy crosses the boundary in <b>both</b> directions. What makes the brick warm up is that the exchanges are unequal: the fast (hot) side delivers more on average. The word doing the work is <b>net</b>. It comes back at equilibrium — and in a question waiting for you in chat.</div></details>
+<details class="check"><summary>Go deeper: is energy flowing one way, molecule by molecule?</summary><div class="ans">No — and hold onto this. <b>Individual collisions can transfer energy in either direction.</b> Because the warmer side transfers more energy on average, there is a <b>net energy flow from hot to cold</b> — billions of tiny deliveries adding up. The word doing the work is <b>net</b>. It comes back at equilibrium.</div></details>
 `});
 
 S.push({tag:'Pre-class · Step 5 / 10', title:'The bridge: averages become variables', html:`
@@ -469,7 +469,7 @@ S.push({tag:'Pre-class · Step 5 / 10', title:'The bridge: averages become varia
 S.push({tag:'Pre-class · Step 6 / 10', title:'Temperature vs Heat vs Equilibrium', html:`
 <p>Three words the quizzes love to blur. Three clean definitions:</p>
 <div class="grid2">
-<div class="pillar"><b><span class="wiki" data-c="temperature">Temperature</span></b><br>A <b>property of the object</b> — a <i>state variable</i> (状态量). It describes what the system <i>is</i>: the average kinetic energy of its particles.</div>
+<div class="pillar"><b><span class="wiki" data-c="temperature">Temperature</span></b><br>A <b>property of the object</b> — a <i>state variable</i> (状态量). It describes what the system <i>is</i> — in the L01 model, the average kinetic energy of its particles.</div>
 <div class="pillar"><b><span class="wiki" data-c="heat">Heat</span></b><br><b>Energy in transit</b>, driven by a temperature difference. Not a property of anything — it only exists <i>while crossing a boundary</i>, carried by collisions and radiation.</div>
 <div class="pillar"><b><span class="wiki" data-c="thermal-equilibrium">Thermal Equilibrium</span></b><br>The endpoint of heat flow: common temperature, and the <b>net</b> exchange drops to zero because the two averages have matched.</div>
 </div>
@@ -513,7 +513,7 @@ S.push({tag:'Pre-class · Step 10 / 10', title:'60-second review — and done', 
 <h2>The whole pre-class, one breath</h2>
 <ul>
 <li>Macroscopic variables = <b>averages</b> over ~10²³ particles; thermodynamics studies the rules of those averages.</li>
-<li><b>Temperature</b> = average kinetic energy of particles — a state variable.</li>
+<li><b>Temperature</b> = average kinetic energy of particles <i>in the L01 model</i> — a state variable.</li>
 <li><b>Heat</b> = energy in transit, hot → cold, carried by <b>collisions + radiation</b>; never "stored".</li>
 <li>Cold brick: heat in → warms → expands; frost <b>deposits</b>, clears <b>corners first</b>, gone by ~1 hr.</li>
 <li><b>Equilibrium</b>: same temperature, <b>net</b> flow zero, two-way collisions continue.</li>
