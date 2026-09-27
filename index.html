@@ -610,7 +610,7 @@ S_DEEP.push({tag:'Deep-dive · Step 6 / 6', title:'Ledger & what\u2019s next', h
 <h2>What's next</h2>
 <ul>
 <li><b>L02 pre-class is live</b> (sidebar 1.4): the law under the demo — Conservation of Energy, the Zeroth Law, and the IR-camera prediction.</li>
-<li><b>L02 post-class queue</b> (becomes the L02 deep-dive): Clicker 1's resolution as given in lecture, Clicker 3's hidden assumption unpacked, and the IR-camera demo vs your sketches.</li>
+<li><b>L02 post-class queue</b> (becomes the L02 deep-dive): Clicker 1's resolution as given in lecture, Clicker 2's resolution (and why the "passive spectator" options fail), Clicker 3's hidden assumption unpacked, and the IR-camera demo vs your sketches.</li>
 <li><b>Quiz 1</b>: date &amp; scope still unknown — Canvas → Course Schedule. When you know it, the practice engine targets exactly that range.</li>
 </ul>
 <p style="margin-top:22px"><button class="donebtn" id="donebtn" onclick="markDone('deep')">✓ Mark L01 deep-dive complete</button></p>
@@ -671,17 +671,16 @@ S_L02.push({tag:'L02 Pre-class · Step 4 / 8', title:'What heating does to macro
 </ul>
 <div class="demo">` + demoSpectrum() + `<div class="cap">The electromagnetic spectrum — L02 shows it with real wavelengths: gamma (~10⁻¹⁴ m) down to AM radio (~10⁴ m). Visible light is the 400–700 nm slice; infrared sits just left of it, between visible and radar.</div></div>
 `});
-S_L02.push({tag:'L02 Pre-class · Step 5 / 8', title:'Clicker 2 — contact between two blocks', html:`
+S_L02.push({tag:'L02 Pre-class · Step 5 / 8', title:'Clicker 2 — predict: contact between two blocks', html:`
 <p><i>What happens if we put a hot block in contact with a room-temperature block?</i></p>
-<div id="predict2">
-  <button class="opt" data-fbid="c2fb" data-ok="0" data-fb="Something always happens when temperatures differ — energy transfer at the contact." onclick="pick(this)">A · Nothing</button>
-  <button class="opt" data-fbid="c2fb" data-ok="1" data-fb="Right — heat flows until BOTH blocks reach the same temperature. Note what that means: both blocks change — the hot one cools, the cold one warms." onclick="pick(this)">B · Heat flows until they are the same temperature</button>
-  <button class="opt" data-fbid="c2fb" data-ok="0" data-fb="Incomplete: the hot block does cool — but not all the way to room temperature, because the room-temperature block is warming up at the same time." onclick="pick(this)">C · The hot block will cool down to room temperature</button>
-  <button class="opt" data-fbid="c2fb" data-ok="0" data-fb="Symmetric mistake: the cold block warms, but the hot block is simultaneously cooling. Nobody climbs all the way to the other's starting temperature." onclick="pick(this)">D · The room temperature block will heat up to the temperature of the hot block</button>
-  <button class="opt" data-fbid="c2fb" data-ok="0" data-fb="B is correct and complete: heat flows until the two blocks share one temperature." onclick="pick(this)">E · None of the above</button>
-  <div class="feedback" id="c2fb"></div>
+<div class="card">
+<b>A</b> · Nothing<br>
+<b>B</b> · Heat flows until they are the same temperature<br>
+<b>C</b> · The hot block will cool down to room temperature<br>
+<b>D</b> · The room temperature block will heat up to the temperature of the hot block<br>
+<b>E</b> · None of the above
 </div>
-<div class="note">The trap in C and D is assuming one block is a passive spectator. Conservation of energy (step 2) forbids it: what one loses, the other gains. L02's statement: heat flows until both blocks reach the same temperature.</div>
+<div class="note"><b>Answer deliberately not revealed on a pre-class page.</b> Commit to a guess — the lecture resolves it, and the post-class deep-dive unpacks the reasoning.</div>
 `});
 S_L02.push({tag:'L02 Pre-class · Step 6 / 8', title:'The rule of contact: three outcomes', html:`
 <p>The slides formalize it. Bring two objects into contact — <b>one of three things</b> can happen:</p>
