@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>PHYS 157 — L01 Pre-class Reading</title>
+<title>PHYS 157 — Course OS · Week 1 Print Edition</title>
 <style>
 @page { size: A4; margin: 16mm 15mm 17mm 15mm; }
 html, body { margin: 0; padding: 0; background: #ffffff; }
@@ -11,58 +11,56 @@ body { font: 10.5pt/1.55 -apple-system, "Helvetica Neue", "PingFang SC", "Hiragi
 p { margin: 6pt 0; }
 ul { margin: 5pt 0; padding-left: 18pt; }
 li { margin: 3pt 0; }
-strong { color: #0d2c4b; }
+strong, b { color: #0d2c4b; }
 em { color: #31414f; }
 
-/* cover */
 .cover { min-height: 245mm; display: flex; flex-direction: column; justify-content: space-between; page-break-after: always; }
 .cover .kicker { font-size: 9pt; letter-spacing: 3pt; text-transform: uppercase; color: #2f6fad; font-weight: 600; }
-.cover h1 { font-size: 30pt; line-height: 1.15; margin: 10pt 0 4pt; color: #0d2c4b; }
+.cover h1 { font-size: 28pt; line-height: 1.15; margin: 10pt 0 4pt; color: #0d2c4b; }
 .cover .sub { font-size: 13pt; color: #5b6b7b; margin-bottom: 14pt; }
 .cover .rule { height: 2.5pt; background: #0d2c4b; width: 64pt; margin: 16pt 0; }
-.cover .summary { font-size: 11pt; line-height: 1.7; color: #31414f; max-width: 128mm; }
+.cover .summary { font-size: 11pt; line-height: 1.7; color: #31414f; max-width: 132mm; }
 .cover .meta { font-size: 9.5pt; color: #5b6b7b; line-height: 1.8; }
 .cover .meta b { color: #0d2c4b; }
 .cover .foot { font-size: 8.5pt; color: #8296a8; border-top: 0.5pt solid #dde5ec; padding-top: 8pt; }
 
-/* headings */
-h2 { font-size: 15pt; color: #0d2c4b; margin: 16pt 0 6pt; break-after: avoid; }
+.part { break-before: page; }
+.parthead { border-top: 2.5pt solid #0d2c4b; padding-top: 8pt; margin: 6pt 0 2pt; }
+.parthead .pk { font-size: 9pt; letter-spacing: 2.5pt; text-transform: uppercase; color: #2f6fad; font-weight: 700; }
+.parthead h1 { font-size: 21pt; margin: 4pt 0 4pt; color: #0d2c4b; }
+.parthead .psub { font-size: 10.5pt; color: #5b6b7b; margin-bottom: 8pt; }
+
+h2 { font-size: 14.5pt; color: #0d2c4b; margin: 18pt 0 5pt; break-after: avoid; }
 h2 .stepno { font-size: 8.5pt; letter-spacing: 1.5pt; text-transform: uppercase; color: #2f6fad; display: block; margin-bottom: 2pt; font-weight: 700; }
 h3 { font-size: 11.5pt; color: #0d2c4b; margin: 12pt 0 4pt; break-after: avoid; }
 
-/* components */
 .goal { background: #e8f1fb; border: 0.75pt solid #c9def2; border-radius: 6pt; padding: 8pt 11pt; margin: 9pt 0; break-inside: avoid; }
 .note { background: #fffbe8; border: 0.75pt solid #efe3ae; border-radius: 6pt; padding: 7pt 10pt; font-size: 9.5pt; margin: 8pt 0; break-inside: avoid; }
-.card { border: 0.75pt solid #dde5ec; border-radius: 6pt; padding: 8pt 11pt; margin: 8pt 0; background: #fbfdff; break-inside: avoid; }
+.card { border: 0.75pt solid #dde5ec; border-radius: 6pt; padding: 7pt 10pt; margin: 6pt 0; background: #fbfdff; break-inside: avoid; font-size: 9.8pt; }
 .grid2 { display: flex; gap: 9pt; margin: 9pt 0; }
 .grid2 > div { flex: 1; }
-.wiki { color: #2f6fad; font-weight: 600; }
 figure { display: block; width: 100%; margin: 10pt auto; break-inside: avoid; }
 figure svg { display: block; width: 100%; height: auto; }
 figcaption { font-size: 8.5pt; color: #5b6b7b; text-align: center; margin-top: 4pt; }
-.chain { margin: 9pt 0; }
-.chain .row { display: flex; align-items: center; gap: 5pt; flex-wrap: wrap; }
-.chain .cstep { background: #0d2c4b; color: #ffffff; border-radius: 4pt; padding: 4pt 9pt; font-size: 9.5pt; }
+.chain { margin: 8pt 0; }
+.chain .row { display: flex; flex-wrap: wrap; gap: 5pt; align-items: center; }
+.chain .cstep { background: #0d2c4b; color: #ffffff; border-radius: 4pt; padding: 3.5pt 9pt; font-size: 9pt; }
 .chain .arr { color: #5b6b7b; font-weight: 700; }
-.opt { border: 0.75pt solid #dde5ec; border-radius: 5pt; padding: 5pt 9pt; margin: 4pt 0; font-size: 9.5pt; background: #fbfcfe; break-inside: avoid; }
-.opt .verdict { font-weight: 700; }
-.opt.right { border-color: #bcdcc8; background: #e9f6ee; }
-.opt.right .verdict { color: #1e7d46; }
-.opt.wrong { border-color: #ecd3bd; background: #fdf1e7; }
-.opt.wrong .verdict { color: #b3591e; }
-.check { border: 0.75pt solid #dde5ec; border-radius: 6pt; padding: 6pt 10pt; margin: 6pt 0; break-inside: avoid; }
+.check { border: 0.75pt solid #dde5ec; border-radius: 6pt; margin: 7pt 0; padding: 6pt 10pt; break-inside: avoid; background: #fbfcfe; font-size: 9.8pt; }
 .check .q { font-weight: 700; color: #0d2c4b; }
-.check .a { margin-top: 3pt; font-size: 9.5pt; color: #31414f; border-top: 0.5pt dashed #dde5ec; padding-top: 4pt; }
+.check .a { margin-top: 3pt; color: #31414f; border-top: 0.5pt dashed #dde5ec; padding-top: 4pt; }
+.opt { border: 0.75pt solid #dde5ec; border-radius: 5pt; padding: 4pt 9pt; margin: 4pt 0; font-size: 9.5pt; background: #fbfcfe; }
+.opt.right { border-color: #bcdcc8; background: #e9f6ee; }
+.opt.wrong { border-color: #ecd3bd; background: #fdf1e7; }
 table.phrases { width: 100%; border-collapse: collapse; margin: 8pt 0; font-size: 9.5pt; }
 table.phrases th { background: #0d2c4b; color: #ffffff; text-align: left; padding: 4pt 8pt; font-size: 9pt; }
 table.phrases td { border-bottom: 0.5pt solid #dde5ec; padding: 4pt 8pt; vertical-align: top; }
-.concept { border: 0.75pt solid #dde5ec; border-radius: 6pt; padding: 7pt 10pt; margin: 6pt 0; break-inside: avoid; }
+.concept { border: 0.75pt solid #dde5ec; border-radius: 6pt; padding: 6pt 10pt; margin: 6pt 0; break-inside: avoid; font-size: 9.8pt; }
 .concept .cname { font-weight: 700; color: #0d2c4b; }
-.concept .czh { color: #5b6b7b; font-weight: 400; font-size: 9.5pt; }
+.concept .czh { color: #5b6b7b; font-weight: 400; font-size: 9pt; }
 .badge { display: inline-block; font-size: 7.5pt; font-weight: 700; letter-spacing: 0.5pt; text-transform: uppercase; border-radius: 99pt; padding: 1pt 7pt; vertical-align: 1.5pt; }
 .badge.intro { background: #e2f2e8; color: #1e7d46; }
 .badge.preview { background: #fdf1e7; color: #b3591e; }
-.pagebreak { break-before: page; }
 .footline { margin-top: 14pt; padding-top: 6pt; border-top: 0.5pt solid #dde5ec; font-size: 8pt; color: #8296a8; }
 </style>
 </head>
@@ -71,247 +69,123 @@ table.phrases td { border-bottom: 0.5pt solid #dde5ec; padding: 4pt 8pt; vertica
 <!-- ============ COVER ============ -->
 <div class="cover">
   <div>
-    <div class="kicker">PHYS 157 · Course OS · Week 1</div>
-    <h1>L01 — Pre-class Reading</h1>
-    <div class="sub">The cold brick, and the idea the whole course stands on</div>
+    <div class="kicker">PHYS 157 · Course OS · Week 1 Print Edition</div>
+    <h1>L01 + L02 — The Complete Week</h1>
+    <div class="sub">Thermal equilibrium, from a cold brick to a law with the number zero</div>
     <div class="rule"></div>
     <div class="summary">
-      This is the print edition of the interactive pre-class page. Ten short steps,
-      each deeper than the last, rebuilt from the September 9 lecture: one brick
-      parked in dry ice quietly contains the entire first half of PHYS 157 — and
-      the one idea underneath all of it: <strong>we never track 10²³ particles; we
-      track their averages.</strong>
+      Four pages in one volume: <strong>L01 Pre-class</strong> (the cold brick and the
+      micro↔macro bridge), <strong>L01 Deep-dive</strong> (the handwritten review, graded —
+      8/8 concepts), <strong>L02 Pre-class</strong> (Conservation of Energy and the
+      Zeroth Law — predictions preserved, answers withheld), and <strong>L02
+      Deep-dive</strong> (post-class resolutions: the Noether twist, the IR-demo
+      sequence, and 9/9 on the typed review). Figures are print-stills of the
+      interactive animations.
     </div>
   </div>
   <div>
     <div class="meta">
-      <b>Instructor</b> Dr. Simin Najmi · Section 102 &nbsp;&nbsp;|&nbsp;&nbsp; <b>Lecture date</b> September 9, 2026<br>
-      <b>Companion</b> interactive page at <strong>finneaswang.github.io/phys-course-os</strong> &nbsp;&nbsp;|&nbsp;&nbsp; <b>Obsidian vault</b> PHYS 157<br>
-      <b>Sources</b> L1-Introduction.pdf · L1-Intro-post.pdf (canonical) · Wednesday.txt (calibrated transcript)
+      <b>Instructor</b> Dr. Simin Najmi · Section 102 &nbsp;|&nbsp; <b>Lectures</b> Sept 9 &amp; Sept 11, 2026<br>
+      <b>Interactive edition</b> finneaswang.github.io/phys-course-os &nbsp;|&nbsp; <b>Vault</b> Obsidian · PHYS 157<br>
+      <b>Sources</b> L1/L2 pre- &amp; post-class slides (post-class canonical) · calibrated lecture transcripts · the student's handwritten and typed reviews
     </div>
-    <div class="foot">Review copy for content QA — physics accuracy, ordering, question quality. Print: A4, vector text.</div>
+    <div class="foot">QA review copy — physics accuracy, lecture-boundary discipline, grading fairness. A4, vector text.</div>
   </div>
 </div>
 
-<!-- ============ STEP 1 ============ -->
-<h2><span class="stepno">Pre-class · Step 1 / 10</span>How this works, and the two pillars</h2>
-<p>This page is your <strong>pre-class reading</strong> for L01 — the part to master <em>before</em> re-watching the lecture or the quiz. Ten short steps, each one deeper than the last.</p>
-<div class="goal"><strong>By the end you can:</strong>
-<ul>
-<li>tell the cold-brick story <strong>twice</strong> — macroscopically and microscopically;</li>
-<li>distinguish <strong>temperature</strong>, <strong>heat</strong>, and <strong>thermal equilibrium</strong>;</li>
-<li>explain why thermodynamics is possible at all;</li>
-<li>say what L01 deliberately does <strong>not</strong> contain yet.</li>
-</ul></div>
+<!-- ============ PART I: L01 PRE-CLASS ============ -->
+<div class="part">
+<div class="parthead"><div class="pk">Part I · L01 · Pre-class reading</div><h1>The cold brick — and the two pillars</h1></div>
+
+<h2><span class="stepno">L01 Pre-class · Step 1 / 10</span>How this works, and the two pillars</h2>
+<p>Ten short steps, each deeper than the last. <b>By the end you can:</b> tell the cold-brick story twice (macro &amp; micro); distinguish temperature, heat, and thermal equilibrium; explain why thermodynamics is possible at all; and say what L01 deliberately does <i>not</i> contain.</p>
 <div class="grid2">
-  <div class="card"><strong>Pillar 1 — Thermodynamics</strong> (first half of term)<br>Macroscopic variables (T, V, p), thermal expansion, phase change, heat and its transfer methods, equilibrium. Built on averages over ~10²³ particles.</div>
-  <div class="card"><strong>Pillar 2 — Oscillations &amp; Waves</strong> (second half)<br><em>Collective</em> motion of the same molecules: guitar strings, sound, ocean waves. Described by a wave equation — again, no per-particle tracking.</div>
+<div class="card"><b>Pillar 1 — Thermodynamics</b> (first half): macroscopic variables (T, V, p), thermal expansion, phase change, heat and its transfer methods, equilibrium. Built on averages over ~10²³ particles.</div>
+<div class="card"><b>Pillar 2 — Oscillations &amp; Waves</b> (second half): <i>collective</i> motion of the same molecules — guitar strings, sound, ocean waves. Described by a wave equation; again no per-particle tracking.</div>
 </div>
-<div class="note">⚠️ L01 contains <strong>no formulas</strong>. If you catch yourself deriving one here, you're ahead of the lecture — park it.</div>
+<div class="note">⚠️ L01 contains <b>no formulas</b>. If you catch yourself deriving one here, you're ahead of the lecture — park it.</div>
 
-<!-- ============ STEP 2 ============ -->
-<h2><span class="stepno">Pre-class · Step 2 / 10</span>The cold brick — predict first</h2>
-<p>September 9, Hebb building. Prof pulls a brick out of a cooler. The room's first guess: <em>liquid nitrogen</em>. Wrong — it sat in <strong>dry ice</strong>, so the brick starts at about <strong>−78.5 °C</strong>. Then it just sits in the ~20 °C room while everyone talks about it.</p>
-<h3>Predict before you read on — <em>in the first minute, what do you actually see?</em></h3>
-<div class="opt wrong"><span class="verdict">✗ A · Nothing — the brick just sits there, unchanged.</span> Look at the temperature difference: −78.5 °C vs ~20 °C. Something dramatic happens at the surface — and it is not silence.</div>
-<div class="opt right"><span class="verdict">✓ B · Frost forms on the brick's surface.</span> Right. Water vapour in the air touches a surface far below 0 °C and leaves the gas phase → frost forms almost immediately. Meanwhile heat starts flowing into the brick and it begins warming.</div>
-<div class="opt wrong"><span class="verdict">✗ C · The brick glows faintly.</span> Glowing usually means visible light — that needs a far higher temperature. The brick IS emitting thermal radiation right now, mainly in the infrared, which your eyes cannot detect.</div>
-<div class="opt wrong"><span class="verdict">✗ D · Water pools underneath it.</span> Meltwater only appears once the surface climbs past 0 °C — not in the first minute. First comes frost.</div>
-
+<h2><span class="stepno">L01 Pre-class · Step 2 / 10</span>The cold brick — predict first</h2>
+<p>September 9, Hebb building. A brick out of a cooler. First guess: <i>liquid nitrogen</i>. Wrong — <b>dry ice</b>, so it starts at about <b>−78.5 °C</b>, then sits in the ~20 °C room.</p>
+<h3>Predict, then check against the slides — <i>in the first minute, what do you actually see?</i></h3>
+<p><em>(source-contained self-check: the slide photos below hold the answer)</em></p>
+<div class="opt wrong"><b>✗ A · Nothing — unchanged.</b> Look at the temperature difference: −78.5 °C vs ~20 °C. Something dramatic happens at the surface.</div>
+<div class="opt right"><b>✓ B · Frost forms on the brick's surface.</b> Water vapour in the air touches a surface far below 0 °C and leaves the gas phase → frost forms almost immediately — exactly what the ~15 min photo shows. Heat starts flowing in and the brick begins warming.</div>
+<div class="opt wrong"><b>✗ C · The brick glows faintly.</b> Glowing usually means visible light — that needs a far higher temperature. The brick IS emitting thermal radiation right now, mainly in the infrared, which your eyes cannot detect.</div>
+<div class="opt wrong"><b>✗ D · Water pools underneath it.</b> Meltwater only appears once the surface climbs past 0 °C — and the ~1 hr photo shows the frost gone, not water pooling. First comes frost.</div>
 <h3>What actually happened (slide photos)</h3>
 <ul>
-<li><strong>~15 min:</strong> frost over the whole brick.</li>
-<li><strong>~25 min:</strong> frost retreating — <strong>corners and edges clear first</strong> (most exposed surface per amount of brick → they warm fastest).</li>
-<li><strong>~1 hr:</strong> brick nearly clear, temperature approaching room temperature.</li>
+<li><b>~15 min:</b> frost over the whole brick.</li>
+<li><b>~25 min:</b> frost retreating — <b>corners and edges clear first</b> (most exposed surface per amount of brick → they warm fastest).</li>
+<li><b>~1 hr:</b> brick nearly clear, temperature approaching room temperature.</li>
 </ul>
 <figure>
-<svg width="640" height="344" viewBox="0 0 640 344" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 640 344" xmlns="http://www.w3.org/2000/svg">
 <rect x="1" y="1" width="638" height="342" rx="10" fill="#fbfdff" stroke="#dde5ec"/>
-<line x1="60" y1="300" x2="580" y2="300" stroke="#9fb0c0" stroke-width="1.5"/>
-<line x1="60" y1="40" x2="60" y2="300" stroke="#9fb0c0" stroke-width="1.5"/>
-<line x1="60" y1="82" x2="580" y2="82" stroke="#7fa8cd" stroke-width="1.2" stroke-dasharray="7 5"/>
-<text x="576" y="76" text-anchor="end" font-size="11.5" fill="#2f6fad">room 20 °C</text>
-<line x1="60" y1="129" x2="580" y2="129" stroke="#b3591e" stroke-width="1.2" stroke-dasharray="3 4" opacity=".8"/>
-<text x="576" y="145" text-anchor="end" font-size="11.5" fill="#b3591e">0 °C</text>
-<rect x="60" y="129" width="180" height="171" fill="#eaf3fd" opacity=".7"/>
-<text x="150" y="152" text-anchor="middle" font-size="11" fill="#5b6b7b">below 0 °C: frost survives</text>
+<line x1="60" y1="300" x2="580" y2="300" stroke="#9fb0c0" stroke-width="1.5"/><line x1="60" y1="40" x2="60" y2="300" stroke="#9fb0c0" stroke-width="1.5"/>
+<line x1="60" y1="82" x2="580" y2="82" stroke="#7fa8cd" stroke-width="1.2" stroke-dasharray="7 5"/><text x="576" y="76" text-anchor="end" font-size="11.5" fill="#2f6fad">room 20 °C</text>
+<line x1="60" y1="129" x2="580" y2="129" stroke="#b3591e" stroke-width="1.2" stroke-dasharray="3 4" opacity=".8"/><text x="576" y="145" text-anchor="end" font-size="11.5" fill="#b3591e">0 °C</text>
+<rect x="60" y="129" width="180" height="171" fill="#eaf3fd" opacity=".7"/><text x="150" y="152" text-anchor="middle" font-size="11" fill="#5b6b7b">below 0 °C: frost survives</text>
 <path d="M60,295 C 95,160 135,115 220,98 S 400,85 570,83" fill="none" stroke="#2f6fad" stroke-width="3" stroke-linecap="round"/>
-<line x1="126" y1="300" x2="126" y2="58" stroke="#dde5ec" stroke-width="1"/>
-<text x="126" y="318" text-anchor="middle" font-size="11.5" fill="#5b6b7b">~15 min</text>
-<text x="126" y="48" text-anchor="middle" font-size="10.5" fill="#8296a8">frost everywhere</text>
-<line x1="170" y1="300" x2="170" y2="58" stroke="#dde5ec" stroke-width="1"/>
-<text x="170" y="318" text-anchor="middle" font-size="11.5" fill="#5b6b7b">~25 min</text>
-<text x="170" y="32" text-anchor="middle" font-size="10.5" fill="#8296a8">corners clear first</text>
-<line x1="324" y1="300" x2="324" y2="58" stroke="#dde5ec" stroke-width="1"/>
-<text x="324" y="318" text-anchor="middle" font-size="11.5" fill="#5b6b7b">~1 hr</text>
-<text x="324" y="48" text-anchor="middle" font-size="10.5" fill="#8296a8">frost gone</text>
+<line x1="126" y1="300" x2="126" y2="58" stroke="#dde5ec"/><text x="126" y="318" text-anchor="middle" font-size="11.5" fill="#5b6b7b">~15 min</text><text x="126" y="48" text-anchor="middle" font-size="10.5" fill="#8296a8">frost everywhere</text>
+<line x1="170" y1="300" x2="170" y2="58" stroke="#dde5ec"/><text x="170" y="318" text-anchor="middle" font-size="11.5" fill="#5b6b7b">~25 min</text><text x="170" y="32" text-anchor="middle" font-size="10.5" fill="#8296a8">corners clear first</text>
+<line x1="324" y1="300" x2="324" y2="58" stroke="#dde5ec"/><text x="324" y="318" text-anchor="middle" font-size="11.5" fill="#5b6b7b">~1 hr</text><text x="324" y="48" text-anchor="middle" font-size="10.5" fill="#8296a8">frost gone</text>
 <text x="320" y="336" text-anchor="middle" font-size="12" fill="#5b6b7b">time →</text>
 <text x="26" y="170" font-size="12" fill="#5b6b7b" transform="rotate(-90 26 170)">temperature</text>
-<text x="620" y="24" text-anchor="end" font-size="12" fill="#8296a8">qualitative sketch — the shape is what matters, not the numbers</text>
+<text x="620" y="24" text-anchor="end" font-size="12" fill="#8296a8">qualitative sketch — the shape is what matters</text>
 </svg>
-<figcaption>The brick's temperature over its hour on the desk: it approaches room temperature — fast at first, then slower. Frost can only exist while the surface is below the 0 °C line.</figcaption>
+<figcaption>The brick's temperature over its hour: it approaches room temperature — fast at first, then slower. Frost survives only below the 0 °C line.</figcaption>
 </figure>
-<div class="note"><strong>Wording trap:</strong> slides say <em>condensation</em>, but at −78.5 °C the vapour goes from gas <strong>straight to solid</strong> — deposition (凝华). The photo is unmistakably frost, not liquid. For the quiz, answer with the instructor's wording; keep "deposition" as your private precision.</div>
+<div class="note"><b>Wording trap:</b> slides say <em>condensation</em>, but at −78.5 °C the vapour goes from gas <b>straight to solid</b> — deposition (凝华). For the quiz, answer with the instructor's wording; keep "deposition" as private precision.</div>
 
-<!-- ============ STEP 3 ============ -->
-<h2><span class="stepno">Pre-class · Step 3 / 10</span>The macroscopic view</h2>
-<p><strong>Macroscopic</strong> = the scale you can see or measure with instruments. In that language, here is everything the brick did — five measurable statements:</p>
+<h2><span class="stepno">L01 Pre-class · Step 3 / 10</span>The macroscopic view</h2>
+<p><b>Macroscopic</b> = the scale you can see or measure. Five measurable statements:</p>
 <ul>
-<li><strong>Heat flowed in</strong> — from everything warmer: the air, the desk it sat on. Big temperature difference → fast flow at the start.</li>
-<li><strong>Its temperature rose</strong> — continuously, then more slowly.</li>
-<li><strong>Its dimensions grew</strong> — every linear dimension, slightly. (Thermal expansion: first real topic of the course.)</li>
-<li><strong>Frost formed, then cleared</strong> — a phase change happening in the air next to the brick.</li>
-<li><strong>It stopped changing</strong> — brick and room reached the same temperature. That endpoint is thermal equilibrium.</li>
+<li><b>Heat flowed in</b> — from everything warmer: the air, the desk. Big ΔT → fast flow at the start.</li>
+<li><b>Its temperature rose</b> — continuously, then more slowly.</li>
+<li><b>Its dimensions grew</b> — every linear dimension, slightly (thermal expansion — first real topic).</li>
+<li><b>Frost formed, then cleared</b> — a phase change in the air next to the brick.</li>
+<li><b>It stopped changing</b> — brick and room at the same temperature: thermal equilibrium.</li>
 </ul>
-<div class="note">Notice what this language never mentions: atoms. That's the point — macroscopic variables are chosen so you <em>don't need</em> the atoms. Next step: the same story in the other language.</div>
+<div class="note">This language never mentions atoms. That's the point — macroscopic variables are chosen so you <i>don't need</i> them.</div>
 
-<!-- ============ STEP 4 ============ -->
-<h2><span class="stepno">Pre-class · Step 4 / 10</span>The microscopic view</h2>
-<p>Same brick, atomic vocabulary — three processes:</p>
+<h2><span class="stepno">L01 Pre-class · Step 4 / 10</span>The microscopic view</h2>
 <ul>
-<li><strong>The brick's atoms vibrate.</strong> It's a solid: atoms are not free to wander — they <strong>vibrate about fixed equilibrium positions</strong>. Cold brick = slow, low-energy vibrations. (This contrast is quiz-bait.)</li>
-<li><strong>Air molecules collide with it.</strong> Fast molecules strike the brick's surface; each impact transfers a bit of momentum and energy. Billions of tiny deliveries per second = "heat flowing in".</li>
-<li><strong>Everything radiates.</strong> Any object, any temperature, emits electromagnetic waves; the wavelength is set by temperature. Room temperature → mainly <strong>infrared</strong> — real energy transfer, invisible to your eyes. IR-camera demo with two warm bricks promised for next lecture.</li>
+<li><b>The brick's atoms vibrate</b> about fixed equilibrium positions (solid — contrast with gas molecules, which travel). Cold brick = slow, low-energy vibrations.</li>
+<li><b>Air molecules collide with it</b> — each impact transfers a bit of momentum and energy; billions per second = "heat flowing in".</li>
+<li><b>Everything radiates</b> — wavelength set by temperature; room temperature → mainly infrared, invisible. IR-camera demo promised.</li>
 </ul>
-<figure>
-<svg width="560" height="200" viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg">
-<rect x="1" y="1" width="558" height="198" rx="10" fill="#f4f9ff" stroke="#dde5ec"/>
-<line x1="62" y1="48" x2="88" y2="48" stroke="#c9d8e6"/><line x1="75" y1="35" x2="75" y2="61" stroke="#c9d8e6"/>
-<circle cx="75" cy="48" r="9" fill="#2f6fad"/><circle cx="75" cy="48" r="3" fill="#0d2c4b"/>
-<line x1="164" y1="48" x2="190" y2="48" stroke="#c9d8e6"/><line x1="177" y1="35" x2="177" y2="61" stroke="#c9d8e6"/>
-<circle cx="177" cy="52" r="9" fill="#2f6fad"/><circle cx="177" cy="52" r="3" fill="#0d2c4b"/>
-<line x1="266" y1="48" x2="292" y2="48" stroke="#c9d8e6"/><line x1="279" y1="35" x2="279" y2="61" stroke="#c9d8e6"/>
-<circle cx="279" cy="44" r="9" fill="#2f6fad"/><circle cx="279" cy="44" r="3" fill="#0d2c4b"/>
-<line x1="368" y1="48" x2="394" y2="48" stroke="#c9d8e6"/><line x1="381" y1="35" x2="381" y2="61" stroke="#c9d8e6"/>
-<circle cx="381" cy="51" r="9" fill="#2f6fad"/><circle cx="381" cy="51" r="3" fill="#0d2c4b"/>
-<line x1="470" y1="48" x2="496" y2="48" stroke="#c9d8e6"/><line x1="483" y1="35" x2="483" y2="61" stroke="#c9d8e6"/>
-<circle cx="483" cy="46" r="9" fill="#2f6fad"/><circle cx="483" cy="46" r="3" fill="#0d2c4b"/>
-<line x1="62" y1="98" x2="88" y2="98" stroke="#c9d8e6"/><line x1="75" y1="85" x2="75" y2="111" stroke="#c9d8e6"/>
-<circle cx="75" cy="101" r="9" fill="#2f6fad"/><circle cx="75" cy="101" r="3" fill="#0d2c4b"/>
-<line x1="164" y1="98" x2="190" y2="98" stroke="#c9d8e6"/><line x1="177" y1="85" x2="177" y2="111" stroke="#c9d8e6"/>
-<circle cx="177" cy="95" r="9" fill="#2f6fad"/><circle cx="177" cy="95" r="3" fill="#0d2c4b"/>
-<line x1="266" y1="98" x2="292" y2="98" stroke="#c9d8e6"/><line x1="279" y1="85" x2="279" y2="111" stroke="#c9d8e6"/>
-<circle cx="279" cy="100" r="9" fill="#2f6fad"/><circle cx="279" cy="100" r="3" fill="#0d2c4b"/>
-<line x1="368" y1="98" x2="394" y2="98" stroke="#c9d8e6"/><line x1="381" y1="85" x2="381" y2="111" stroke="#c9d8e6"/>
-<circle cx="381" cy="96" r="9" fill="#2f6fad"/><circle cx="381" cy="96" r="3" fill="#0d2c4b"/>
-<line x1="470" y1="98" x2="496" y2="98" stroke="#c9d8e6"/><line x1="483" y1="85" x2="483" y2="111" stroke="#c9d8e6"/>
-<circle cx="483" cy="99" r="9" fill="#2f6fad"/><circle cx="483" cy="99" r="3" fill="#0d2c4b"/>
-<line x1="62" y1="148" x2="88" y2="148" stroke="#c9d8e6"/><line x1="75" y1="135" x2="75" y2="161" stroke="#c9d8e6"/>
-<circle cx="75" cy="145" r="9" fill="#2f6fad"/><circle cx="75" cy="145" r="3" fill="#0d2c4b"/>
-<line x1="164" y1="148" x2="190" y2="148" stroke="#c9d8e6"/><line x1="177" y1="135" x2="177" y2="161" stroke="#c9d8e6"/>
-<circle cx="177" cy="150" r="9" fill="#2f6fad"/><circle cx="177" cy="150" r="3" fill="#0d2c4b"/>
-<line x1="266" y1="148" x2="292" y2="148" stroke="#c9d8e6"/><line x1="279" y1="135" x2="279" y2="161" stroke="#c9d8e6"/>
-<circle cx="279" cy="147" r="9" fill="#2f6fad"/><circle cx="279" cy="147" r="3" fill="#0d2c4b"/>
-<line x1="368" y1="148" x2="394" y2="148" stroke="#c9d8e6"/><line x1="381" y1="135" x2="381" y2="161" stroke="#c9d8e6"/>
-<circle cx="381" cy="149" r="9" fill="#2f6fad"/><circle cx="381" cy="149" r="3" fill="#0d2c4b"/>
-<line x1="470" y1="148" x2="496" y2="148" stroke="#c9d8e6"/><line x1="483" y1="135" x2="483" y2="161" stroke="#c9d8e6"/>
-<circle cx="483" cy="146" r="9" fill="#2f6fad"/><circle cx="483" cy="146" r="3" fill="#0d2c4b"/>
-<text x="280" y="190" text-anchor="middle" font-size="12.5" fill="#5b6b7b">SOLID — each atom vibrates about its own equilibrium site (cross = that site)</text>
-</svg>
-</figure>
-<figure>
-<svg width="560" height="200" viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg">
-<rect x="1" y="1" width="558" height="198" rx="10" fill="#fff8f4" stroke="#dde5ec"/>
-<circle cx="150" cy="60" r="8" fill="#c0392b"/><circle cx="300" cy="120" r="8" fill="#d35400"/>
-<circle cx="420" cy="60" r="8" fill="#c0392b"/><circle cx="220" cy="90" r="8" fill="#8e44ad"/>
-<circle cx="480" cy="130" r="8" fill="#d35400"/><circle cx="90" cy="130" r="8" fill="#c0392b"/>
-<text x="280" y="190" text-anchor="middle" font-size="12.5" fill="#5b6b7b">GAS — molecules travel long distances between collisions</text>
-</svg>
-</figure>
-<figure>
-<svg width="620" height="130" viewBox="0 0 620 130" xmlns="http://www.w3.org/2000/svg">
-<rect x="1" y="1" width="618" height="128" rx="10" fill="#fbfdff" stroke="#dde5ec"/>
-<defs><linearGradient id="vis"><stop offset="0" stop-color="#e74c3c"/><stop offset=".5" stop-color="#f1c40f"/><stop offset="1" stop-color="#8e44ad"/></linearGradient></defs>
-<rect x="40" y="42" width="90" height="26" rx="4" fill="#d7dee6" stroke="#ffffff"/>
-<rect x="130" y="42" width="110" height="26" rx="4" fill="#b8cfe8" stroke="#ffffff"/>
-<rect x="240" y="42" width="54" height="26" rx="4" fill="url(#vis)" stroke="#ffffff"/>
-<rect x="294" y="42" width="80" height="26" rx="4" fill="#d9c8f0" stroke="#ffffff"/>
-<rect x="374" y="42" width="90" height="26" rx="4" fill="#cfd8e3" stroke="#ffffff"/>
-<rect x="464" y="42" width="110" height="26" rx="4" fill="#c2ccd8" stroke="#ffffff"/>
-<rect x="130" y="36" width="110" height="38" rx="6" fill="none" stroke="#2f6fad" stroke-width="2.5"/>
-<text x="185" y="28" text-anchor="middle" font-size="11.5" fill="#2f6fad">brick @ room temp radiates here</text>
-<text x="267" y="86" text-anchor="middle" font-size="10.5" fill="#5b6b7b">eyes see only this</text>
-<text x="85" y="102" text-anchor="middle" font-size="11" fill="#5b6b7b">radio</text>
-<text x="185" y="102" text-anchor="middle" font-size="11" fill="#5b6b7b">IR</text>
-<text x="267" y="102" text-anchor="middle" font-size="11" fill="#5b6b7b">visible</text>
-<text x="334" y="102" text-anchor="middle" font-size="11" fill="#5b6b7b">UV</text>
-<text x="419" y="102" text-anchor="middle" font-size="11" fill="#5b6b7b">X-ray</text>
-<text x="519" y="102" text-anchor="middle" font-size="11" fill="#5b6b7b">gamma</text>
-<text x="310" y="122" text-anchor="middle" font-size="11" fill="#8296a8">wavelength grows ← … wavelength set by temperature … → wavelength shrinks</text>
-</svg>
-<figcaption>The electromagnetic spectrum. The brick at room temperature radiates in the infrared band — just left of the tiny slice your eyes can see.</figcaption>
-</figure>
-<div class="note"><strong>Go deeper — is energy flowing one way, molecule by molecule?</strong> No — and hold onto this. <strong>Individual collisions can transfer energy in either direction.</strong> Because the warmer side transfers more energy on average, there is a <strong>net energy flow from hot to cold</strong> — billions of tiny deliveries adding up. The word doing the work is <strong>net</strong>. It comes back at equilibrium.</div>
+<div class="note"><b>Go deeper:</b> individual collisions can transfer energy in either direction. Because the warmer side transfers more on average, there is a <b>net</b> flow from hot to cold. The word doing the work is <b>net</b>.</div>
 
-<!-- ============ STEP 5 ============ -->
-<h2><span class="stepno">Pre-class · Step 5 / 10</span>The bridge: averages become variables</h2>
-<p>Why can two such different stories describe one brick? Because of the idea the whole course stands on:</p>
-<div class="chain"><div class="row">
-<span class="cstep">microscopic behaviour</span><span class="arr">→</span>
-<span class="cstep">statistical averages</span><span class="arr">→</span>
-<span class="cstep">macroscopic variables</span><span class="arr">→</span>
-<span class="cstep">thermodynamics</span>
-</div></div>
-<p>A brick holds ~10²³ particles. Tracking each is impossible — and, beautifully, <strong>unnecessary</strong>, because a few averages summarize everything we care about:</p>
+<h2><span class="stepno">L01 Pre-class · Step 5 / 10</span>The bridge: averages become variables</h2>
+<p><b>microscopic behaviour → averages → macroscopic variables → thermodynamics</b></p>
 <ul>
-<li>The brick's overall <strong>size</strong> (Volume) reports the <strong>average spacing</strong> between atoms — which is exactly why thermal expansion is visible at all.</li>
-<li>The brick's <strong>temperature</strong> (Temperature) is the <strong>average kinetic energy</strong> (Kinetic Energy) of its vibrating particles. Prof's phrasing, worth memorizing: <em>"the average of all those kinetic-energy values is what we call temperature."</em></li>
+<li>The brick's <b>size</b> (Volume) ↔ the <b>average spacing</b> between atoms — why expansion is visible at all.</li>
+<li>The brick's <b>temperature</b> ↔ the <b>average kinetic energy</b> of its particles. Prof's phrasing: <i>"the average of all those kinetic-energy values is what we call temperature."</i></li>
 </ul>
-<div class="goal">That is what <strong>Thermodynamics</strong> is: the art of summarizing 10²³ things into a handful of variables, then finding the rules those summaries obey. Measuring the macroscopic scale tells you what the microscopic world is doing <strong>on average</strong>.</div>
+<div class="goal">That is <b>Thermodynamics</b>: summarizing 10²³ things into a handful of variables, then finding the rules those summaries obey.</div>
 
-<!-- ============ STEP 6 ============ -->
-<h2><span class="stepno">Pre-class · Step 6 / 10</span>Temperature vs Heat vs Equilibrium</h2>
-<p>Three words the quizzes love to blur. Three clean definitions:</p>
+<h2><span class="stepno">L01 Pre-class · Step 6 / 10</span>Temperature vs Heat vs Equilibrium</h2>
 <div class="grid2">
-  <div class="card"><strong>Temperature</strong> — a <strong>property of the object</strong>, a <em>state variable</em> (状态量). It describes what the system <em>is</em> — in the L01 model, the average kinetic energy of its particles.</div>
-  <div class="card"><strong>Heat</strong> — <strong>energy in transit</strong>, driven by a temperature difference. Not a property of anything — it only exists <em>while crossing a boundary</em>, carried by collisions and radiation.</div>
+<div class="card"><b>Temperature</b> — a <b>property of the object</b>, a <em>state variable</em> (状态量). In the L01 model: the average kinetic energy of its particles.</div>
+<div class="card"><b>Heat</b> — <b>energy in transit</b>, driven by a temperature difference; exists only <i>while crossing a boundary</i>; carried by collisions and radiation.</div>
 </div>
-<div class="card" style="max-width:70%"><strong>Thermal Equilibrium</strong> — the endpoint of heat flow: common temperature, and the <strong>net</strong> exchange drops to zero because the two averages have matched.</div>
-<figure>
-<svg width="620" height="190" viewBox="0 0 620 190" xmlns="http://www.w3.org/2000/svg">
-<rect x="1" y="1" width="618" height="188" rx="10" fill="#fbfdff" stroke="#dde5ec"/>
-<rect x="40" y="55" width="86" height="60" rx="8" fill="#fde8dd" stroke="#e5b39b"/><text x="83" y="90" text-anchor="middle" font-size="12" fill="#b3591e">HOT</text>
-<rect x="160" y="55" width="86" height="60" rx="8" fill="#e8f1fb" stroke="#a9c6e2"/><text x="203" y="90" text-anchor="middle" font-size="12" fill="#2f6fad">COLD</text>
-<line x1="129" y1="72" x2="145" y2="72" stroke="#c0392b" stroke-width="5" stroke-linecap="round"/><polygon points="145,66 156,72 145,78" fill="#c0392b"/>
-<line x1="157" y1="102" x2="141" y2="102" stroke="#b0c4d6" stroke-width="2" stroke-linecap="round"/><polygon points="141,99 130,102 141,105" fill="#b0c4d6"/>
-<text x="143" y="138" text-anchor="middle" font-size="11.5" fill="#5b6b7b">thick = net flow; thin = some returns</text>
-<rect x="360" y="55" width="86" height="60" rx="8" fill="#fdeee4" stroke="#e5b39b"/><text x="403" y="90" text-anchor="middle" font-size="12" fill="#b3591e">HOT</text>
-<rect x="482" y="55" width="86" height="60" rx="8" fill="#fdeee4" stroke="#e5b39b"/><text x="525" y="90" text-anchor="middle" font-size="12" fill="#b3591e">SAME T</text>
-<line x1="452" y1="85" x2="474" y2="85" stroke="#8aa4bd" stroke-width="3" stroke-linecap="round"/><polygon points="474,81.5 476,85 474,88.5" fill="#8aa4bd"/>
-<line x1="478" y1="85" x2="456" y2="85" stroke="#8aa4bd" stroke-width="3" stroke-linecap="round"/><polygon points="456,81.5 454,85 456,88.5" fill="#8aa4bd"/>
-<text x="464" y="138" text-anchor="middle" font-size="11.5" fill="#5b6b7b">equal exchange: net = 0, arrows never vanish</text>
-<text x="310" y="168" text-anchor="middle" font-size="12" fill="#8296a8">equilibrium = balanced traffic, not an empty road</text>
-</svg>
-<figcaption>Heat traffic: before equilibrium (left) the net flow is one-way; at equilibrium (right) the exchange is equal in both directions — the arrows never disappear, they only cancel.</figcaption>
-</figure>
-<h3>The two traps</h3>
+<div class="card" style="max-width:70%"><b>Thermal Equilibrium</b> — endpoint of heat flow: common temperature; the <b>net</b> exchange drops to zero because the averages have matched.</div>
+<div class="note"><b>The two traps:</b> ① "the brick contains heat" — wrong: it contains internal energy; heat is energy <i>while moving between things</i>. ② "at equilibrium everything stops" — wrong: only the <b>net</b> flow stops; collisions continue both ways. Equilibrium = balanced traffic, not an empty road.</div>
+
+<h2><span class="stepno">L01 Pre-class · Step 7 / 10</span>The waves teaser</h2>
 <ul>
-<li><strong>"The brick contains heat" — wrong.</strong> An object contains <em>internal energy</em>; "heat" names energy <em>while it moves between things</em> — the way "flow" describes water in a pipe, not water sitting in a bucket.</li>
-<li><strong>"At equilibrium everything stops" — wrong.</strong> Collisions continue, energy crosses both ways every instant. Equilibrium is <strong>balanced traffic, not an empty road</strong>.</li>
+<li>The brick is also hit by <b>sound</b> and light — <b>waves</b>: collective motion, <b>energy travels without the material travelling</b>.</li>
+<li>Sound waves, guitar strings, ocean waves; transverse and longitudinal oscillations.</li>
+<li>Same trick as thermodynamics: no per-particle tracking — a <b>wave equation</b> summarizes it.</li>
 </ul>
 
-<!-- ============ STEP 7 ============ -->
-<h2><span class="stepno">Pre-class · Step 7 / 10</span>The waves teaser</h2>
-<p>Last five minutes of L01, and easy to dismiss — don't. The brick was also being hit by <strong>sound</strong> from every voice in the room and by light from the ceiling. Those are <strong>waves</strong>:</p>
-<ul>
-<li>a wave is <strong>collective motion</strong> — enormous numbers of particles moving in coordination, so that <strong>energy travels without the material travelling</strong>;</li>
-<li>examples named in lecture: sound waves, guitar strings, ocean waves; oscillations can be <strong>transverse</strong> or <strong>longitudinal</strong>;</li>
-<li>and the same trick as thermodynamics applies: nobody will track 10²³ particles — a <strong>wave equation</strong> summarizes the collective behaviour.</li>
-</ul>
-<div class="note">Both pillars, one idea: <em>stop tracking individuals; summarize.</em> Thermodynamics does it with averages; waves do it with a wave equation. That parallel is the deepest thing L01 plants.</div>
-
-<!-- ============ STEP 8 ============ -->
-<h2><span class="stepno">Pre-class · Step 8 / 10</span>Your concept graph</h2>
-<p>This is the network your course is building. Every node is a concept page (in the interactive version, clicking opens it). The dashed link is the second pillar — preview-only for now.</p>
+<h2><span class="stepno">L01 Pre-class · Step 8 / 10</span>Your concept graph</h2>
 <figure>
-<svg width="940" height="570" viewBox="0 0 940 570" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 940 570" xmlns="http://www.w3.org/2000/svg">
 <rect x="1" y="1" width="938" height="568" rx="10" fill="#fbfdff" stroke="#dde5ec"/>
 <g stroke="#b0c4d6" stroke-width="1.7">
-<line x1="430" y1="250" x2="180" y2="100"/><line x1="430" y1="250" x2="430" y2="70"/>
-<line x1="180" y1="100" x2="680" y2="100"/><line x1="430" y1="250" x2="800" y2="250"/>
-<line x1="430" y1="250" x2="180" y2="530"/><line x1="800" y1="250" x2="650" y2="400"/>
-<line x1="650" y1="400" x2="820" y2="470"/><line x1="800" y1="250" x2="430" y2="430"/>
-<line x1="800" y1="250" x2="180" y2="430"/><line x1="90" y1="330" x2="80" y2="190"/>
+<line x1="430" y1="250" x2="180" y2="100"/><line x1="430" y1="250" x2="430" y2="70"/><line x1="180" y1="100" x2="680" y2="100"/><line x1="430" y1="250" x2="800" y2="250"/><line x1="430" y1="250" x2="180" y2="530"/><line x1="800" y1="250" x2="650" y2="400"/><line x1="650" y1="400" x2="820" y2="470"/><line x1="800" y1="250" x2="430" y2="430"/><line x1="800" y1="250" x2="180" y2="430"/><line x1="90" y1="330" x2="80" y2="190"/><line x1="880" y1="90" x2="800" y2="250"/><line x1="820" y1="470" x2="900" y2="540"/>
 </g>
 <line x1="430" y1="250" x2="90" y2="330" stroke="#c3d2df" stroke-width="1.7" stroke-dasharray="6 5"/>
 <g font-size="12.5" fill="#16324e" text-anchor="middle">
@@ -327,49 +201,258 @@ table.phrases td { border-bottom: 0.5pt solid #dde5ec; padding: 4pt 8pt; vertica
 <g><rect x="122" y="514" width="116" height="32" rx="16" fill="#e8f1fb" stroke="#2f6fad" stroke-width="1.6"/><text x="180" y="534.5">EM Radiation</text></g>
 <g><rect x="47" y="314" width="86" height="32" rx="16" fill="#e8f1fb" stroke="#2f6fad" stroke-width="1.6"/><text x="90" y="334.5">Oscillations</text></g>
 <g><rect x="52" y="174" width="56" height="32" rx="16" fill="#e8f1fb" stroke="#2f6fad" stroke-width="1.6"/><text x="80" y="194.5">Waves</text></g>
+<g><rect x="784" y="74" width="192" height="32" rx="16" fill="#e8f1fb" stroke="#2f6fad" stroke-width="1.6"/><text x="880" y="94.5">Conservation of Energy</text></g>
+<g><rect x="848" y="524" width="104" height="32" rx="16" fill="#e8f1fb" stroke="#2f6fad" stroke-width="1.6"/><text x="900" y="544.5">Zeroth Law</text></g>
 </g>
 </svg>
-<figcaption>● every node = a concept page · dashed = previewed, not yet taught · this graph grows with every lecture.</figcaption>
+<figcaption>14 concept pages after L02 — dashed = previewed, not yet taught.</figcaption>
 </figure>
 
-<!-- ============ STEP 9 ============ -->
-<h2><span class="stepno">Pre-class · Step 9 / 10</span>Check yourself</h2>
-<p>Six conceptual questions. Answer out loud <em>first</em>, then read the answer. If you can't say it, you don't have it yet — go back one step.</p>
-<div class="check"><div class="q">1 · Why is tracking every particle impossible — and why is that fine?</div><div class="a">A brick has ~10²³ particles; no one can follow them. It's fine because the <strong>averages</strong> are all that matter, and averages appear as macroscopic variables (size ↔ spacing, temperature ↔ average kinetic energy). Summaries + rules = thermodynamics.</div></div>
-<div class="check"><div class="q">2 · How does a brick atom's motion differ from an air molecule's?</div><div class="a">Brick atoms are a solid: they <strong>vibrate about fixed positions</strong>. Gas molecules <strong>travel long distances</strong> between collisions. "Vibrate" vs "travel" — don't blend the pictures.</div></div>
-<div class="check"><div class="q">3 · Which is the state variable — temperature or heat? Define the other.</div><div class="a">Temperature is the state variable (it describes what the object <em>is</em>). Heat is <strong>energy in transit</strong>, driven by a temperature difference, carried by collisions and radiation. Objects contain internal energy, never "heat".</div></div>
-<div class="check"><div class="q">4 · At thermal equilibrium, what exactly stops — and what continues?</div><div class="a">The <strong>net</strong> energy flow stops (temperatures equal, averages match). Individual collisions continue in <strong>both</strong> directions forever. Balanced traffic, not an empty road.</div></div>
-<div class="check"><div class="q">5 · Why did the frost clear from corners and edges first?</div><div class="a">Corners/edges have the most <strong>exposed surface per amount of brick</strong>, so they collect heat fastest and warm first. Geometry controls heat-flow rate.</div></div>
-<div class="check"><div class="q">6 · The brick radiates constantly — why can't you see it?</div><div class="a">At room temperature the emission is mainly <strong>infrared</strong>: wavelength set by temperature, and the visible band is a narrow slice our eyes evolved for. The radiation is real and carries energy — just not in colors we detect.</div></div>
+<h2><span class="stepno">L01 Pre-class · Step 9 / 10</span>Check yourself</h2>
+<div class="check"><div class="q">1 · Why is tracking every particle impossible — and why is that fine?</div><div class="a">~10²³ particles; the <b>averages</b> are all that matter, and averages appear as macroscopic variables. Summaries + rules = thermodynamics.</div></div>
+<div class="check"><div class="q">2 · How does a brick atom's motion differ from an air molecule's?</div><div class="a">Brick atoms <b>vibrate about fixed positions</b>; gas molecules <b>travel long distances</b> between collisions.</div></div>
+<div class="check"><div class="q">3 · Which is the state variable — temperature or heat?</div><div class="a">Temperature. Heat is <b>energy in transit</b>, driven by ΔT, carried by collisions and radiation.</div></div>
+<div class="check"><div class="q">4 · At thermal equilibrium, what exactly stops — and what continues?</div><div class="a">The <b>net</b> flow stops; individual two-way exchanges continue forever.</div></div>
+<div class="check"><div class="q">5 · Why did the frost clear from corners and edges first?</div><div class="a">Most <b>exposed surface per amount of brick</b> → fastest warming. Geometry controls heat-flow rate.</div></div>
+<div class="check"><div class="q">6 · The brick radiates constantly — why can't you see it?</div><div class="a">Room-temperature emission is mainly <b>infrared</b> — outside the narrow visible band our eyes detect.</div></div>
 
-<!-- ============ STEP 10 ============ -->
-<h2><span class="stepno">Pre-class · Step 10 / 10</span>60-second review — and done</h2>
-<h3>The whole pre-class, one breath</h3>
+<h2><span class="stepno">L01 Pre-class · Step 10 / 10</span>60-second review</h2>
 <ul>
-<li>Macroscopic variables = <strong>averages</strong> over ~10²³ particles; thermodynamics studies the rules of those averages.</li>
-<li><strong>Temperature</strong> = average kinetic energy of particles <em>in the L01 model</em> — a state variable.</li>
-<li><strong>Heat</strong> = energy in transit, hot → cold, carried by <strong>collisions + radiation</strong>; never "stored".</li>
-<li>Cold brick: heat in → warms → expands; frost <strong>deposits</strong>, clears <strong>corners first</strong>, gone by ~1 hr.</li>
-<li><strong>Equilibrium</strong>: same temperature, <strong>net</strong> flow zero, two-way collisions continue.</li>
-<li>Everything radiates; wavelength set by temperature; room-T = infrared, invisible.</li>
-<li>Waves = <strong>collective motion</strong> — second pillar, same "summarize, don't track" trick.</li>
+<li>Macroscopic variables = <b>averages</b> over ~10²³ particles.</li>
+<li><b>Temperature</b> = average kinetic energy <i>in the L01 model</i> — a state variable.</li>
+<li><b>Heat</b> = energy in transit (collisions + radiation); never "stored".</li>
+<li>Cold brick: heat in → warms → expands; frost <b>deposits</b>, clears <b>corners first</b>.</li>
+<li><b>Equilibrium</b>: same T, net flow zero, two-way collisions continue.</li>
+<li>Everything radiates; room-T = infrared, invisible. Waves = collective motion.</li>
 </ul>
+</div>
 
-<h2 class="pagebreak"><span class="stepno">Concept library · 12 pages</span>Every blue term in the interactive version opens one of these</h2>
-<div class="concept"><span class="badge intro">introduced · L01</span> &nbsp;<span class="cname">Microscopic &amp; Macroscopic Description</span> <span class="czh">微观与宏观描述</span><p>Two vocabularies for the <strong>same</strong> object: microscopic — what atoms/molecules do (vibrate about fixed sites in solids; translate and collide in gases; radiate); macroscopic — the few measurable variables encoding the <em>averages</em>. Chain: microscopic behaviour → statistical averages → macroscopic variables → thermodynamic laws. Mappings: size ↔ spacing; T ↔ average KE.</p></div>
-<div class="concept"><span class="badge intro">introduced · L01</span> &nbsp;<span class="cname">Temperature</span> <span class="czh">温度</span><p>A macroscopic variable and a <strong>state variable</strong>: in the model introduced in L01, temperature reflects the <strong>average kinetic energy</strong> of a system's particles. Sets the direction of spontaneous heat flow (hot → cold) and the endpoint (equilibrium).</p></div>
-<div class="concept"><span class="badge intro">introduced · L01</span> &nbsp;<span class="cname">Volume</span> <span class="czh">体积</span><p>Macroscopic variable reporting the <strong>average spacing</b></strong> between atoms/molecules — why thermal expansion is visible at all.</p></div>
-<div class="concept"><span class="badge intro">introduced · L01</span> &nbsp;<span class="cname">Kinetic Energy</span> <span class="czh">动能</span><p>Energy of motion, E<sub>k</sub> = ½mv². Thermal role: temperature reflects the <em>average</em> kinetic energy of particles — in the brick, of atoms vibrating about their sites.</p></div>
-<div class="concept"><span class="badge intro">introduced · L01</span> &nbsp;<span class="cname">Thermodynamics</span> <span class="czh">热力学</span><p>The study of how macroscopic variables summarize ~10²³ particles and the rules those summaries obey. You never track individuals — you measure a handful of averages, and those averages obey rules.</p></div>
-<div class="concept"><span class="badge intro">introduced · L01</span> &nbsp;<span class="cname">Heat</span> <span class="czh">热</span><p><strong>Energy in transit</strong> driven by ΔT — "the flow of thermal energy from one object to the other". Carriers: molecular collisions; radiation (infrared at room temperature). ⚠️ An object contains internal energy — it does <strong>not</strong> contain heat.</p></div>
-<div class="concept"><span class="badge intro">introduced · L01</span> &nbsp;<span class="cname">Thermal Equilibrium</span> <span class="czh">热平衡</span><p>Endpoint of heat flow: common temperature; <strong>net</strong> exchange = 0 while two-way collisions continue. Balanced traffic, not an empty road.</p></div>
-<div class="concept"><span class="badge preview">previewed · L01</span> &nbsp;<span class="cname">Phase Change</span> <span class="czh">相变</span><p>Solid/liquid/gas transitions. L01: vapour → frost on the −78.5 °C brick — strictly <strong>deposition</strong> (凝华), though the slides' shorthand says "condensation". Latent heat comes later.</p></div>
-<div class="concept"><span class="badge preview">previewed · L01</span> &nbsp;<span class="cname">Thermal Expansion</span> <span class="czh">热膨胀</span><p>Every linear dimension grows with temperature (microscopically: average spacing grows). Formal quantitative law arrives in the next lectures.</p></div>
-<div class="concept"><span class="badge preview">previewed · L01</span> &nbsp;<span class="cname">Oscillations</span> <span class="czh">振动</span><p>Repeated motion about an equilibrium position — already true inside the brick (atoms vibrate about lattice sites). Second half builds single oscillators → waves.</p></div>
-<div class="concept"><span class="badge preview">previewed · L01</span> &nbsp;<span class="cname">Waves</span> <span class="czh">波</span><p>Travelling <strong>collective motion</strong>: energy handed from neighbour to neighbour without the material travelling. Wave equation later — no per-particle tracking.</p></div>
-<div class="concept"><span class="badge intro">introduced · L01</span> &nbsp;<span class="cname">Electromagnetic Radiation</span> <span class="czh">电磁辐射</span><p>Every object emits EM waves at any temperature; wavelength set by temperature; room-T → infrared (invisible). One of the energy-transfer channels. IR-camera demo promised for next lecture.</p></div>
+<!-- ============ PART II: L01 DEEP-DIVE ============ -->
+<div class="part">
+<div class="parthead"><div class="pk">Part II · L01 · Deep-dive &amp; Quiz prep</div><h1>Your handwritten review, graded — 8/8 concepts</h1>
+<div class="psub"><b>Verdict: 8/8 concepts are recoverable — but not 8/8 written-response quality.</b> One answer needs wording repair (Q2), two were sharpened, and the live practice session surfaced two bigger gaps — they lead the re-test ledger.</div></div>
 
-<div class="footline">PHYS 157 · Course OS v0.2 · L01 pre-class print edition · compiled from L1-Introduction.pdf, L1-Intro-post.pdf (canonical) and the calibrated Wednesday.txt transcript · companion interactive page: finneaswang.github.io/phys-course-os</div>
+<table class="phrases">
+<tr><th>#</th><th>Question</th><th>Verdict &amp; the chain that should be written</th></tr>
+<tr><td>1</td><td>Macroscopic picture of the brick?</td><td><b>✓ correct.</b> warmer surroundings → heat flows into brick → temperature increases → brick expands → thermal equilibrium. <i>Also macroscopic: the frost (deposition).</i></td></tr>
+<tr><td>2</td><td>Microscopic picture?</td><td><b>✓ concept ok · wording repair.</b> air molecules collide with the brick → energy is transferred → atoms vibrate with higher energy. <i>Draft read "vibrate with higher energy is transferred to the brick" — intent right, sentence doesn't parse. Chain order matters on written questions.</i></td></tr>
+<tr><td>3</td><td>Track every particle?</td><td><b>✓ correct.</b> too many particles → use averages → describe the whole system. <i>Memorize verbatim.</i></td></tr>
+<tr><td>4</td><td>Air molecules doing?</td><td><b>✓ correct.</b> colliding with the brick, transferring energy to it.</td></tr>
+<tr><td>5</td><td>Lasting till…?</td><td><b>✓ sharpened.</b> net transfer continues until thermal equilibrium — net flow 0, collisions continue <b>both ways</b>.</td></tr>
+<tr><td>6</td><td>What determines macroscopic size?</td><td><b>✓ correct.</b> the average spacing between its atoms.</td></tr>
+<tr><td>7</td><td>What does temperature represent?</td><td><b>✓ correct.</b> the average kinetic energy of its particles (L01 model framing).</td></tr>
+<tr><td>8</td><td>Must an object glow to radiate?</td><td><b>✓ sharpened.</b> <b>All objects emit EM radiation, regardless of temperature</b>; temperature sets wavelength/frequency — ordinary temperatures → mainly infrared. (Draft's "depending on their temperature" reads as "only if hot enough".)</td></tr>
+</table>
+
+<h2>Worked example — the two-brick question</h2>
+<p><b>Brick A</b> at 20 °C, <b>Brick B</b> at 100 °C, same room. (a) Do both emit EM radiation? (b) Would the radiation from A and B have exactly the same characteristics? (c) Direction of <b>net</b> heat flow for each? (d) As B cools?</p>
+<div class="check"><div class="q">(a)</div><div class="a"><b>Yes — both.</b> Every object emits regardless of temperature.</div></div>
+<div class="check"><div class="q">(b)</div><div class="a"><b>No.</b> Different temperatures ⇒ different characteristic wavelength/frequency. (L01 stops here — it does not ask which pours out more energy.)</div></div>
+<div class="check"><div class="q">(c)</div><div class="a"><b>A:</b> in equilibrium with the room → net flow = 0 (two-way exchanges cancel). <b>B:</b> hotter than the room → net flow from B into the air.</div></div>
+<div class="check"><div class="q">(d)</div><div class="a">ΔT shrinks → net flow shrinks → <b>zero</b> once B eventually reaches the same temperature as the room — thermal equilibrium, in the instructor's own words.</div></div>
+
+<h2>Variations</h2>
+<div class="check"><div class="q">V1 · A very large cool metal block and a tiny hot metal bead touch. Which way does heat flow? Does the larger object's greater total internal energy decide it?</div><div class="a">Heat flows from the <b>hotter bead to the cooler block</b>. Direction is set by <b>temperature difference</b>, not by size or total energy.</div></div>
+<div class="check"><div class="q">V2 · At the instant of equilibrium, what is zero and what is not?</div><div class="a"><b>Zero:</b> net energy flow. <b>Not zero:</b> the individual two-way exchanges — balanced traffic, not an empty road.</div></div>
+<div class="check"><div class="q">V3 · The frost is gone by ~1 hr. What does L01 let you say?</div><div class="a"><b>Frost forms on the very cold brick and later disappears as the brick warms.</b> That is the full claim. (Vocabulary: slides say "condensation"; strictly, gas → solid frost is closer to deposition.)</div></div>
+
+<h2>Re-test ledger — prioritized from live practice</h2>
+<ul>
+<li><b>① Macro vs Micro recognition</b> — when asked a macroscopic question, the first instinct reached for particle motion.</li>
+<li><b>② Macro ↔ Micro mappings</b> — size ↔ <b>average atomic spacing</b> (first answered "temperature"); temperature ↔ <b>average kinetic energy</b>.</li>
+<li><b>③ Thermal equilibrium</b> — net flow = 0; exchanges continue both ways.</li>
+<li><b>④ Universal radiation statement.</b></li>
+<li><b>⑤ Written-answer chain order</b> — cause → effect, one arrow per step.</li>
+</ul>
+</div>
+
+<!-- ============ PART III: L02 PRE-CLASS ============ -->
+<div class="part">
+<div class="parthead"><div class="pk">Part III · L02 · Pre-class reading (Sept 11)</div><h1>The law under the demo</h1></div>
+
+<h2><span class="stepno">L02 Pre-class · Step 1 / 8</span>Conservation of Energy</h2>
+<p>The law, as the slides state it:</p>
+<ul>
+<li>Each part of a physical system has a certain amount of energy.</li>
+<li>The total energy of an <b>isolated</b> system doesn't change with time.</li>
+<li>BUT energy can be <b>transferred between different parts</b> and take <b>different forms</b>.</li>
+<li>In thermodynamics: the <b>microscopic kinetic and potential energy of atoms and molecules</b>.</li>
+</ul>
+<div class="note">Keep precise: <b>isolated</b> (nothing enters or leaves — total locked) and <b>transfer</b> (energy moves between parts and changes form — that's what heat is).</div>
+<p><b>Clicker 1</b> — <i>Conservation of energy was first fully understood by…</i> A · Newton · B · Einstein · C · Emmy Noether · D · James Joule. <b>Answer deliberately not revealed on a pre-class page</b> — commit to a guess; the instructor resolves it in the lecture.</p>
+<p>Connect it back to the brick: L01's "heat flows until equilibrium" <b>silently used this law</b> — what leaves the air is exactly what the brick gains.</p>
+
+<h2><span class="stepno">L02 Pre-class · Step 2 / 8</span>Heating at the molecular level</h2>
+<ul>
+<li><b>Heating = adding energy at the molecular level</b>; cooling = removing it.</li>
+<li>The hot brick's atoms carry <b>more kinetic AND more potential energy</b> than the cold brick's.</li>
+</ul>
+<div class="note"><b>Lecture extension:</b> why does a vibration hold potential energy? A vibrating atom pushes against its neighbours — the stored push is that potential energy.</div>
+
+<h2><span class="stepno">L02 Pre-class · Step 3 / 8</span>Macroscopic properties</h2>
+<ul>
+<li><b>Most of them change</b> — often only slightly for small ΔT: <b>size, volume, density</b>; <b>IR output</b> at different frequencies; e.g. <b>electrical conductivity</b>.</li>
+<li><b>Thermal expansion — typical, with exceptions:</b> solids, gases in balloons, liquids in tubes: hotter → bigger. "Size" = <b>length, area, or volume</b>.</li>
+<li>Hotter → <b>more IR radiation</b>.</li>
+</ul>
+<figure>
+<svg viewBox="0 0 620 190" xmlns="http://www.w3.org/2000/svg">
+<rect x="1" y="1" width="618" height="188" rx="10" fill="#fbfdff" stroke="#dde5ec"/>
+<text x="105" y="34" text-anchor="middle" font-size="11.5" fill="#5b6b7b">SOLID</text>
+<rect x="60" y="70" width="70" height="34" rx="3" fill="#d7c4b8" stroke="#7f5539"/>
+<rect x="50" y="118" width="90" height="46" rx="3" fill="#e8f1fb" stroke="#a9c6e2"/>
+<line x1="150" y1="95" x2="185" y2="95" stroke="#8296a8" stroke-width="2"/><polygon points="185,89 196,95 185,101" fill="#8296a8"/>
+<text x="105" y="152" text-anchor="middle" font-size="11" fill="#5b6b7b">length · area · volume</text>
+<text x="320" y="34" text-anchor="middle" font-size="11.5" fill="#5b6b7b">GAS IN BALLOON</text>
+<circle cx="300" cy="88" r="26" fill="#fde8dd" stroke="#e5b39b"/>
+<circle cx="325" cy="140" r="34" fill="#e8f1fb" stroke="#a9c6e2"/>
+<line x1="380" y1="110" x2="415" y2="110" stroke="#8296a8" stroke-width="2"/><polygon points="415,104 426,110 415,116" fill="#8296a8"/>
+<text x="330" y="182" text-anchor="middle" font-size="11" fill="#5b6b7b">hotter → bigger</text>
+<text x="520" y="34" text-anchor="middle" font-size="11.5" fill="#5b6b7b">LIQUID IN TUBE</text>
+<rect x="512" y="55" width="14" height="60" rx="4" fill="#ffffff" stroke="#7f5539"/><rect x="512" y="95" width="14" height="20" rx="2" fill="#c0392b"/>
+<rect x="552" y="55" width="14" height="60" rx="4" fill="#ffffff" stroke="#7f5539"/><rect x="552" y="70" width="14" height="45" rx="2" fill="#c0392b"/>
+<text x="540" y="152" text-anchor="middle" font-size="11" fill="#5b6b7b">liquid climbs</text>
+<text x="310" y="178" text-anchor="middle" font-size="11" fill="#8296a8">typical behaviour — the slide warns there are exceptions!</text>
+</svg>
+<figcaption>Expansion trio: the solid grows in every dimension, the balloon's gas expands, the tube's liquid climbs — "size" covers length, area, and volume.</figcaption>
+</figure>
+
+<h2><span class="stepno">L02 Pre-class · Step 4 / 8</span>Clicker 2 — predict: contact between two blocks</h2>
+<p><i>What happens if we put a hot block in contact with a room-temperature block?</i></p>
+<div class="card"><b>A</b> · Nothing &nbsp; <b>B</b> · Heat flows until they are the same temperature &nbsp; <b>C</b> · The hot block cools to room temperature &nbsp; <b>D</b> · The room-temperature block heats to the hot block's temperature &nbsp; <b>E</b> · None of the above</div>
+<div class="note"><b>Answer deliberately not revealed on a pre-class page</b> — the lecture resolves it (see Part IV).</div>
+
+<h2><span class="stepno">L02 Pre-class · Step 5 / 8</span>The rule of contact: three outcomes</h2>
+<div class="grid2">
+<div class="card"><b>1 · Nothing changes</b> → the systems are in <b>EQUILIBRIUM</b>, <b>SAME TEMPERATURE</b>.</div>
+<div class="card"><b>2 · Energy flows brick → balloon</b> = flow of HEAT; brick has the higher temperature.</div>
+</div>
+<div class="card" style="max-width:60%"><b>3 · Same, other direction</b> — balloon hotter.</div>
+<div class="note">Course wording confirmed: <b>heat = thermal energy flowing from one object to another because of a temperature difference.</b> Direction set by temperature — never by "who has more energy".</div>
+
+<h2><span class="stepno">L02 Pre-class · Step 6 / 8</span>The Zeroth Law — why thermometers work</h2>
+<div class="goal"><b>If A is in equilibrium with B, and A is in equilibrium with C, then B and C are in equilibrium with each other.</b> "Otherwise, temperature wouldn't make sense!"</div>
+<figure>
+<svg viewBox="0 0 620 200" xmlns="http://www.w3.org/2000/svg">
+<rect x="1" y="1" width="618" height="198" rx="10" fill="#fbfdff" stroke="#dde5ec"/>
+<circle cx="310" cy="55" r="30" fill="#e8f1fb" stroke="#2f6fad" stroke-width="2"/><text x="310" y="60" text-anchor="middle" font-size="12" fill="#16324e">A</text>
+<circle cx="190" cy="142" r="30" fill="#e8f1fb" stroke="#2f6fad" stroke-width="2"/><text x="190" y="147" text-anchor="middle" font-size="12" fill="#16324e">B</text>
+<circle cx="430" cy="142" r="30" fill="#e8f1fb" stroke="#2f6fad" stroke-width="2"/><text x="430" y="147" text-anchor="middle" font-size="12" fill="#16324e">C</text>
+<line x1="288" y1="76" x2="216" y2="120" stroke="#1e7d46" stroke-width="2.5"/><line x1="332" y1="76" x2="404" y2="120" stroke="#1e7d46" stroke-width="2.5"/>
+<line x1="222" y1="142" x2="398" y2="142" stroke="#b3591e" stroke-width="2.5" stroke-dasharray="7 5"/>
+<text x="200" y="98" font-size="10.5" fill="#1e7d46">in equilibrium</text><text x="428" y="98" font-size="10.5" fill="#1e7d46">in equilibrium</text>
+<text x="310" y="128" text-anchor="middle" font-size="10.5" fill="#b3591e">then: in equilibrium</text>
+<text x="310" y="192" text-anchor="middle" font-size="11" fill="#8296a8">A–B ✓ and A–C ✓ ⇒ B–C ✓ — otherwise, temperature wouldn't make sense</text>
+</svg>
+<figcaption>The Zeroth Law triangle: two confirmed equilibria force the third.</figcaption>
+</figure>
+<p><b>Clicker 3</b> — <i>A mercury thermometer sits in a glass of water and reads 20 °C. We can conclude:</i> A · water is 20 °C · B · mercury is 20 °C · C · both · D · neither. <b>Answer deliberately not revealed on a pre-class page</b> — the post-class deep-dive unpacks it (Part IV).</p>
+
+<h2><span class="stepno">L02 Pre-class · Step 7 / 8</span>Demo prediction: the IR camera</h2>
+<p>Two aluminium blocks — one off the hot plate, one left in the room — placed in contact and watched with an <b>IR camera</b> (hotter = brighter). Sketch what you expect:</p>
+<ul>
+<li><b>(a)</b> just as the blocks touch;</li>
+<li><b>(b)</b> after a short time;</li>
+<li><b>(c)</b> after a long time.</li>
+</ul>
+<div class="note"><b>No predicted answers on a pre-class page</b> — the activity is preserved for lecture. Hints that ARE on the slides: the camera displays hotter objects as brighter, and it reads infrared emission (the "every object radiates" physics from L01).</div>
+
+<h2><span class="stepno">L02 Pre-class · Step 8 / 8</span>60-second review</h2>
+<ul>
+<li><b>Conservation of Energy:</b> isolated system's total constant; energy transfers between parts and changes form; thermo tracks microscopic KE <b>and</b> PE.</li>
+<li>Heating/cooling = adding/removing molecular energy; hot brick = more kinetic <b>and</b> potential energy.</li>
+<li>Most macroscopic properties shift with temperature — usually slightly. Expansion typical, <b>exceptions exist</b>.</li>
+<li>Contact = three outcomes; direction set by temperature, never by total energy.</li>
+<li><b>Zeroth Law:</b> A–B and A–C in equilibrium ⇒ B–C in equilibrium. Thermometers work because of it.</li>
+<li>Next class: <b>methods for measuring temperature</b>.</li>
+</ul>
+</div>
+
+<!-- ============ PART IV: L02 DEEP-DIVE ============ -->
+<div class="part">
+<div class="parthead"><div class="pk">Part IV · L02 · Deep-dive &amp; Quiz prep</div><h1>Post-class answers + the typed review, graded</h1>
+<div class="psub"><b>Clicker resolutions:</b> C1 → <b>C · Emmy Noether</b> (not Joule — the trap!) · C2 → <b>B</b> · C3 → <b>not revealed</b> in the post-class slides. <b>The typed review: 9/9 correct.</b></div></div>
+
+<figure>
+<svg viewBox="0 0 620 170" xmlns="http://www.w3.org/2000/svg">
+<rect x="1" y="1" width="618" height="168" rx="10" fill="#fbfdff" stroke="#dde5ec"/>
+<text x="150" y="35" text-anchor="end" font-size="11.5" fill="#31414e">A · Isaac Newton</text><rect x="160" y="20" width="116" height="20" rx="4" fill="#8aa4bd"/><text x="284" y="35" font-size="11" fill="#5b6b7b">21%</text>
+<text x="150" y="70" text-anchor="end" font-size="11.5" fill="#31414e">B · Albert Einstein</text><rect x="160" y="55" width="6" height="20" rx="3" fill="#8aa4bd"/><text x="174" y="70" font-size="11" fill="#5b6b7b">1%</text>
+<text x="150" y="105" text-anchor="end" font-size="11.5" fill="#31414e">C · Emmy Noether</text><rect x="160" y="90" width="105" height="20" rx="4" fill="#1e7d46"/><text x="273" y="105" font-size="11" font-weight="700" fill="#1e7d46">✓ correct · 19%</text>
+<text x="150" y="140" text-anchor="end" font-size="11.5" fill="#31414e">D · James Joule</text><rect x="160" y="125" width="330" height="20" rx="4" fill="#b3591e"/><text x="498" y="140" font-size="11" font-weight="700" fill="#b3591e">the trap · 60%</text>
+<text x="310" y="162" text-anchor="middle" font-size="11" fill="#8296a8">class vote on Clicker 1 — the obvious answer was the trap</text>
+</svg>
+<figcaption>Why the unit of energy is named after Joule — and why that made him the wrong answer. Noether derived conservation from time symmetry; the lecture told her story (unpaid teaching in Germany, forced to move, finally published abroad).</figcaption>
+</figure>
+
+<table class="phrases">
+<tr><th>#</th><th>Item</th><th>Verdict</th></tr>
+<tr><td>1</td><td>Clicker 2 → B</td><td><b>✓ correct.</b> "heat is not 'stored stuff'; heat is energy transfer due to temperature difference" — exactly the course definition.</td></tr>
+<tr><td>2</td><td>Conservation of energy, own words</td><td><b>✓ correct.</b> "cannot be created or destroyed; only transferred or transformed" — the lecture's phrasing almost verbatim.</td></tr>
+<tr><td>3</td><td>Particle energy types</td><td><b>✓ correct.</b> both kinetic and potential energy. <i>(typo "nergy" — proofread on written quizzes.)</i></td></tr>
+<tr><td>4</td><td>Why potential energy?</td><td><b>✓ correct.</b> interactions with surrounding particles; PE depends on distance. <i>Lecture adds: the interactions are electrical bonds; oscillation changes distance → PE changes.</i></td></tr>
+<tr><td>5</td><td>Add heat → internal energy?</td><td><b>✓ correct.</b> it increases — and the lecture's new term <b>internal energy</b> (the microscopic KE + PE account) was used correctly.</td></tr>
+<tr><td>6</td><td>Macroscopic properties</td><td><b>✓ correct.</b> size, volume, density, radiation, conductivity — all five on the slides.</td></tr>
+<tr><td>7</td><td>Hotter object's IR?</td><td><b>✓✓ sharpest answer in the set.</b> stronger intensity <b>and</b> shorter wavelength — the lecture's exact two-part answer. Two-part questions need two-part answers.</td></tr>
+<tr><td>8</td><td>Thermometer clicker → B, with conditional inference</td><td><b>✓ rigorous — key unrevealed.</b> The reading directly measures the <b>mercury</b>; the water follows only after thermal equilibrium. The post-class slides never reveal the intended key; the Zeroth-Law teaching point suggests "both, given equilibrium" — B + conditional is the precise version of the same physics.</td></tr>
+<tr><td>9</td><td>Zeroth Law: A–B, B–C in equilibrium → A and C?</td><td><b>✓ correct.</b> A and C in thermal equilibrium, same temperature (B correctly used as the bridge).</td></tr>
+</table>
+
+<h2>Worked example — the IR demo, resolved (slide 15)</h2>
+<div class="check"><div class="q">Stage 1 · before contact</div><div class="a">Each block in equilibrium <i>with something else</i>: the dark one with the room, the yellow one with the hot plate. Equilibrium is always with respect to something.</div></div>
+<div class="check"><div class="q">Stage 2 · thermal contact</div><div class="a">The two-block system is now <b>isolated</b> (ignore table and air). Inside it: a temperature difference exists → heat must flow.</div></div>
+<div class="check"><div class="q">Stage 3 · during the flow</div><div class="a">The slide's subtle line: the blocks are <b>not in equilibrium with each other, and each block is not in an equilibrium STATE</b> — some parts are hotter. Equilibrium requires temperature to be <b>uniform inside</b> each object too. This upgrades the ledger's precision item.</div></div>
+<div class="check"><div class="q">Stage 4 · the endpoint</div><div class="a"><b>Same temperature AND uniform</b> — net flow zero, microscopic exchanges continue. One uniform brightness on the IR camera.</div></div>
+
+<h2>Variations — asked in the live demo</h2>
+<div class="check"><div class="q">V1 · Does touching a thermometer lower your body temperature?</div><div class="a">Any measurement <b>affects the system</b> — that's the rule. Here the effect is <b>negligible</b>: the thermometer is tiny compared to you.</div></div>
+<div class="check"><div class="q">V2 · Why did the eyes of people wearing glasses look dark on the IR camera?</div><div class="a">Glass <b>does not transmit infrared</b>. The eyes radiate like the rest of the face — but their IR can't reach the camera through the lenses. Reading an instrument means knowing what it cannot see.</div></div>
+<div class="check"><div class="q">V3 · Three lamps (LED, CFL, incandescent) all look white — which is the incandescent on the IR photo?</div><div class="a">The <b>brightest</b> one: incandescent bulbs waste most electric energy as <b>heat</b> (~5% becomes light) → huge IR output. CFL better; LED most efficient.</div></div>
+
+<h2>L2 Deep Phrases — trigger words</h2>
+<table class="phrases">
+<tr><th>If you see…</th><th>Immediately think…</th></tr>
+<tr><td>"<b>isolated</b> system"</td><td>nothing enters or leaves ⇒ total energy constant</td></tr>
+<tr><td>"<b>internal energy</b>"</td><td>the microscopic KE + PE account of the object</td></tr>
+<tr><td>"<b>add heat</b>"</td><td>internal energy increases (transfer — not creation)</td></tr>
+<tr><td>"<b>why potential energy</b>?"</td><td>interactions (electrical bonds); PE depends on <b>distance</b>, which oscillates</td></tr>
+<tr><td>"hotter object's <b>IR</b>?"</td><td>intensity ↑ (brighter) AND wavelength shifts <b>shorter</b></td></tr>
+<tr><td>"<b>direction</b> of heat flow?"</td><td>hotter → colder; the WHY comes later (entropy)</td></tr>
+<tr><td>"<b>thermometer reads</b> X"</td><td>that's the thermometer's temperature; the object's follows via equilibrium</td></tr>
+<tr><td>"<b>uniform</b> temperature"</td><td>equilibrium inside the object too — not just between objects</td></tr>
+</table>
+
+<h2>Ledger update</h2>
+<ul>
+<li><b>① Macro vs Micro recognition</b> — improved (kept separate throughout L2 answers).</li>
+<li><b>② Macro ↔ Micro mappings</b> — improved (both used correctly).</li>
+<li><b>③ Equilibrium precision</b> — upgraded: equilibrium = same temperature <b>and uniform within</b> each object (slide 15).</li>
+<li><b>④ Universal radiation</b> — passed and extended: hotter → intensity ↑, wavelength shorter.</li>
+<li><b>⑤ Chain order</b> — holding.</li>
+<li><b>⑥ NEW — Isolated system &amp; internal energy:</b> L02 vocabulary; expect it in every L03 question.</li>
+<li><b>⑦ NEW — History/fact traps:</b> Noether vs Joule — don't answer on autopilot from "the unit is named after him".</li>
+</ul>
+</div>
+
+<!-- ============ CONCEPT LIBRARY ============ -->
+<div class="part">
+<div class="parthead"><div class="pk">Concept library · 14 pages</div><h1>Every blue term in the interactive version opens one of these</h1></div>
+<div class="concept"><span class="badge intro">introduced · L01</span> <span class="cname">Microscopic &amp; Macroscopic Description</span> <span class="czh">微观与宏观描述</span><p>Two vocabularies for the same object: microscopic (vibrate about fixed sites in solids; translate and collide in gases; radiate) vs macroscopic (the few measurable averages). Chain: microscopic behaviour → averages → macroscopic variables → thermodynamic laws. Mappings: size ↔ spacing; T ↔ avg KE.</p></div>
+<div class="concept"><span class="badge intro">introduced · L01</span> <span class="cname">Temperature</span> <span class="czh">温度</span><p>A macroscopic variable and a <b>state variable</b>: in the model introduced in L01, temperature reflects the <b>average kinetic energy</b> of a system's particles. Sets the direction of spontaneous heat flow and the endpoint (equilibrium).</p></div>
+<div class="concept"><span class="badge intro">introduced · L01</span> <span class="cname">Volume</span> <span class="czh">体积</span><p>Macroscopic variable reporting the <b>average spacing</b> between atoms/molecules — why thermal expansion is visible.</p></div>
+<div class="concept"><span class="badge intro">introduced · L01</span> <span class="cname">Kinetic Energy</span> <span class="czh">动能</span><p>Energy of motion, E<sub>k</sub> = ½mv². Thermal role: temperature reflects the <em>average</em> KE of particles — in the brick, of atoms vibrating about their sites.</p></div>
+<div class="concept"><span class="badge intro">introduced · L01</span> <span class="cname">Thermodynamics</span> <span class="czh">热力学</span><p>The study of how macroscopic variables summarize ~10²³ particles and the rules those summaries obey.</p></div>
+<div class="concept"><span class="badge intro">introduced · L01</span> <span class="cname">Heat</span> <span class="czh">热</span><p><b>Energy in transit</b> driven by ΔT. Carriers: molecular collisions; radiation (IR). ⚠️ An object contains internal energy — it does <b>not</b> contain heat. L02 grounds heat flow in conservation of energy.</p></div>
+<div class="concept"><span class="badge intro">introduced · L01</span> <span class="cname">Thermal Equilibrium</span> <span class="czh">热平衡</span><p>Endpoint of heat flow: common temperature; <b>net</b> exchange = 0 while two-way collisions continue. L02 adds: equilibrium also requires temperature to be <b>uniform inside</b> each object (slide 15).</p></div>
+<div class="concept"><span class="badge preview">previewed · L01</span> <span class="cname">Phase Change</span> <span class="czh">相变</span><p>Solid/liquid/gas transitions. L01: vapour → frost on the −78.5 °C brick (deposition, 凝华; slides' shorthand "condensation"). Latent heat comes later.</p></div>
+<div class="concept"><span class="badge preview">previewed · L01</span> <span class="cname">Thermal Expansion</span> <span class="czh">热膨胀</span><p>L02: every linear dimension grows with temperature — typical behaviour, with exceptions. Quantitative law next.</p></div>
+<div class="concept"><span class="badge preview">previewed · L01</span> <span class="cname">Oscillations</span> <span class="czh">振动</span><p>Repeated motion about an equilibrium position — already true inside the brick. Second half builds single oscillators → waves.</p></div>
+<div class="concept"><span class="badge preview">previewed · L01</span> <span class="cname">Waves</span> <span class="czh">波</span><p>Travelling <b>collective motion</b>: energy handed neighbour to neighbour without the material travelling. Wave equation later.</p></div>
+<div class="concept"><span class="badge intro">introduced · L01</span> <span class="cname">Electromagnetic Radiation</span> <span class="czh">电磁辐射</span><p>Every object emits at any temperature; wavelength set by temperature; room-T → infrared (invisible). L02 adds the spectrum map: gamma (~10⁻¹⁴ m) → AM (~10⁴ m); visible 400–700 nm; hotter → more IR.</p></div>
+<div class="concept"><span class="badge intro">introduced · L02</span> <span class="cname">Conservation of Energy</span> <span class="czh">能量守恒</span><p>Total energy of an <b>isolated system</b> is constant; energy transfers between parts and changes forms; thermo tracks microscopic KE + PE. First fully understood via <b>James Joule</b>'s work-heat experiments — but the conservation <i>laws</i> themselves were first derived mathematically by <b>Emmy Noether</b> from time symmetry (L02's Clicker 1 twist).</p></div>
+<div class="concept"><span class="badge intro">introduced · L02</span> <span class="cname">Zeroth Law of Thermodynamics</span> <span class="czh">热力学第零定律</span><p>A–B and A–C in equilibrium ⇒ B–C in equilibrium. "Otherwise, temperature wouldn't make sense!" It is what makes thermometers legitimate. Named "zeroth" because it was recognized after the first and second laws already had numbers.</p></div>
+<div class="footline">PHYS 157 · Course OS v0.6 · Week 1 print edition (L01 + L02, four pages) · compiled from pre/post-class slides (post-class canonical), calibrated transcripts, and the student's handwritten &amp; typed reviews · companion interactive page: finneaswang.github.io/phys-course-os</div>
+</div>
 
 </body>
 </html>
