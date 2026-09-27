@@ -1,0 +1,9 @@
+services:
+  courseos:
+    build: .
+    container_name: phys-course-os
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/usr/share/nginx/html:ro
+    restart: unless-stopped
