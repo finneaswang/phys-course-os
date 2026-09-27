@@ -626,7 +626,7 @@ S_L02.push({tag:'L02 Pre-class · Step 1 / 8', title:'The law under the demo', h
 <li>list the <b>three things</b> that can happen when two objects touch — and connect each to temperature;</li>
 <li>state the <b>Zeroth Law</b> and explain why thermometers are allowed to work.</li>
 </ul></div>
-<div class="note">Three clicker questions from the slides are embedded below — they are ungraded feedback in lecture, but they are <i>exactly</i> the style ORCA will ask. Take them seriously.</div>
+<div class="note">Three clicker questions from the slides are embedded below. On this pre-class page they run as <b>predictions</b> — the instructor resolves them in the lecture and the post-class slides, not here. They are <i>exactly</i> the style ORCA will ask.</div>
 <p>New concept pages: <span class="wiki" data-c="coe">Conservation of Energy</span> and <span class="wiki" data-c="zth">Zeroth Law</span> — the graph has grown to 14 nodes.</p>
 `});
 S_L02.push({tag:'L02 Pre-class · Step 2 / 8', title:'Conservation of Energy', html:`
@@ -640,13 +640,8 @@ S_L02.push({tag:'L02 Pre-class · Step 2 / 8', title:'Conservation of Energy', h
 <div class="note">Two words to keep precise: <b>isolated</b> (nothing enters or leaves — that's when the total is locked) and <b>transfer</b> (energy moves between parts and changes form — that's what heat is).</div>
 <h3>Clicker Question 1</h3>
 <p><i>Conservation of energy was first fully understood by…</i></p>
-<div id="predict1">
-  <button class="opt" data-fbid="c1fb" data-ok="0" data-fb="Newton gave us mechanics — F = ma — but the connection between mechanical work and heat wasn't his." onclick="pick(this)">A · Isaac Newton</button>
-  <button class="opt" data-fbid="c1fb" data-ok="0" data-fb="Einstein came much later (E = mc² is a different statement about mass and energy)." onclick="pick(this)">B · Albert Einstein</button>
-  <button class="opt" data-fbid="c1fb" data-ok="0" data-fb="Noether proved WHY conservation laws exist (they come from symmetries) — beautiful, but that's not what L02 is asking." onclick="pick(this)">C · Emmy Noether</button>
-  <button class="opt" data-fbid="c1fb" data-ok="1" data-fb="Right — James Joule. His experiments showed mechanical work and heat are the same currency: energy, interconvertible. That's why the unit of energy is named after him." onclick="pick(this)">D · James Joule</button>
-  <div class="feedback" id="c1fb"></div>
-</div>
+<div class="card"><b>A</b> · Isaac Newton &nbsp;&nbsp; <b>B</b> · Albert Einstein &nbsp;&nbsp; <b>C</b> · Emmy Noether &nbsp;&nbsp; <b>D</b> · James Joule</div>
+<div class="note"><b>Answer deliberately not revealed on a pre-class page.</b> The slides pose the clicker; the instructor resolves it in the lecture. Commit to a guess now and check it against the post-class slides.</div>
 <p>And connect it back to the brick: L01's "heat flows until equilibrium" <b>silently used this law</b> — the energy that leaves the air is exactly the energy the brick gains. Nothing vanishes, nothing appears.</p>
 `});
 S_L02.push({tag:'L02 Pre-class · Step 3 / 8', title:'What heating does at the molecular level', html:`
@@ -655,8 +650,8 @@ S_L02.push({tag:'L02 Pre-class · Step 3 / 8', title:'What heating does at the m
 <li><b>Heating an object = adding energy at the molecular level.</b> Cooling = removing it.</li>
 <li>The hot brick's atoms carry <b>more kinetic AND more potential energy</b> than the cold brick's.</li>
 </ul>
-<div class="note">⚠️ New wrinkle vs L01: there we said "temperature ↔ average <i>kinetic</i> energy." L02 widens the ledger: the microscopic energy bookkeeping counts kinetic <b>and potential</b> energy — a vibrating atom pushes against its neighbours, and that stored push is potential energy. Both grow when you heat.</div>
-<div class="demo">` + demoLattice() + `<div class="cap">Each vibrating atom swings between kinetic energy (moving) and potential energy (compressed against its neighbours) — L02's point is that heating fills BOTH accounts.</div></div>
+<div class="note"><b>⚠️ New wrinkle vs L01 (stated on slide 7):</b> there we said "temperature ↔ average <i>kinetic</i> energy." The slide shows the hot brick's atoms carry more kinetic <b>and potential</b> energy — both accounts grow when you heat.<br><span style="font-size:12.5px;color:#5b6b7b"><b>Lecture extension (not on the pre-lecture slides):</b> why does a vibration hold potential energy? Because a vibrating atom pushes against its neighbours — the stored push is that potential energy.</span></div>
+<div class="demo">` + demoLattice() + `<div class="cap">Slide 7's point: the hot brick's atoms carry more kinetic AND potential energy — heating fills BOTH accounts.</div></div>
 `});
 S_L02.push({tag:'L02 Pre-class · Step 4 / 8', title:'What heating does to macroscopic properties', html:`
 <p>Clicker-adjacent question from the slides: <i>which macroscopic properties change when an object is heated or cooled?</i></p>
@@ -679,13 +674,13 @@ S_L02.push({tag:'L02 Pre-class · Step 5 / 8', title:'Clicker 2 — contact betw
 <p><i>What happens if we put a hot block in contact with a room-temperature block?</i></p>
 <div id="predict2">
   <button class="opt" data-fbid="c2fb" data-ok="0" data-fb="Something always happens when temperatures differ — energy transfer at the contact." onclick="pick(this)">A · Nothing</button>
-  <button class="opt" data-fbid="c2fb" data-ok="1" data-fb="Right — heat flows (hot → cold) until they reach the SAME temperature. Note what that means: BOTH blocks change. The hot one cools, the cold one warms — they meet somewhere in between." onclick="pick(this)">B · Heat flows until they are the same temperature</button>
-  <button class="opt" data-fbid="c2fb" data-ok="0" data-fb="Incomplete: the hot block does cool — but not all the way to room temperature, because the room-temperature block is warming up at the same time. They meet in between." onclick="pick(this)">C · The hot block will cool down to room temperature</button>
+  <button class="opt" data-fbid="c2fb" data-ok="1" data-fb="Right — heat flows until BOTH blocks reach the same temperature. Note what that means: both blocks change — the hot one cools, the cold one warms." onclick="pick(this)">B · Heat flows until they are the same temperature</button>
+  <button class="opt" data-fbid="c2fb" data-ok="0" data-fb="Incomplete: the hot block does cool — but not all the way to room temperature, because the room-temperature block is warming up at the same time." onclick="pick(this)">C · The hot block will cool down to room temperature</button>
   <button class="opt" data-fbid="c2fb" data-ok="0" data-fb="Symmetric mistake: the cold block warms, but the hot block is simultaneously cooling. Nobody climbs all the way to the other's starting temperature." onclick="pick(this)">D · The room temperature block will heat up to the temperature of the hot block</button>
   <button class="opt" data-fbid="c2fb" data-ok="0" data-fb="B is correct and complete: heat flows until the two blocks share one temperature." onclick="pick(this)">E · None of the above</button>
   <div class="feedback" id="c2fb"></div>
 </div>
-<div class="note">The trap in C and D is assuming one block is a passive spectator. Conservation of energy (step 2) forbids it: what one loses, the other gains. Where exactly they meet depends on the blocks' sizes — that's a later lecture's tool.</div>
+<div class="note">The trap in C and D is assuming one block is a passive spectator. Conservation of energy (step 2) forbids it: what one loses, the other gains. L02's statement: heat flows until both blocks reach the same temperature.</div>
 `});
 S_L02.push({tag:'L02 Pre-class · Step 6 / 8', title:'The rule of contact: three outcomes', html:`
 <p>The slides formalize it. Bring two objects into contact — <b>one of three things</b> can happen:</p>
@@ -695,7 +690,7 @@ S_L02.push({tag:'L02 Pre-class · Step 6 / 8', title:'The rule of contact: three
 <div class="pillar"><b>3 · Same, other direction.</b><br>Energy flows balloon → brick = flow of HEAT; balloon has the higher temperature.</div>
 </div>
 <div class="demo">` + demoTraffic() + `<div class="cap">Outcome 1 is the balanced-traffic picture from L01; outcomes 2 and 3 are the same picture with the net flow leaning one way.</div></div>
-<details class="check"><summary>Read the rule carefully: what does "energy flows from brick to balloon = flow of HEAT" tell you about the word heat?</summary><div class="ans">It confirms L01's definition: <b>heat is the name for energy while it is in transit</b> between objects, driven by a temperature difference. The slides define direction by temperature: energy flows <i>from</i> the higher-temperature object <i>to</i> the lower-temperature one — never because one object "has more energy".</div></details>
+<details class="check"><summary>Read the rule carefully: what does "energy flows from brick to balloon = flow of HEAT" tell you about the word heat?</summary><div class="ans">The slides confirm the course wording: <b>heat = thermal energy flowing from one object to another because of a temperature difference.</b> Direction is set by temperature — energy flows from the higher-temperature object to the lower-temperature one — never because one object "has more energy".</div></details>
 `});
 S_L02.push({tag:'L02 Pre-class · Step 7 / 8', title:'The Zeroth Law — why thermometers work', html:`
 <p>The strangest-named law in physics, and the simplest:</p>
@@ -704,23 +699,24 @@ S_L02.push({tag:'L02 Pre-class · Step 7 / 8', title:'The Zeroth Law — why the
 <h3>Clicker Question 3</h3>
 <p><i>A mercury thermometer sits in a glass of water. If the thermometer reads 20 °C, we can conclude that:</i></p>
 <div id="predict3">
-  <button class="opt" data-fbid="c3fb" data-ok="0" data-fb="Half right — but you can only conclude the water's temperature BECAUSE of the mercury's temperature. B is also true, so this isn't the best answer." onclick="pick(this)">A · The temperature of the water is 20 °C</button>
-  <button class="opt" data-fbid="c3fb" data-ok="0" data-fb="Also half right — the mercury IS at 20 °C. But the Zeroth Law then forces the water to be at 20 °C too. C is the complete answer." onclick="pick(this)">B · The temperature of the mercury in the thermometer is 20 °C</button>
-  <button class="opt" data-fbid="c3fb" data-ok="1" data-fb="Correct — BOTH. The thermometer has sat in the water long enough to reach equilibrium: mercury and water share one temperature. The reading directly tells you the mercury's temperature; the Zeroth Law transfers that conclusion to the water." onclick="pick(this)">C · Both A and B</button>
+  <button class="opt" data-fbid="c3fb" data-ok="0" data-fb="Half right — and only under the equilibrium assumption. You conclude the water's temperature from the mercury's; B is also true, so C is the complete answer." onclick="pick(this)">A · The temperature of the water is 20 °C</button>
+  <button class="opt" data-fbid="c3fb" data-ok="0" data-fb="Also half right — the mercury IS at 20 °C. Under the equilibrium assumption the Zeroth Law forces the water to match. C is the complete answer." onclick="pick(this)">B · The temperature of the mercury in the thermometer is 20 °C</button>
+  <button class="opt" data-fbid="c3fb" data-ok="1" data-fb="C — assuming the thermometer has reached thermal equilibrium with the water. Under that assumption: the mercury is at 20 °C, and the Zeroth Law transfers that conclusion to the water. A thermometer inserted a second ago would still be adjusting — that assumption is doing quiet work." onclick="pick(this)">C · Both A and B</button>
   <button class="opt" data-fbid="c3fb" data-ok="0" data-fb="Both are true — this is the Zeroth Law in action." onclick="pick(this)">D · Neither A nor B</button>
   <div class="feedback" id="c3fb"></div>
 </div>
-<div class="note">Subtle point worth one re-read: the thermometer reading <b>directly</b> measures only the <b>mercury</b>. The water's temperature is an <b>inference</b>, licensed by equilibrium — the Zeroth Law is that license.</div>
+<div class="note">Subtle point worth one re-read: the thermometer reading <b>directly</b> measures only the <b>mercury</b>. The water's temperature is an <b>inference</b>, licensed by equilibrium — which the slide's wording ("sits in a glass of water") does not explicitly state, hence the assumption in the answer. The Zeroth Law is that license.</div>
 `});
 S_L02.push({tag:'L02 Pre-class · Step 8 / 8', title:'Demo prediction + 60-second review', html:`
 <h2>Predict: the IR-camera demo</h2>
 <p>The promised demo arrives: <b>two aluminium blocks</b> — one off the hot plate, one left in the room for a long time — placed in contact and watched with an <b>infrared camera</b> (hotter = brighter). Sketch what you expect:</p>
 <ul>
-<li><b>(a) Just as the blocks touch:</b> hot block bright, room block dim — and a sharp brightness contrast at the contact.</li>
-<li><b>(b) After a short time:</b> warmth spreading into the cool block near the contact; the contrast softening.</li>
-<li><b>(c) After a long time:</b> both blocks one uniform brightness — equilibrium, one temperature.</li>
+<li><b>(a)</b> Just as we bring the blocks together</li>
+<li><b>(b)</b> After a short time</li>
+<li><b>(c)</b> After a long time</li>
 </ul>
-<div class="note">This is your two-brick worked example from the deep-dive, made visible. Watch whether the real demo matches — and notice the camera is the <b>thermometer</b> idea (step 7) wearing a camera body: it reads IR emission, which temperature tunes.</div>
+<p><i>Sketch them now — shade the regions that will look brighter on the IR camera — and bring your sketches to class.</i></p>
+<div class="note"><b>No predicted answers here — a pre-class page preserves the activity.</b> Two hints that ARE on the slides: the camera displays hotter objects as brighter, and it reads infrared emission (the "every object radiates" physics from L01). Compare your sketches with the two-brick worked example afterwards.</div>
 <h2>60-second review</h2>
 <ul>
 <li><b>Conservation of Energy:</b> isolated system's total is constant; energy <b>transfers between parts</b> and changes form; thermo tracks microscopic KE <b>and</b> PE. (Joule.)</li>
