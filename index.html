@@ -45,7 +45,6 @@ li{margin:5px 0}
 .pillar b{color:var(--navy)}
 .chain{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:10px 0}
 .cstep{background:var(--navy);color:#fff;border-radius:8px;padding:6px 12px;font-size:12.5px}
-.cstep.soft{background:#2f6fad}
 .arr{color:var(--mut);font-weight:700}
 .opt{display:block;width:100%;text-align:left;margin:7px 0;padding:10px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fbfcfe;cursor:pointer;font-size:14px;color:var(--ink)}
 .opt:hover{border-color:var(--blue)}
@@ -118,7 +117,7 @@ table.phrases td{border-bottom:0.5pt solid var(--line);padding:6pt 9pt;vertical-
   <div class="brand"><span class="logo">Λ</span> PHYS 157 · <b>Course OS</b><span class="crumb" id="crumb">Week 1 · L01 · Pre-class</span></div>
   <div class="topright">
     <div class="pwrap"><div class="pbar"><div id="progressbar"></div></div><span id="progresstext"></span></div>
-    <button class="btn" onclick="openLibrary()">Concept library (12)</button>
+    <button class="btn" id="libbtn" onclick="openLibrary()">Concept library</button>
     <span class="reset" onclick="resetAll()">reset</span>
   </div>
 </header>
@@ -129,8 +128,8 @@ table.phrases td{border-bottom:0.5pt solid var(--line);padding:6pt 9pt;vertical-
     <a class="sideitem" id="side-pre" href="#" onclick="setPage(0);return false;">1.1 · L01 Pre-class reading</a>
     <a class="sideitem" id="side-deep" href="#" onclick="setPage(1);return false;">1.2 · L01 Deep-dive &amp; Quiz prep</a>
     <a class="sideitem" href="#" onclick="openLibrary();return false;">1.3 · Concept library ↗</a>
-    <a class="sideitem locked">1.4 · L02 Pre-class — locked (awaiting materials)</a>
-    <div class="sidefoot">v0.3 · your handwritten L1 review is graded inside page 1.2.<br><br>L02 materials → drop them in chat anytime.</div>
+    <a class="sideitem" id="side-l02" href="#" onclick="setPage(2);return false;">1.4 · L02 Pre-class reading</a>
+    <div class="sidefoot">v0.4 · L02 (Thermal Equilibrium, Sep 11) pre-class is live.<br><br>Quiz 1 date/scope → still unknown; check Canvas.</div>
   </nav>
 
   <main id="main">
@@ -166,31 +165,31 @@ var CONCEPTS = {
     '<p>Worked mappings from L01: object size ↔ average atomic spacing; temperature ↔ average kinetic energy.</p>', rel:['thermodynamics','temperature','kinetic-energy']},
   'temperature': {t:'Temperature', zh:'温度', st:'intro', body:
     '<p>A <b>macroscopic variable</b> and a <b>state variable（状态量）</b>: it describes what a system <i>is</i>, not a transfer. In the model introduced in L01, temperature <b>reflects</b> the average kinetic energy of a system\u2019s particles.</p>'+
-    '<p>It sets the <b>direction</b> of spontaneous [[HEAT]] flow (hot → cold) and defines the endpoint of that flow: thermal equilibrium.</p>'.replace('[[HEAT]]','<b>heat</b>'),
-    rel:['heat','thermal-equilibrium','kinetic-energy','mm']},
+    '<p>It sets the <b>direction</b> of spontaneous <b>heat</b> flow (hot → cold) and defines the endpoint of that flow: thermal equilibrium. The <b>Zeroth Law</b> is what makes temperature a sensible, comparable quantity at all.</p>', rel:['heat','thermal-equilibrium','kinetic-energy','mm','zth']},
   'volume': {t:'Volume', zh:'体积', st:'intro', body:
     '<p>A <b>macroscopic variable</b>: at the microscopic level it reports the <b>average spacing between atoms/molecules</b>. This mapping is why thermal expansion is visible — raise the temperature, the average spacing grows, the measured size grows.</p>', rel:['temperature','thermal-expansion','mm']},
   'kinetic-energy': {t:'Kinetic Energy', zh:'动能', st:'intro', body:
     '<p>Energy of motion, <i>E<sub>k</sub> = ½mv²</i> (carried over from mechanics).</p>'+
-    '<p>Thermal role: temperature reflects the <b>average kinetic energy</b> of a system\u2019s particles — in the L01 brick, the kinetic energy of atoms <b>vibrating</b> about their fixed positions.</p>', rel:['temperature','mm']},
+    '<p>Thermal role: temperature reflects the <b>average kinetic energy</b> of a system\u2019s particles — in the L01 brick, the kinetic energy of atoms <b>vibrating</b> about their fixed positions. L02 adds: vibrating atoms also carry <b>potential energy</b> (they push against their neighbours) — thermal energy is microscopic KE <b>and</b> PE.</p>', rel:['temperature','mm','coe']},
   'thermodynamics': {t:'Thermodynamics', zh:'热力学', st:'intro', body:
     '<p>The study of how <b>macroscopic variables</b> (temperature, volume, pressure, …) summarize and govern the behaviour of ~10²³ microscopic particles. \u201cThe art of summarizing microscopic physics.\u201d</p>'+
     '<p>You never track individuals — you measure a handful of averages, and those averages obey rules.</p>', rel:['mm','temperature','heat']},
   'heat': {t:'Heat', zh:'热', st:'intro', body:
     '<p><b>Energy in transit</b> from one object to another, driven by a <b>temperature difference</b>. The instructor\u2019s operational meaning in L01: \u201cthe flow of thermal energy from one object to the other.\u201d</p>'+
-    '<p>Microscopic carriers met in L01: <b>molecular collisions</b> (fast molecules striking a colder surface) and <b>radiation</b> (infrared at room temperature).</p>'+
-    '<p>⚠️ An object <b>contains internal energy — it does not contain heat</b>. Heat only exists while energy is crossing a boundary.</p>', rel:['temperature','thermal-equilibrium','em-radiation']},
+    '<p>Microscopic carriers met so far: <b>molecular collisions</b> (fast molecules striking a colder surface) and <b>radiation</b> (infrared at room temperature).</p>'+
+    '<p>⚠️ An object <b>contains internal energy — it does not contain heat</b>. Heat only exists while energy is crossing a boundary. L02 grounds heat flow in the <b>Conservation of Energy</b>: what leaves one object enters the other.</p>', rel:['temperature','thermal-equilibrium','em-radiation','coe']},
   'thermal-equilibrium': {t:'Thermal Equilibrium', zh:'热平衡', st:'intro', body:
     '<p>The <b>endpoint of heat flow</b>: objects in thermal contact reach a common temperature, and the <b>net</b> energy transfer stops.</p>'+
-    '<p>Microscopically, nothing goes quiet: collisions keep exchanging energy in <b>both</b> directions. Equilibrium means the <i>average</i> molecular energies match — <b>net flow = 0, individual collisions continue</b>. Balanced traffic, not an empty road.</p>', rel:['heat','temperature','mm']},
+    '<p>Microscopically, nothing goes quiet: collisions keep exchanging energy in <b>both</b> directions. Equilibrium means the <i>average</i> molecular energies match — <b>net flow = 0, individual collisions continue</b>. Balanced traffic, not an empty road.</p>'+
+    '<p>L02 makes it official with the <b>Zeroth Law</b>: two objects in contact either exchange heat or are in equilibrium — and \u201csame temperature\u201d is the equilibrium signature.</p>', rel:['heat','temperature','mm','zth']},
   'phase-change': {t:'Phase Change', zh:'相变', st:'preview', body:
     '<p>Transition of a substance between solid / liquid / gas.</p>'+
-    '<p>Seen in the L01 demo: water vapour in the air touching the −78.5 °C brick leaves the gas phase and forms <b>frost</b>. Strictly, on a surface that cold the vapour <b>deposits directly as solid</b> (deposition, 凝华); the slides\u2019 shorthand \u201ccondensation\u201d refers to this loosely. As the brick warms past 0 °C, frost melts and evaporates.</p>'+
+    '<p>Seen in the L01 demo: water vapour in the air touching the −78.5 °C brick leaves the gas phase and forms <b>frost</b>. Strictly, on a surface that cold the vapour <b>deposits directly as solid</b> (deposition, 凝华); the slides\u2019 shorthand \u201ccondensation\u201d refers to this loosely. As the brick warms past 0 °C, frost disappears.</p>'+
     '<p>⏳ Formal treatment (latent heat) comes later in the course.</p>', rel:['temperature','heat']},
   'thermal-expansion': {t:'Thermal Expansion', zh:'热膨胀', st:'preview', body:
-    '<p>As an object\u2019s temperature rises, <b>every linear dimension grows</b> — announced in L01 via the warming brick.</p>'+
+    '<p>As an object\u2019s temperature rises, its dimensions grow — L02 states it as typical behaviour: <b>size (length, area, or volume) increases with temperature</b> for solids, gases in balloons, and liquids in tubes… <b>with exceptions</b>.</p>'+
     '<p>Microscopic picture: higher temperature ⇒ larger <b>average atomic spacing</b> ⇒ larger measured size.</p>'+
-    '<p>⏳ Formal law (quantitative) arrives in the next lectures — no equations yet.</p>', rel:['temperature','volume','mm']},
+    '<p>⏳ Quantitative law arrives in the next lectures.</p>', rel:['temperature','volume','mm']},
   'oscillations': {t:'Oscillations', zh:'振动', st:'preview', body:
     '<p>Repeated back-and-forth motion about an equilibrium position.</p>'+
     '<p>Already true inside the L01 brick: its atoms <b>oscillate about fixed lattice sites</b> all the time. The course\u2019s second half builds from here — single oscillators (guitar strings, air columns) and then waves as oscillations handed from neighbour to neighbour.</p>'+
@@ -201,7 +200,17 @@ var CONCEPTS = {
     '<p>⏳ Second-half topic — pure preview in L01.</p>', rel:['oscillations','em-radiation']},
   'em-radiation': {t:'Electromagnetic Radiation', zh:'电磁辐射', st:'intro', body:
     '<p><b>Every object emits electromagnetic radiation, regardless of temperature</b> — what changes with temperature is the wavelength/frequency content. Room-temperature objects radiate mainly in the <b>infrared</b>, which human eyes cannot detect.</p>'+
-    '<p>Role in thermal physics: one of the <b>channels by which energy moves</b> between objects (alongside molecular collisions). An IR-camera demo with two warm bricks was promised for the next lecture.</p>', rel:['heat','waves','temperature']}
+    '<p>L02 adds the map: the EM spectrum runs from gamma rays (wavelength ~10⁻¹⁴ m) through X-rays, UV, the narrow <b>visible</b> band (400–700 nm), <b>infrared</b>, radar/microwave, out to AM radio (~10⁴ m). Hotter objects emit <b>more</b> IR radiation.</p>', rel:['heat','waves','temperature']},
+  'coe': {t:'Conservation of Energy', zh:'能量守恒', st:'intro', body:
+    '<p>The law L02 names as the reason behind \u201cheat transfer\u201d:</p><ul>'+
+    '<li>Each part of a physical system has a certain amount of energy.</li>'+
+    '<li>The total energy of an <b>isolated system</b> does not change with time.</li>'+
+    '<li>BUT energy can be <b>transferred between parts</b> and take <b>different forms</b>.</li>'+
+    '<li>In thermodynamics, the energy we care about is the <b>microscopic kinetic and potential energy</b> of atoms and molecules.</li></ul>'+
+    '<p>First fully understood through <b>James Joule</b>\u2019s experiments (mechanical work ↔ heat). This is the bookkeeping law under the whole brick demo: what the air loses, the brick gains.</p>', rel:['heat','kinetic-energy','thermodynamics']},
+  'zth': {t:'Zeroth Law of Thermodynamics', zh:'热力学第零定律', st:'intro', body:
+    '<p>If object A is in thermal equilibrium with object B, and A is in thermal equilibrium with object C, then <b>B and C are in thermal equilibrium with each other</b>.</p>'+
+    '<p>\u201cOtherwise, temperature wouldn\u2019t make sense!\u201d This law is what makes <b>thermometers</b> legitimate: a thermometer in equilibrium with the water reads a temperature you can assign to the water too.</p>', rel:['thermal-equilibrium','temperature']}
 };
 function cbody(id){
   var c = CONCEPTS[id];
@@ -223,9 +232,9 @@ function openLibrary(){
     items += '<button class="libitem" data-c="'+id+'">'+CONCEPTS[id].t+' <span class="zh">'+CONCEPTS[id].zh+'</span></button>';
   });
   document.getElementById('modaltitle').textContent = 'Concept library';
-  document.getElementById('modalzh').textContent = '12 pages · grows with every lecture';
+  document.getElementById('modalzh').textContent = Object.keys(CONCEPTS).length + ' pages · grows with every lecture';
   document.getElementById('modalbody').innerHTML =
-    '<div class="goal" style="margin-top:0">Everything L01 built, one click away. Blue terms inside steps open the same pages.</div>'+
+    '<div class="goal" style="margin-top:0">Everything the course has built, one click away. Blue terms inside steps open the same pages.</div>'+
     '<div class="libgrid">'+items+'</div>';
   document.getElementById('overlay').classList.add('open');
 }
@@ -242,9 +251,11 @@ function pick(btn){
   var opts = btn.parentNode.querySelectorAll('.opt');
   for (var i=0;i<opts.length;i++){ opts[i].classList.remove('right','wrong'); }
   btn.classList.add(ok ? 'right' : 'wrong');
-  var fb = document.getElementById('predfb');
-  fb.className = 'feedback ' + (ok ? 'good' : 'bad');
-  fb.innerHTML = (ok ? '✓ ' : '✗ ') + btn.dataset.fb;
+  var fb = document.getElementById(btn.dataset.fbid || 'predfb');
+  if (fb){
+    fb.className = 'feedback ' + (ok ? 'good' : 'bad');
+    fb.innerHTML = (ok ? '✓ ' : '✗ ') + btn.dataset.fb;
+  }
 }
 function markDone(pageKey){
   localStorage.setItem('physos_v1_done_'+pageKey,'1');
@@ -348,12 +359,15 @@ var NODES = [
   {id:'exp',   c:'thermal-expansion', label:'Thermal Expansion', x:180, y:430},
   {id:'em',    c:'em-radiation', label:'EM Radiation', x:180, y:530},
   {id:'osc',   c:'oscillations', label:'Oscillations', x:90,  y:330},
-  {id:'waves', c:'waves', label:'Waves',                x:80,  y:190}
+  {id:'waves', c:'waves', label:'Waves',                x:80,  y:190},
+  {id:'coe',   c:'coe',   label:'Conservation of Energy', x:880, y:90},
+  {id:'zth',   c:'zth',   label:'Zeroth Law',           x:900, y:540}
 ];
 var EDGES = [
   ['mm','temp'],['mm','vol'],['temp','ke'],['mm','thermo'],['mm','em'],
   ['thermo','heat'],['heat','eq'],['thermo','phase'],['thermo','exp'],
-  ['osc','waves'],['mm','osc','preview']
+  ['osc','waves'],['mm','osc','preview'],
+  ['thermo','coe'],['eq','zth']
 ];
 function drawGraph(){
   var svg = document.getElementById('graph');
@@ -496,7 +510,7 @@ S_PRE.push({tag:'Pre-class · Step 7 / 10', title:'The waves teaser', html:`
 S_PRE.push({tag:'Pre-class · Step 8 / 10', title:'Your concept graph', html:`
 <p>This is the network your course is building. <b>Click any node</b> — its concept page opens right here. The dashed link is the second pillar, preview-only for now.</p>
 <div id="graphwrap">
-<svg id="graph" viewBox="0 0 940 570" width="100%" style="min-width:760px;display:block"></svg>
+<svg id="graph" viewBox="0 0 1000 570" width="100%" style="min-width:760px;display:block"></svg>
 </div>
 <div class="legend">● every node = a concept page (also in <b>Concept library</b>, top right) · dashed = previewed, not yet taught · this graph grows with every lecture.</div>
 `});
@@ -523,7 +537,7 @@ S_PRE.push({tag:'Pre-class · Step 10 / 10', title:'60-second review — and don
 <h2>Next</h2>
 <ul>
 <li>Go to <b>page 1.2 — L01 Deep-dive &amp; Quiz prep</b> (left sidebar): your handwritten review is graded there.</li>
-<li>Bring L02 materials whenever — the graph grows on its own.</li>
+<li>Then <b>page 1.4 — L02 Pre-class</b>: the law under the demo.</li>
 </ul>
 <p style="margin-top:22px"><button class="donebtn" id="donebtn" onclick="markDone('pre')">✓ Mark L01 pre-class complete</button></p>
 `});
@@ -595,24 +609,143 @@ S_DEEP.push({tag:'Deep-dive · Step 6 / 6', title:'Ledger & what\u2019s next', h
 </ul>
 <h2>What's next</h2>
 <ul>
-<li><b>L02</b>: macroscopic variables &amp; thermal expansion (announced in L01). Drop the week-2 PDFs in chat and the pre-class page builds itself.</li>
+<li><b>L02 pre-class is live</b> (sidebar 1.4): the law under the demo — Conservation of Energy, the Zeroth Law, and the IR-camera prediction.</li>
 <li><b>Quiz 1</b>: date &amp; scope still unknown — Canvas → Course Schedule. When you know it, the practice engine targets exactly that range.</li>
-<li>Expect the IR-camera demo with two warm bricks in the next lecture — you already know its answer (worked example, step 4).</li>
 </ul>
 <p style="margin-top:22px"><button class="donebtn" id="donebtn" onclick="markDone('deep')">✓ Mark L01 deep-dive complete</button></p>
 `});
 
+/* ---------- PAGE 3: L02 pre-class ---------- */
+var S_L02 = [];
+S_L02.push({tag:'L02 Pre-class · Step 1 / 8', title:'The law under the demo', html:`
+<p>Lecture 2 (September 11) starts where L01 stopped: you said "heat is flowing into the brick" — and the professor immediately names the law standing behind that sentence: <b>Conservation of Energy</b>. This pre-class covers four things:</p>
+<div class="goal"><b>By the end you can:</b>
+<ul>
+<li>state what <span class="wiki" data-c="coe">Conservation of Energy</span> claims — and what "isolated system" means;</li>
+<li>say what heating/cooling does <b>microscopically</b> (kinetic <b>and</b> potential energy) and which <b>macroscopic</b> properties it changes;</li>
+<li>list the <b>three things</b> that can happen when two objects touch — and connect each to temperature;</li>
+<li>state the <b>Zeroth Law</b> and explain why thermometers are allowed to work.</li>
+</ul></div>
+<div class="note">Three clicker questions from the slides are embedded below — they are ungraded feedback in lecture, but they are <i>exactly</i> the style ORCA will ask. Take them seriously.</div>
+<p>New concept pages: <span class="wiki" data-c="coe">Conservation of Energy</span> and <span class="wiki" data-c="zth">Zeroth Law</span> — the graph has grown to 14 nodes.</p>
+`});
+S_L02.push({tag:'L02 Pre-class · Step 2 / 8', title:'Conservation of Energy', html:`
+<p>The law, as the slides state it:</p>
+<ul>
+<li>Each part of a physical system has a certain amount of energy.</li>
+<li>The total energy of an <b>isolated</b> system doesn't change with time.</li>
+<li>BUT energy can be <b>transferred between different parts</b> and take <b>different forms</b>.</li>
+<li>In thermodynamics, the energy we care about is the <b>microscopic kinetic and potential energy of atoms and molecules</b>.</li>
+</ul>
+<div class="note">Two words to keep precise: <b>isolated</b> (nothing enters or leaves — that's when the total is locked) and <b>transfer</b> (energy moves between parts and changes form — that's what heat is).</div>
+<h3>Clicker Question 1</h3>
+<p><i>Conservation of energy was first fully understood by…</i></p>
+<div id="predict1">
+  <button class="opt" data-fbid="c1fb" data-ok="0" data-fb="Newton gave us mechanics — F = ma — but the connection between mechanical work and heat wasn't his." onclick="pick(this)">A · Isaac Newton</button>
+  <button class="opt" data-fbid="c1fb" data-ok="0" data-fb="Einstein came much later (E = mc² is a different statement about mass and energy)." onclick="pick(this)">B · Albert Einstein</button>
+  <button class="opt" data-fbid="c1fb" data-ok="0" data-fb="Noether proved WHY conservation laws exist (they come from symmetries) — beautiful, but that's not what L02 is asking." onclick="pick(this)">C · Emmy Noether</button>
+  <button class="opt" data-fbid="c1fb" data-ok="1" data-fb="Right — James Joule. His experiments showed mechanical work and heat are the same currency: energy, interconvertible. That's why the unit of energy is named after him." onclick="pick(this)">D · James Joule</button>
+  <div class="feedback" id="c1fb"></div>
+</div>
+<p>And connect it back to the brick: L01's "heat flows until equilibrium" <b>silently used this law</b> — the energy that leaves the air is exactly the energy the brick gains. Nothing vanishes, nothing appears.</p>
+`});
+S_L02.push({tag:'L02 Pre-class · Step 3 / 8', title:'What heating does at the molecular level', html:`
+<p>The slides' picture: two identical bricks, one cold, one hot. Same atoms, same bonds — different energy.</p>
+<ul>
+<li><b>Heating an object = adding energy at the molecular level.</b> Cooling = removing it.</li>
+<li>The hot brick's atoms carry <b>more kinetic AND more potential energy</b> than the cold brick's.</li>
+</ul>
+<div class="note">⚠️ New wrinkle vs L01: there we said "temperature ↔ average <i>kinetic</i> energy." L02 widens the ledger: the microscopic energy bookkeeping counts kinetic <b>and potential</b> energy — a vibrating atom pushes against its neighbours, and that stored push is potential energy. Both grow when you heat.</div>
+<div class="demo">` + demoLattice() + `<div class="cap">Each vibrating atom swings between kinetic energy (moving) and potential energy (compressed against its neighbours) — L02's point is that heating fills BOTH accounts.</div></div>
+`});
+S_L02.push({tag:'L02 Pre-class · Step 4 / 8', title:'What heating does to macroscopic properties', html:`
+<p>Clicker-adjacent question from the slides: <i>which macroscopic properties change when an object is heated or cooled?</i></p>
+<ul>
+<li><b>Most of them!</b> — but often only slightly, if the temperature change is small.</li>
+<li>Examples named: <b>size, volume, density</b>; the <b>amount of light/IR radiation emitted</b> at different frequencies; and many others, e.g. <b>electrical conductivity</b>.</li>
+</ul>
+<h3>Thermal expansion — typical behaviour, with exceptions</h3>
+<ul>
+<li>Solids, gases in balloons, liquids in tubes: hotter → bigger. "Size" means <b>length, area, or volume</b>.</li>
+<li>Slide's honest caveat: <b>this is typical behaviour, but there are exceptions!</b> (Some materials misbehave — the exceptions come later.)</li>
+</ul>
+<h3>And radiation</h3>
+<ul>
+<li>Hotter → <b>more IR radiation</b>. Every object emits; temperature tunes how much and at which wavelengths.</li>
+</ul>
+<div class="demo">` + demoSpectrum() + `<div class="cap">The electromagnetic spectrum — L02 shows it with real wavelengths: gamma (~10⁻¹⁴ m) down to AM radio (~10⁴ m). Visible light is the 400–700 nm slice; infrared sits just left of it, between visible and radar.</div></div>
+`});
+S_L02.push({tag:'L02 Pre-class · Step 5 / 8', title:'Clicker 2 — contact between two blocks', html:`
+<p><i>What happens if we put a hot block in contact with a room-temperature block?</i></p>
+<div id="predict2">
+  <button class="opt" data-fbid="c2fb" data-ok="0" data-fb="Something always happens when temperatures differ — energy transfer at the contact." onclick="pick(this)">A · Nothing</button>
+  <button class="opt" data-fbid="c2fb" data-ok="1" data-fb="Right — heat flows (hot → cold) until they reach the SAME temperature. Note what that means: BOTH blocks change. The hot one cools, the cold one warms — they meet somewhere in between." onclick="pick(this)">B · Heat flows until they are the same temperature</button>
+  <button class="opt" data-fbid="c2fb" data-ok="0" data-fb="Incomplete: the hot block does cool — but not all the way to room temperature, because the room-temperature block is warming up at the same time. They meet in between." onclick="pick(this)">C · The hot block will cool down to room temperature</button>
+  <button class="opt" data-fbid="c2fb" data-ok="0" data-fb="Symmetric mistake: the cold block warms, but the hot block is simultaneously cooling. Nobody climbs all the way to the other's starting temperature." onclick="pick(this)">D · The room temperature block will heat up to the temperature of the hot block</button>
+  <button class="opt" data-fbid="c2fb" data-ok="0" data-fb="B is correct and complete: heat flows until the two blocks share one temperature." onclick="pick(this)">E · None of the above</button>
+  <div class="feedback" id="c2fb"></div>
+</div>
+<div class="note">The trap in C and D is assuming one block is a passive spectator. Conservation of energy (step 2) forbids it: what one loses, the other gains. Where exactly they meet depends on the blocks' sizes — that's a later lecture's tool.</div>
+`});
+S_L02.push({tag:'L02 Pre-class · Step 6 / 8', title:'The rule of contact: three outcomes', html:`
+<p>The slides formalize it. Bring two objects into contact — <b>one of three things</b> can happen:</p>
+<div class="grid2">
+<div class="pillar"><b>1 · Nothing changes.</b><br>We say the systems are in <b>EQUILIBRIUM</b> — and they have the <b>SAME TEMPERATURE</b>.</div>
+<div class="pillar"><b>2 · Energy flows from the hotter to the colder.</b><br>= a flow of HEAT. (Slide's picture: brick → balloon, brick has the higher temperature.)</div>
+<div class="pillar"><b>3 · Same, other direction.</b><br>Energy flows balloon → brick = flow of HEAT; balloon has the higher temperature.</div>
+</div>
+<div class="demo">` + demoTraffic() + `<div class="cap">Outcome 1 is the balanced-traffic picture from L01; outcomes 2 and 3 are the same picture with the net flow leaning one way.</div></div>
+<details class="check"><summary>Read the rule carefully: what does "energy flows from brick to balloon = flow of HEAT" tell you about the word heat?</summary><div class="ans">It confirms L01's definition: <b>heat is the name for energy while it is in transit</b> between objects, driven by a temperature difference. The slides define direction by temperature: energy flows <i>from</i> the higher-temperature object <i>to</i> the lower-temperature one — never because one object "has more energy".</div></details>
+`});
+S_L02.push({tag:'L02 Pre-class · Step 7 / 8', title:'The Zeroth Law — why thermometers work', html:`
+<p>The strangest-named law in physics, and the simplest:</p>
+<div class="goal"><b>If A is in equilibrium with B, and A is in equilibrium with C, then B and C are in equilibrium with each other.</b><br>"Otherwise, temperature wouldn't make sense!"</div>
+<p>Why it matters: it's the law that makes <b>temperature comparison possible without objects touching each other</b>. A thermometer is just object A — small, calibrated, in equilibrium with whatever it touches.</p>
+<h3>Clicker Question 3</h3>
+<p><i>A mercury thermometer sits in a glass of water. If the thermometer reads 20 °C, we can conclude that:</i></p>
+<div id="predict3">
+  <button class="opt" data-fbid="c3fb" data-ok="0" data-fb="Half right — but you can only conclude the water's temperature BECAUSE of the mercury's temperature. B is also true, so this isn't the best answer." onclick="pick(this)">A · The temperature of the water is 20 °C</button>
+  <button class="opt" data-fbid="c3fb" data-ok="0" data-fb="Also half right — the mercury IS at 20 °C. But the Zeroth Law then forces the water to be at 20 °C too. C is the complete answer." onclick="pick(this)">B · The temperature of the mercury in the thermometer is 20 °C</button>
+  <button class="opt" data-fbid="c3fb" data-ok="1" data-fb="Correct — BOTH. The thermometer has sat in the water long enough to reach equilibrium: mercury and water share one temperature. The reading directly tells you the mercury's temperature; the Zeroth Law transfers that conclusion to the water." onclick="pick(this)">C · Both A and B</button>
+  <button class="opt" data-fbid="c3fb" data-ok="0" data-fb="Both are true — this is the Zeroth Law in action." onclick="pick(this)">D · Neither A nor B</button>
+  <div class="feedback" id="c3fb"></div>
+</div>
+<div class="note">Subtle point worth one re-read: the thermometer reading <b>directly</b> measures only the <b>mercury</b>. The water's temperature is an <b>inference</b>, licensed by equilibrium — the Zeroth Law is that license.</div>
+`});
+S_L02.push({tag:'L02 Pre-class · Step 8 / 8', title:'Demo prediction + 60-second review', html:`
+<h2>Predict: the IR-camera demo</h2>
+<p>The promised demo arrives: <b>two aluminium blocks</b> — one off the hot plate, one left in the room for a long time — placed in contact and watched with an <b>infrared camera</b> (hotter = brighter). Sketch what you expect:</p>
+<ul>
+<li><b>(a) Just as the blocks touch:</b> hot block bright, room block dim — and a sharp brightness contrast at the contact.</li>
+<li><b>(b) After a short time:</b> warmth spreading into the cool block near the contact; the contrast softening.</li>
+<li><b>(c) After a long time:</b> both blocks one uniform brightness — equilibrium, one temperature.</li>
+</ul>
+<div class="note">This is your two-brick worked example from the deep-dive, made visible. Watch whether the real demo matches — and notice the camera is the <b>thermometer</b> idea (step 7) wearing a camera body: it reads IR emission, which temperature tunes.</div>
+<h2>60-second review</h2>
+<ul>
+<li><b>Conservation of Energy:</b> isolated system's total is constant; energy <b>transfers between parts</b> and changes form; thermo tracks microscopic KE <b>and</b> PE. (Joule.)</li>
+<li>Heating/cooling = adding/removing molecular energy; hot brick = more kinetic <b>and</b> potential energy.</li>
+<li>Most macroscopic properties shift with temperature (size, density, IR output, conductivity) — usually slightly.</li>
+<li>Thermal expansion is <b>typical, with exceptions</b>; "size" = length, area, volume.</li>
+<li>Contact = three outcomes: nothing (equilibrium, same T) / heat flows hot → cold. Direction set by temperature, never by total energy.</li>
+<li><b>Zeroth Law:</b> A–B and A–C in equilibrium ⇒ B–C in equilibrium. Thermometers work because of it.</li>
+<li>Next class: <b>methods for measuring temperature</b>.</li>
+</ul>
+<p style="margin-top:22px"><button class="donebtn" id="donebtn" onclick="markDone('l02')">✓ Mark L02 pre-class complete</button></p>
+`});
+
 var PAGES = [
   {key:'pre',  crumb:'Week 1 · L01 · Pre-class',    steps:S_PRE},
-  {key:'deep', crumb:'Week 1 · L01 · Deep-dive',    steps:S_DEEP}
+  {key:'deep', crumb:'Week 1 · L01 · Deep-dive',    steps:S_DEEP},
+  {key:'l02',  crumb:'Week 1 · L02 · Pre-class',    steps:S_L02}
 ];
 
 /* ---------- engine (multi-page) ---------- */
 var KEY_V = 'physos_v1_visited', KEY_CUR = 'physos_v1_cur';
-var visited = {pre:{}, deep:{}};
+var visited = {pre:{}, deep:{}, l02:{}};
 try {
   var v1 = JSON.parse(localStorage.getItem(KEY_V)||'{}');
-  ['pre','deep'].forEach(function(k){ if(v1[k]) v1[k].forEach(function(i){ visited[k][i]=1; }); });
+  ['pre','deep','l02'].forEach(function(k){ if(v1[k]) v1[k].forEach(function(i){ visited[k][i]=1; }); });
 } catch(e){}
 /* migrate v0 progress (pre-class page) */
 try {
@@ -651,6 +784,7 @@ function render(){
   }
   document.getElementById('side-pre').className  = 'sideitem' + (cur.p===0 ? ' active' : '');
   document.getElementById('side-deep').className = 'sideitem' + (cur.p===1 ? ' active' : '');
+  document.getElementById('side-l02').className  = 'sideitem' + (cur.p===2 ? ' active' : '');
   if (localStorage.getItem('physos_v1_done_'+vk) === '1' && cur.s === total-1){
     var b = document.getElementById('donebtn'); if(b){ b.disabled = true; b.textContent = '✓ Complete'; }
   }
@@ -670,14 +804,15 @@ function resetAll(){
   localStorage.removeItem(KEY_V); localStorage.removeItem(KEY_CUR);
   localStorage.removeItem('physos_v0_visited'); localStorage.removeItem('physos_v0_step');
   localStorage.removeItem('physos_v1_done_pre'); localStorage.removeItem('physos_v1_done_deep');
-  localStorage.removeItem('physos_v0_done');
-  visited = {pre:{}, deep:{}}; cur = {p:0, s:0}; render();
+  localStorage.removeItem('physos_v1_done_l02'); localStorage.removeItem('physos_v0_done');
+  visited = {pre:{}, deep:{}, l02:{}}; cur = {p:0, s:0}; render();
 }
 document.addEventListener('keydown', function(e){
   if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
   if (e.key === 'ArrowRight') stepFwd();
   if (e.key === 'ArrowLeft') stepBack();
 });
+document.getElementById('libbtn').textContent = 'Concept library (' + Object.keys(CONCEPTS).length + ')';
 render();
 </script>
 </body>
