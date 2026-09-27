@@ -254,7 +254,7 @@ function pick(btn){
   var fb = document.getElementById(btn.dataset.fbid || 'predfb');
   if (fb){
     fb.className = 'feedback ' + (ok ? 'good' : 'bad');
-    fb.innerHTML = (ok ? '✓ ' : '✗ ') + btn.dataset.fb;
+    fb.innerHTML = (ok ? '✓ Matches the slides: ' : '✗ Not what happens first: ') + btn.dataset.fb;
   }
 }
 function markDone(pageKey){
@@ -426,13 +426,13 @@ S_PRE.push({tag:'Pre-class · Step 1 / 10', title:'How this works, and the two p
 `});
 S_PRE.push({tag:'Pre-class · Step 2 / 10', title:'The cold brick — predict first', html:`
 <p>September 9, Hebb building. Prof pulls a brick out of a cooler. The room's first guess: <i>liquid nitrogen</i>. Wrong — it sat in <b>dry ice</b>, so the brick starts at about <b>−78.5 °C</b>. Then it just sits in the ~20 °C room while everyone talks about it.</p>
-<h2>Predict before you read on</h2>
-<p><i>In the first minute, what do you actually see?</i></p>
+<h2>Predict, then check against the slides</h2>
+<p><i>In the first minute, what do you actually see?</i> This is a <b>source-contained self-check</b> — the slide photos right below hold the answer; no lecture reveal needed.</p>
 <div id="predict">
   <button class="opt" data-ok="0" data-fb="Look at the temperature difference: −78.5 °C vs ~20 °C. Something dramatic happens at the surface — and it is not silence." onclick="pick(this)">A · Nothing — the brick just sits there, unchanged</button>
-  <button class="opt" data-ok="1" data-fb="Right. Water vapour in the air touches a surface far below 0 °C and leaves the gas phase → frost forms almost immediately. Meanwhile heat starts flowing into the brick and it begins warming." onclick="pick(this)">B · Frost forms on the brick's surface</button>
+  <button class="opt" data-ok="1" data-fb="Water vapour in the air touches a surface far below 0 °C and leaves the gas phase → frost forms almost immediately — exactly what the ~15 min photo shows. Heat starts flowing into the brick and it begins warming." onclick="pick(this)">B · Frost forms on the brick's surface</button>
   <button class="opt" data-ok="0" data-fb="Glowing usually means visible light — that needs a far higher temperature. The brick IS emitting thermal radiation right now, mainly in the infrared, which your eyes cannot detect." onclick="pick(this)">C · The brick glows faintly</button>
-  <button class="opt" data-ok="0" data-fb="Meltwater only appears once the surface climbs past 0 °C — not in the first minute. First comes frost." onclick="pick(this)">D · Water pools underneath it</button>
+  <button class="opt" data-ok="0" data-fb="Meltwater only appears once the surface climbs past 0 °C — and the ~1 hr photo shows the frost gone, not water pooling. First comes frost." onclick="pick(this)">D · Water pools underneath it</button>
   <div class="feedback" id="predfb"></div>
 </div>
 <h2>What actually happened (slide photos)</h2>
