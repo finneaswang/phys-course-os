@@ -133,7 +133,8 @@ table.phrases td{border-bottom:0.5pt solid var(--line);padding:6pt 9pt;vertical-
     <a class="sideitem" id="side-deep" href="#" onclick="setPage(1);return false;">1.2 · L01 Deep-dive &amp; Quiz prep</a>
     <a class="sideitem" href="#" onclick="openLibrary();return false;">1.3 · Concept library ↗</a>
     <a class="sideitem" id="side-l02" href="#" onclick="setPage(2);return false;">1.4 · L02 Pre-class reading</a>
-    <div class="sidefoot">v0.4 · L02 (Thermal Equilibrium, Sep 11) pre-class is live.<br><br>Quiz 1 date/scope → still unknown; check Canvas.</div>
+    <a class="sideitem" id="side-l02d" href="#" onclick="setPage(3);return false;">1.5 · L02 Deep-dive &amp; Quiz prep</a>
+    <div class="sidefoot">v0.5 · L02 deep-dive is live — Noether twist inside.<br><br>Quiz 1 date/scope → still unknown; check Canvas.</div>
   </nav>
 
   <main id="main">
@@ -512,6 +513,55 @@ function demoIRPredict(){
   s += '<circle cx="420" cy="70" r="14" fill="#fffbe8" stroke="#f1c40f" stroke-width="1.8"/><text x="420" y="75" text-anchor="middle" font-size="13" font-weight="800" fill="#b3591e">?</text>';
   s += '<circle cx="310" cy="100" r="14" fill="#fffbe8" stroke="#f1c40f" stroke-width="1.8"/><text x="310" y="105" text-anchor="middle" font-size="13" font-weight="800" fill="#b3591e">?</text>';
   s += '<text x="310" y="160" text-anchor="middle" font-size="11" fill="#9fc3e8">sketch the brightness at (a) touch · (b) short time · (c) long time — the ? marks are yours to fill</text>';
+  return s + '</svg>';
+}
+
+function demoVoteBars(){
+  var s = '<svg viewBox="0 0 620 170" width="100%">';
+  s += '<rect x="1" y="1" width="618" height="168" rx="10" fill="#fbfdff" stroke="#dde5ec"/>';
+  var rows = [['A · Isaac Newton',21,116,'#8aa4bd',''],['B · Albert Einstein',1,6,'#8aa4bd',''],['C · Emmy Noether',19,105,'#1e7d46','✓ correct'],['D · James Joule',60,330,'#b3591e','the trap']];
+  for(var i=0;i<rows.length;i++){
+    var y = 20+i*35;
+    s += '<text x="150" y="'+(y+15)+'" text-anchor="end" font-size="11.5" fill="#31414e">'+rows[i][0]+'</text>';
+    s += '<rect x="160" y="'+y+'" width="'+rows[i][2]+'" height="20" rx="4" fill="'+rows[i][3]+'"/>';
+    s += '<text x="'+(160+rows[i][2]+8)+'" y="'+(y+15)+'" font-size="11" fill="'+(rows[i][4]==='✓ correct'?'#1e7d46':'#5b6b7b')+'">'+(rows[i][4]?rows[i][4]+' · ':'')+rows[i][1]+'%</text>';
+  }
+  s += '<text x="310" y="162" text-anchor="middle" font-size="11" fill="#8296a8">class vote on Clicker 1 — the obvious answer was the trap (slide 5, post-class)</text>';
+  return s + '</svg>';
+}
+function demoSlideMapL2(){
+  var s = '<svg viewBox="0 0 620 150" width="100%">';
+  s += '<rect x="1" y="1" width="618" height="148" rx="10" fill="#fbfdff" stroke="#dde5ec"/>';
+  var items = [['S5','C1 = C!'],['S6','CoE law'],['S7','KE + PE'],['S8–10','macro props'],['S12–13','C2 = B'],['S14–15','IR demo'],['S16–17','Zeroth']];
+  for(var i=0;i<items.length;i++){
+    var x = 16 + i*85;
+    s += '<rect x="'+x+'" y="48" width="78" height="44" rx="8" fill="#e8f1fb" stroke="#a9c6e2"/>';
+    s += '<text x="'+(x+39)+'" y="67" text-anchor="middle" font-size="12" font-weight="700" fill="#0d2c4b">'+items[i][0]+'</text>';
+    s += '<text x="'+(x+39)+'" y="83" text-anchor="middle" font-size="9.5" fill="#5b6b7b">'+items[i][1]+'</text>';
+    if(i<items.length-1) s += '<text x="'+(x+81)+'" y="76" text-anchor="middle" font-size="11" fill="#8296a8">→</text>';
+  }
+  s += '<text x="310" y="126" text-anchor="middle" font-size="11" fill="#8296a8">L02 post-class slides as one argument — the demo resolved, the laws named</text>';
+  return s + '</svg>';
+}
+function demoIRSequence(){
+  function row(y, l1, l2, c1, c2, blend, arrow){
+    var t = '<text x="18" y="'+(y+16)+'" font-size="10.5" fill="#31414e">'+l1+'</text>';
+    t += '<text x="18" y="'+(y+30)+'" font-size="10.5" fill="#31414e">'+l2+'</text>';
+    t += '<rect x="250" y="'+y+'" width="118" height="42" rx="4" fill="'+c1+'" stroke="#7f5539"/>';
+    t += '<rect x="372" y="'+y+'" width="118" height="42" rx="4" fill="'+c2+'" stroke="#7f5539"/>';
+    if(blend) t += '<rect x="300" y="'+y+'" width="140" height="42" fill="#e6c229" opacity=".45"/>';
+    if(arrow) t += '<line x1="505" y1="'+(y+21)+'" x2="462" y2="'+(y+21)+'" stroke="#c0392b" stroke-width="4" stroke-linecap="round"/><polygon points="462,'+(y+15)+' 450,'+(y+21)+' 462,'+(y+27)+'" fill="#c0392b"/>';
+    return t;
+  }
+  var s = '<svg viewBox="0 0 620 330" width="100%">';
+  s += '<rect x="1" y="1" width="618" height="328" rx="10" fill="#fbfdff" stroke="#dde5ec"/>';
+  s += row(24, '1 · each block in equilibrium', '(with the room / with the hot plate)', '#5a4a2a', '#e6c229', false, false);
+  s += '<text x="310" y="90" text-anchor="middle" font-size="12" fill="#8296a8">↓ place in thermal contact</text>';
+  s += row(100, '2 · the two-block system is isolated', '(ignore table and air)', '#5a4a2a', '#e6c229', false, false);
+  s += '<text x="310" y="164" text-anchor="middle" font-size="12" fill="#8296a8">↓ temperature difference inside → heat must flow</text>';
+  s += row(174, '3 · NOT in equilibrium — and not an', 'equilibrium state (some parts hotter)', '#5a4a2a', '#e6c229', true, true);
+  s += '<text x="310" y="238" text-anchor="middle" font-size="12" fill="#8296a8">↓ wait</text>';
+  s += row(248, '4 · equilibrium — same temperature', '& temperature is uniform', '#9a8a2a', '#9a8a2a', false, false);
   return s + '</svg>';
 }
 
@@ -901,18 +951,96 @@ S_L02.push({tag:'L02 Pre-class · Step 8 / 8', title:'Demo prediction + 60-secon
 <p style="margin-top:22px"><button class="donebtn" id="donebtn" onclick="markDone('l02')">✓ Mark L02 pre-class complete</button></p>
 `});
 
+/* ---------- PAGE 4: L02 deep-dive & quiz prep ---------- */
+var S_L02D = [];
+S_L02D.push({tag:'Deep-dive · Step 1 / 6', title:'Post-class answers + your typed review, graded', html:`
+<p>The post-class slides resolve two of the three clickers — and one is a plot twist. Your typed review (9 items) is graded below, against the slides and the Friday transcript.</p>
+<div class="goal"><b>Clicker resolutions:</b> C1 → <b>C · Emmy Noether</b> (not Joule!) · C2 → <b>B</b> (matches your answer) · C3 → <b>not revealed</b> in the post-class slides — your B-with-conditional stands as the rigorous reading.<br><b>Your typed review: 9/9 correct.</b> Written quality now matches concept quality — the chain habit from L01 is visibly working.</div>
+<div class="demo">` + demoVoteBars() + `<div class="cap">The class vote: most people picked Joule because the energy unit is named after him. The obvious answer was the trap.</div></div>
+<div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Clicker 2 → B.</b> "heat is not 'stored stuff'; heat is energy transfer due to temperature difference."<br><span style="font-size:12.5px;color:#5b6b7b">This is EXACTLY the course definition — "not stored stuff" is the phrasing that survives quizzes.</span></div>
+<div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · Your understanding of conservation of energy?</b><br>cannot be created or destroyed; only transferred or transformed.<br><span style="font-size:12.5px;color:#5b6b7b">The lecture's words, almost verbatim: "it just transfers from one part of the system to the other, or it changes forms."</span></div>
+<div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · What types of energy do the particles have?</b><br>both kinetic and potential energy. <span style="font-size:12.5px;color:#5b6b7b">(typo "nergy" — harmless, but proofread on written quizzes.)</span></div>
+<div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · Why do particles have potential energy?</b><br>they interact with surrounding particles, and the PE depends on the distance between them.<br><span style="font-size:12.5px;color:#5b6b7b">The lecture adds one word: the interactions are <b>electrical</b> (bonds). And as particles oscillate, the distance changes → PE changes. Your two chains already encode this.</span></div>
+<div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · Add heat → what happens to internal energy?</b><br>it increases.<br><span style="font-size:12.5px;color:#5b6b7b">And you deployed the lecture's new term correctly: <b>internal energy</b> = the microscopic KE + PE account of the object.</span></div>
+<div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · Which macroscopic properties change?</b><br>size, volume, density, radiation, conductivity — all five named on the slides.</div>
+<div class="card"><span class="verdictchip sharp">✓✓ sharpest answer in the set</span> &nbsp;<b>Q · What happens to the IR radiation when temperature increases?</b><br>stronger intensity <b>and</b> shorter wavelength.<br><span style="font-size:12.5px;color:#5b6b7b">This is the lecture's exact two-part answer: intensity (= brightness on the IR camera) goes up, and the emission shifts toward shorter wavelengths. Two-part questions need two-part answers — you did that.</span></div>
+<div class="card"><span class="verdictchip sharp">✓ rigorous — with one open question</span> &nbsp;<b>Clicker 3 → your answer: B, with the conditional inference.</b><br>the reading directly measures the <b>mercury</b>; the water's temperature follows only after thermal equilibrium.<br><span style="font-size:12.5px;color:#5b6b7b">The post-class slides never reveal the intended key. The Zeroth-Law teaching point suggests the course wants "both, given equilibrium" — your B + conditional is the precise version of that same physics. If the key matters for the quiz, ask in office hours or Piazza.</span></div>
+<div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · Zeroth Law: A–B and B–C in equilibrium → A and C?</b><br>A and C are also in thermal equilibrium, same temperature. <span style="font-size:12.5px;color:#5b6b7b">(You correctly used B as the bridge object.)</span></div>
+`});
+S_L02D.push({tag:'Deep-dive · Step 2 / 6', title:'L02 through-line, slide by slide', html:`
+<p>Post-class slides, walked as one argument:</p>
+<ul>
+<li><b>Slide 5 — Clicker 1 revealed (C · Noether).</b> Conservation laws were first derived mathematically from <b>symmetries</b>: Noether used time symmetry to show total energy is constant. Her story: unpaid teaching in Germany under others' names, forced to move — a Nobel-adjacent mind the era nearly wasted. And the trap: Joule gave energy its <b>unit</b>, which is why ~60% of the class picked him.</li>
+<li><b>Slide 6 — the law.</b> Isolated system ⇒ total constant; transfer between parts; change of forms; thermo tracks microscopic KE + PE.</li>
+<li><b>Slide 7 — hot vs cold brick.</b> More kinetic AND potential energy (the L01→L02 widening).</li>
+<li><b>Slides 8–10 — macroscopic properties.</b> Most shift slightly with temperature: size/volume/density, IR output, conductivity. Expansion is typical (exceptions exist); hotter → more IR.</li>
+<li><b>Slide 11 — the spectrum.</b> IR sits between visible and radar on the wavelength axis.</li>
+<li><b>Slides 12–13 — Clicker 2 revealed (B).</b> Heat flows until same temperature — within the isolated two-block system.</li>
+<li><b>Slides 14–15 — the IR demo, resolved.</b> Hot block (~355 °C off the hot plate) + room-temperature block: brightness visibly "flows" from hot to cold; endpoint = same temperature AND uniform within each block.</li>
+<li><b>Slides 16–17 — three outcomes + Zeroth Law.</b> As on your pre-class page, now with the lecture's naming story (why "zero"? it was recognized last, after the first and second laws already had numbers).</li>
+</ul>
+<div class="demo">` + demoSlideMapL2() + `</div>
+`});
+S_L02D.push({tag:'Deep-dive · Step 3 / 6', title:'Deep Phrases — L2 trigger words', html:`
+<p>New phrasings L2 added to the set:</p>
+<table class="phrases">
+<tr><th>If you see…</th><th>Immediately think…</th></tr>
+<tr><td>"<b>isolated</b> system"</td><td>nothing enters or leaves ⇒ total energy constant</td></tr>
+<tr><td>"<b>internal energy</b>"</td><td>the microscopic KE + PE account of the object</td></tr>
+<tr><td>"<b>add heat</b> to an object"</td><td>internal energy increases (transfer — not creation)</td></tr>
+<tr><td>"<b>why potential energy</b>?"</td><td>particles interact (electrical bonds); PE depends on <b>distance</b>, which oscillates</td></tr>
+<tr><td>"hotter object's <b>IR</b>?"</td><td>intensity ↑ (brighter) AND wavelength shifts <b>shorter</b></td></tr>
+<tr><td>"<b>direction</b> of heat flow?"</td><td>hotter → colder; the WHY comes later (entropy)</td></tr>
+<tr><td>"<b>thermometer reads</b> X"</td><td>that's the thermometer's temperature; the object's follows via equilibrium</td></tr>
+<tr><td>"<b>uniform</b> temperature"</td><td>equilibrium inside the object too — not just between objects</td></tr>
+</table>
+`});
+S_L02D.push({tag:'Deep-dive · Step 4 / 6', title:'Worked example — the IR demo, resolved', html:`
+<p>Slide 15 is the demo's official result. Walk the four stages:</p>
+<div class="demo">` + demoIRSequence() + `</div>
+<details class="check"><summary>Stage 1 — before contact</summary><div class="ans">Each block is in equilibrium <i>with something else</i>: the dark one with the room, the yellow one with the hot plate. Equilibrium is always <b>with respect to something</b>.</div></details>
+<details class="check"><summary>Stage 2 — thermal contact</summary><div class="ans">The two-block system is now <b>isolated</b> (ignore the table and air, as the slide says). Inside it: a temperature difference exists → heat must flow.</div></details>
+<details class="check"><summary>Stage 3 — during the flow</summary><div class="ans">The subtle line from the slide: the blocks are <b>not in equilibrium with each other, and each block is not in an equilibrium STATE</b> — some parts are hotter than others. Equilibrium isn't just "two objects agreeing": <b>temperature must be uniform inside each object too</b>. This is the precision item from your ledger, upgraded by the slide.</div></details>
+<details class="check"><summary>Stage 4 — the endpoint</summary><div class="ans"><b>Same temperature AND temperature is uniform</b> — net flow zero, microscopic exchanges continue. The IR camera would show one uniform brightness.</div></details>
+`});
+S_L02D.push({tag:'Deep-dive · Step 5 / 6', title:'Variations — from the lecture itself', html:`
+<p>Three questions students asked in the live demo — with the answers the lecture gave:</p>
+<details class="check"><summary>V1 · Does touching a thermometer lower your body temperature? (measurement changes the system?)</summary><div class="ans">Any measurement <b>affects the system</b> — that's the rule. But here the effect is <b>negligible</b>: the thermometer is tiny compared to you. File under: every measurement perturbs; good instruments make the perturbation small.</div></details>
+<details class="check"><summary>V2 · Why did the eyes of people wearing glasses look DARK on the IR camera?</summary><div class="ans">Glass <b>does not transmit infrared</b>. The eyes are at the same temperature as the rest of the face — but their IR radiation can't reach the camera through the lenses, so no signal. Reading the instrument means knowing what it can and cannot see.</div></details>
+<details class="check"><summary>V3 · Three lamps (LED, CFL, incandescent) all look white to your eyes — which is the incandescent on the IR photo, and why?</summary><div class="ans">The <b>brightest</b> one. Incandescent bulbs waste most of their electric energy as <b>heat</b> (~5% becomes light) → huge IR output. CFL is better; LED is the most efficient. Same physics, engineering moral: emission profiles tell you where the energy went.</div></details>
+`});
+S_L02D.push({tag:'Deep-dive · Step 6 / 6', title:'Ledger update & what\u2019s next', html:`
+<h2>Ledger progress</h2>
+<ul>
+<li><b>① Macro vs Micro recognition</b> — <span class="verdictchip ok">improved</span> your L2 answers kept the two languages separate throughout.</li>
+<li><b>② Macro ↔ Micro mappings</b> — <span class="verdictchip ok">improved</span> size ↔ spacing and T ↔ avg KE both used correctly.</li>
+<li><b>③ Equilibrium precision</b> — <span class="verdictchip sharp">upgraded</span> slide 15 adds: equilibrium requires temperature <b>uniform inside</b> each object, not just equal between objects.</li>
+<li><b>④ Universal radiation</b> — <span class="verdictchip ok">passed</span> and extended: intensity ↑ + wavelength shorter when hotter.</li>
+<li><b>NEW ⑥ Isolated system & internal energy</b> — the L02 vocabulary; expect them in every L03 question.</li>
+<li><b>NEW ⑦ History/fact traps</b> — Noether vs Joule: don't answer on autopilot from "the unit is named after him".</li>
+</ul>
+<h2>What's next</h2>
+<ul>
+<li><b>Next lecture:</b> methods for measuring temperature (thermometer types — they exploit exactly the temperature-dependent properties from L2).</li>
+<li><b>Quiz 1</b>: date &amp; scope still unknown — Canvas → Course Schedule.</li>
+<li><b>L03 materials</b>: drop them in chat when posted.</li>
+</ul>
+<p style="margin-top:22px"><button class="donebtn" id="donebtn" onclick="markDone('l02d')">✓ Mark L02 deep-dive complete</button></p>
+`});
+
 var PAGES = [
   {key:'pre',  crumb:'Week 1 · L01 · Pre-class',    steps:S_PRE},
   {key:'deep', crumb:'Week 1 · L01 · Deep-dive',    steps:S_DEEP},
-  {key:'l02',  crumb:'Week 1 · L02 · Pre-class',    steps:S_L02}
+  {key:'l02',  crumb:'Week 1 · L02 · Pre-class',    steps:S_L02},
+  {key:'l02d', crumb:'Week 1 · L02 · Deep-dive',    steps:S_L02D}
 ];
 
 /* ---------- engine (multi-page) ---------- */
 var KEY_V = 'physos_v1_visited', KEY_CUR = 'physos_v1_cur';
-var visited = {pre:{}, deep:{}, l02:{}};
+var visited = {pre:{}, deep:{}, l02:{}, l02d:{}};
 try {
   var v1 = JSON.parse(localStorage.getItem(KEY_V)||'{}');
-  ['pre','deep','l02'].forEach(function(k){ if(v1[k]) v1[k].forEach(function(i){ visited[k][i]=1; }); });
+  ['pre','deep','l02','l02d'].forEach(function(k){ if(v1[k]) v1[k].forEach(function(i){ visited[k][i]=1; }); });
 } catch(e){}
 /* migrate v0 progress (pre-class page) */
 try {
@@ -952,6 +1080,7 @@ function render(){
   document.getElementById('side-pre').className  = 'sideitem' + (cur.p===0 ? ' active' : '');
   document.getElementById('side-deep').className = 'sideitem' + (cur.p===1 ? ' active' : '');
   document.getElementById('side-l02').className  = 'sideitem' + (cur.p===2 ? ' active' : '');
+  document.getElementById('side-l02d').className = 'sideitem' + (cur.p===3 ? ' active' : '');
   if (localStorage.getItem('physos_v1_done_'+vk) === '1' && cur.s === total-1){
     var b = document.getElementById('donebtn'); if(b){ b.disabled = true; b.textContent = '✓ Complete'; }
   }
@@ -971,8 +1100,8 @@ function resetAll(){
   localStorage.removeItem(KEY_V); localStorage.removeItem(KEY_CUR);
   localStorage.removeItem('physos_v0_visited'); localStorage.removeItem('physos_v0_step');
   localStorage.removeItem('physos_v1_done_pre'); localStorage.removeItem('physos_v1_done_deep');
-  localStorage.removeItem('physos_v1_done_l02'); localStorage.removeItem('physos_v0_done');
-  visited = {pre:{}, deep:{}, l02:{}}; cur = {p:0, s:0}; render();
+  localStorage.removeItem('physos_v1_done_l02'); localStorage.removeItem('physos_v1_done_l02d'); localStorage.removeItem('physos_v0_done');
+  visited = {pre:{}, deep:{}, l02:{}, l02d:{}}; cur = {p:0, s:0}; render();
 }
 document.addEventListener('keydown', function(e){
   if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
