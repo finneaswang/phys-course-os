@@ -172,9 +172,9 @@ var CONCEPTS = {
     '<p>A <b>macroscopic variable</b> and a <b>state variable（状态量）</b>: it describes what a system <i>is</i>, not a transfer. In the model introduced in L01, temperature <b>reflects</b> the average kinetic energy of a system\u2019s particles.</p>'+
     '<p>It sets the <b>direction</b> of spontaneous <b>heat</b> flow (hot → cold) and defines the endpoint of that flow: thermal equilibrium. The <b>Zeroth Law</b> is what makes temperature a sensible, comparable quantity at all.</p>', rel:['heat','thermal-equilibrium','kinetic-energy','mm','zth']},
   'volume': {t:'Volume', zh:'体积', st:'intro', body:
-    '<p>A <b>macroscopic variable</b>: at the microscopic level it reports the <b>average spacing between atoms/molecules</b>. This mapping is why thermal expansion is visible — raise the temperature, the average spacing grows, the measured size grows.</p>', rel:['temperature','thermal-expansion','mm']},
+    '<p>A <b>macroscopic variable</b>, related to the <b>average particle spacing</b> (for a given amount and structure of matter). This mapping is why thermal expansion is visible — hotter ⇒ larger average spacing ⇒ larger measured size.</p>', rel:['temperature','thermal-expansion','mm']},
   'kinetic-energy': {t:'Kinetic Energy', zh:'动能', st:'intro', body:
-    '<p>Energy of motion, <i>E<sub>k</sub> = ½mv²</i> (carried over from mechanics).</p>'+
+    '<p>Energy of motion, <i>E<sub>k</sub> = ½mv²</i> — <b>background formula, not introduced in L01</b> (which contains no equations).</p>'+
     '<p>Thermal role: temperature reflects the <b>average kinetic energy</b> of a system\u2019s particles — in the L01 brick, the kinetic energy of atoms <b>vibrating</b> about their fixed positions. L02 adds: vibrating atoms also carry <b>potential energy</b> (they push against their neighbours) — thermal energy is microscopic KE <b>and</b> PE.</p>', rel:['temperature','mm','coe']},
   'thermodynamics': {t:'Thermodynamics', zh:'热力学', st:'intro', body:
     '<p>The study of how <b>macroscopic variables</b> (temperature, volume, pressure, …) summarize and govern the behaviour of ~10²³ microscopic particles. \u201cThe art of summarizing microscopic physics.\u201d</p>'+
@@ -212,7 +212,7 @@ var CONCEPTS = {
     '<li>The total energy of an <b>isolated system</b> does not change with time.</li>'+
     '<li>BUT energy can be <b>transferred between parts</b> and take <b>different forms</b>.</li>'+
     '<li>In thermodynamics, the energy we care about is the <b>microscopic kinetic and potential energy</b> of atoms and molecules.</li></ul>'+
-    '<p>First fully understood through <b>James Joule</b>\u2019s experiments (mechanical work ↔ heat). This is the bookkeeping law under the whole brick demo: what the air loses, the brick gains.</p>', rel:['heat','kinetic-energy','thermodynamics']},
+    '<p><b>In L02 Clicker 1, the instructor keyed Emmy Noether</b> and used James Joule (the energy unit) as the trap; the lecture connected Noether\u2019s symmetry argument to conservation laws. This is the bookkeeping law under the whole brick demo: what the air loses, the brick gains.</p>', rel:['heat','kinetic-energy','thermodynamics']},
   'zth': {t:'Zeroth Law of Thermodynamics', zh:'热力学第零定律', st:'intro', body:
     '<p>If object A is in thermal equilibrium with object B, and A is in thermal equilibrium with object C, then <b>B and C are in thermal equilibrium with each other</b>.</p>'+
     '<p>\u201cOtherwise, temperature wouldn\u2019t make sense!\u201d This law is what makes <b>thermometers</b> legitimate: a thermometer in equilibrium with the water reads a temperature you can assign to the water too.</p>', rel:['thermal-equilibrium','temperature']}
@@ -259,7 +259,7 @@ function pick(btn){
   var fb = document.getElementById(btn.dataset.fbid || 'predfb');
   if (fb){
     fb.className = 'feedback ' + (ok ? 'good' : 'bad');
-    fb.innerHTML = (ok ? '✓ Matches the slides: ' : '✗ Not what happens first: ') + btn.dataset.fb;
+    fb.innerHTML = (ok ? '✓ Source + inference: ' : '✗ Not what happens first: ') + btn.dataset.fb;
   }
 }
 function markDone(pageKey){
@@ -645,8 +645,8 @@ S_PRE.push({tag:'Pre-class · Step 1 / 10', title:'How this works, and the two p
 `});
 S_PRE.push({tag:'Pre-class · Step 2 / 10', title:'The cold brick — predict first', html:`
 <p>September 9, Hebb building. Prof pulls a brick out of a cooler. The room's first guess: <i>liquid nitrogen</i>. Wrong — it sat in <b>dry ice</b>, so the brick starts at about <b>−78.5 °C</b>. Then it just sits in the ~20 °C room while everyone talks about it.</p>
-<h2>Predict, then check against the slides</h2>
-<p><i>In the first minute, what do you actually see?</i> This is a <b>source-contained self-check</b> — the slide photos right below hold the answer; no lecture reveal needed.</p>
+<h2>Predict, then check: source + guided inference</h2>
+<p><i>In the first minute, what do you actually see?</i> The slide photos below show <b>what</b> happened; the <b>why</b> is guided physical inference — labelled as such, not lecture content.</p>
 <div id="predict">
   <button class="opt" data-ok="0" data-fb="Look at the temperature difference: −78.5 °C vs ~20 °C. Something dramatic happens at the surface — and it is not silence." onclick="pick(this)">A · Nothing — the brick just sits there, unchanged</button>
   <button class="opt" data-ok="1" data-fb="Water vapour in the air touches a surface far below 0 °C and leaves the gas phase → frost forms almost immediately — exactly what the ~15 min photo shows. Heat starts flowing into the brick and it begins warming." onclick="pick(this)">B · Frost forms on the brick's surface</button>
@@ -660,13 +660,13 @@ S_PRE.push({tag:'Pre-class · Step 2 / 10', title:'The cold brick — predict fi
 <li><b>~25 min:</b> frost retreating — <b>corners and edges clear first</b> (most exposed surface per amount of brick → they warm fastest).</li>
 <li><b>~1 hr:</b> brick nearly clear, temperature approaching room temperature.</li>
 </ul>
-<div class="demo">` + demoCurve() + `<div class="cap">The brick's temperature over its hour on the desk. It never jumps to room temperature — it approaches, fast at first, then slower. Frost can only exist while the surface is below the 0 °C line.</div></div>
+<div class="demo">` + demoCurve() + `<div class="cap">The brick's temperature over its hour on the desk. It never jumps to room temperature — it approaches, fast at first, then slower. Frost can only exist while the surface is below the 0 °C line. <b>Label:</b> the fast-then-slow shape is a qualitative preview — L01 does not establish the rate–ΔT relationship.</div></div>
 <details class="check"><summary>Wording trap: "condensation" vs what physically happened</summary><div class="ans">Slides say <i>condensation</i>, but at −78.5 °C the vapour goes from gas <b>straight to solid</b> — deposition (凝华). The photo is unmistakably frost, not liquid. For the quiz, answer with the instructor's wording; keep "deposition" as your private precision.</div></details>
 `});
 S_PRE.push({tag:'Pre-class · Step 3 / 10', title:'The macroscopic view', html:`
 <p><b>Macroscopic</b> = the scale you can see or measure with instruments. In that language, here is everything the brick did — five measurable statements:</p>
 <ul>
-<li><b>Heat flowed in</b> — from everything warmer: the air, the desk it sat on. Big temperature difference → fast flow at the start.</li>
+<li><b>Heat flowed in</b> — from everything warmer: the air, the desk it sat on. <i>(That bigger ΔT means faster flow is a preview inference — L01 shows the flow happens, not the rate law.)</i></li>
 <li><b>Its temperature rose</b> — continuously, then more slowly.</li>
 <li><b>Its dimensions grew</b> — every linear dimension, slightly. (Thermal expansion: first real topic of the course. See <span class="wiki" data-c="thermal-expansion">Thermal Expansion</span>.)</li>
 <li><b>Frost formed, then cleared</b> — a <span class="wiki" data-c="phase-change">phase change</span> happening in the air next to the brick.</li>
@@ -708,13 +708,13 @@ S_PRE.push({tag:'Pre-class · Step 6 / 10', title:'Temperature vs Heat vs Equili
 <div class="grid2">
 <div class="pillar"><b><span class="wiki" data-c="temperature">Temperature</span></b><br>A <b>property of the object</b> — a <i>state variable</i> (状态量). It describes what the system <i>is</i> — in the L01 model, the average kinetic energy of its particles.</div>
 <div class="pillar"><b><span class="wiki" data-c="heat">Heat</span></b><br><b>Energy in transit</b>, driven by a temperature difference. Not a property of anything — it only exists <i>while crossing a boundary</i>, carried by collisions and radiation.</div>
-<div class="pillar"><b><span class="wiki" data-c="thermal-equilibrium">Thermal Equilibrium</span></b><br>The endpoint of heat flow: common temperature, and the <b>net</b> exchange drops to zero because the two averages have matched.</div>
+<div class="pillar"><b><span class="wiki" data-c="thermal-equilibrium">Thermal Equilibrium</span></b><br>The endpoint of heat flow: common temperature, and the <b>net</b> exchange drops to zero because the two averages have matched. <i>(Microscopic interpretation.)</i></div>
 </div>
 <div class="demo">` + demoTraffic() + `</div>
 <h2>The two traps</h2>
 <ul>
 <li><b>"The brick contains heat" — wrong.</b> An object contains <i>internal energy</i>; "heat" names energy <i>while it moves between things</i> — the way "flow" describes water in a pipe, not water sitting in a bucket.</li>
-<li><b>"At equilibrium everything stops" — wrong.</b> Collisions continue, energy crosses both ways every instant. Equilibrium is <b>balanced traffic, not an empty road</b>.</li>
+<li><b>"At equilibrium everything stops" — wrong.</b> Collisions continue, energy crosses both ways every instant. Equilibrium is <b>balanced traffic, not an empty road</b>. <i>(Microscopic interpretation.)</i></li>
 </ul>
 `});
 S_PRE.push({tag:'Pre-class · Step 7 / 10', title:'The waves teaser', html:`
@@ -955,16 +955,16 @@ S_L02.push({tag:'L02 Pre-class · Step 8 / 8', title:'Demo prediction + 60-secon
 var S_L02D = [];
 S_L02D.push({tag:'Deep-dive · Step 1 / 6', title:'Post-class answers + your typed review, graded', html:`
 <p>The post-class slides resolve two of the three clickers — and one is a plot twist. Your typed review (9 items) is graded below, against the slides and the Friday transcript.</p>
-<div class="goal"><b>Clicker resolutions:</b> C1 → <b>C · Emmy Noether</b> (not Joule!) · C2 → <b>B</b> (matches your answer) · C3 → <b>not revealed</b> in the post-class slides — your B-with-conditional stands as the rigorous reading.<br><b>Your typed review: 9/9 correct.</b> Written quality now matches concept quality — the chain habit from L01 is visibly working.</div>
+<div class="goal"><b>Clicker resolutions:</b> C1 → <b>C · Emmy Noether</b> (not Joule!) · C2 → <b>B</b> (matches your answer) · C3 → <b>official key unresolved</b> in the available materials.<br><b>Typed review — after feedback: 9/9 concepts resolved.</b> The path there had real gaps; the trace is preserved below, because this page is a Course OS, not an answer key.</div>
 <div class="demo">` + demoVoteBars() + `<div class="cap">The class vote: most people picked Joule because the energy unit is named after him. The obvious answer was the trap.</div></div>
 <div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Clicker 2 → B.</b> "heat is not 'stored stuff'; heat is energy transfer due to temperature difference."<br><span style="font-size:12.5px;color:#5b6b7b">This is EXACTLY the course definition — "not stored stuff" is the phrasing that survives quizzes.</span></div>
-<div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · Your understanding of conservation of energy?</b><br>cannot be created or destroyed; only transferred or transformed.<br><span style="font-size:12.5px;color:#5b6b7b">The lecture's words, almost verbatim: "it just transfers from one part of the system to the other, or it changes forms."</span></div>
-<div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · What types of energy do the particles have?</b><br>both kinetic and potential energy. <span style="font-size:12.5px;color:#5b6b7b">(typo "nergy" — harmless, but proofread on written quizzes.)</span></div>
-<div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · Why do particles have potential energy?</b><br>they interact with surrounding particles, and the PE depends on the distance between them.<br><span style="font-size:12.5px;color:#5b6b7b">The lecture adds one word: the interactions are <b>electrical</b> (bonds). And as particles oscillate, the distance changes → PE changes. Your two chains already encode this.</span></div>
+<div class="card"><span class="verdictchip sharp">↻ recovered after feedback</span> &nbsp;<b>Q · Your understanding of conservation of energy?</b><br><b>Initial answer conflated conservation of energy with thermal equilibrium.</b> After feedback: cannot be created or destroyed; only transferred or transformed — the lecture's words, almost verbatim.</div>
+<div class="card"><span class="verdictchip sharp">↻ recovered after feedback</span> &nbsp;<b>Q · What types of energy do the particles have?</b><br><b>Initial answer: kinetic energy only.</b> After feedback: both kinetic <b>and potential</b> energy.</div>
+<div class="card"><span class="verdictchip sharp">↻ recovered after feedback</span> &nbsp;<b>Q · Why do particles have potential energy?</b><br><b>Initial answer: "everything has energy."</b> After feedback: particles <b>interact</b> with surrounding particles, and the PE depends on the <b>distance</b> between them — the lecture names the interactions as electrical bonds, changing as the particles oscillate.</div>
 <div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · Add heat → what happens to internal energy?</b><br>it increases.<br><span style="font-size:12.5px;color:#5b6b7b">And you deployed the lecture's new term correctly: <b>internal energy</b> = the microscopic KE + PE account of the object.</span></div>
 <div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · Which macroscopic properties change?</b><br>size, volume, density, radiation, conductivity — all five named on the slides.</div>
 <div class="card"><span class="verdictchip sharp">✓✓ sharpest answer in the set</span> &nbsp;<b>Q · What happens to the IR radiation when temperature increases?</b><br>stronger intensity <b>and</b> shorter wavelength.<br><span style="font-size:12.5px;color:#5b6b7b">This is the lecture's exact two-part answer: intensity (= brightness on the IR camera) goes up, and the emission shifts toward shorter wavelengths. Two-part questions need two-part answers — you did that.</span></div>
-<div class="card"><span class="verdictchip sharp">✓ rigorous — with one open question</span> &nbsp;<b>Clicker 3 → your answer: B, with the conditional inference.</b><br>the reading directly measures the <b>mercury</b>; the water's temperature follows only after thermal equilibrium.<br><span style="font-size:12.5px;color:#5b6b7b">The post-class slides never reveal the intended key. The Zeroth-Law teaching point suggests the course wants "both, given equilibrium" — your B + conditional is the precise version of that same physics. If the key matters for the quiz, ask in office hours or Piazza.</span></div>
+<div class="card"><span class="verdictchip sharp">⚠ official key unresolved</span> &nbsp;<b>Clicker 3 — the thermometer question.</b><br>Directly, the reading establishes the <b>mercury's</b> temperature. <b>Official key: unresolved in the available course materials.</b> If thermal equilibrium with the water is assumed, the Zeroth Law implies the water matches — the intended key would then be C. Your instinct moved between B and C during practice; both encode the same physics, and the equilibrium assumption is the hinge.</div>
 <div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · Zeroth Law: A–B and B–C in equilibrium → A and C?</b><br>A and C are also in thermal equilibrium, same temperature. <span style="font-size:12.5px;color:#5b6b7b">(You correctly used B as the bridge object.)</span></div>
 `});
 S_L02D.push({tag:'Deep-dive · Step 2 / 6', title:'L02 through-line, slide by slide', html:`
