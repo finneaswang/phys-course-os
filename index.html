@@ -43,8 +43,9 @@ li{margin:5px 0}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
 .pillar{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:#fbfdff}
 .pillar b{color:var(--navy)}
-.chain{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:16px 0}
-.cstep{background:var(--navy);color:#fff;border-radius:8px;padding:7px 13px;font-size:13px}
+.chain{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin:10px 0}
+.cstep{background:var(--navy);color:#fff;border-radius:8px;padding:6px 12px;font-size:12.5px}
+.cstep.soft{background:#2f6fad}
 .arr{color:var(--mut);font-weight:700}
 .opt{display:block;width:100%;text-align:left;margin:7px 0;padding:10px 13px;border:1.5px solid var(--line);border-radius:10px;background:#fbfcfe;cursor:pointer;font-size:14px;color:var(--ink)}
 .opt:hover{border-color:var(--blue)}
@@ -75,6 +76,12 @@ kbd{background:#eef2f6;border:1px solid var(--line);border-bottom-width:2px;bord
 .status{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:99px;padding:1px 8px;vertical-align:2px}
 .status.intro{background:#e2f2e8;color:var(--good)}
 .status.preview{background:#fdf1e7;color:var(--bad)}
+.verdictchip{display:inline-block;font-size:10.5px;font-weight:700;border-radius:99px;padding:1px 8px;vertical-align:1.5px}
+.verdictchip.ok{background:#e2f2e8;color:var(--good)}
+.verdictchip.sharp{background:#fdf1e7;color:#b3591e}
+table.phrases{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+table.phrases th{background:var(--navy);color:#fff;text-align:left;padding:5pt 9pt;font-size:12.5px}
+table.phrases td{border-bottom:0.5pt solid var(--line);padding:6pt 9pt;vertical-align:top}
 /* modal */
 #overlay{position:fixed;inset:0;background:rgba(13,30,48,.55);z-index:50;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 16px}
 #overlay.open{display:flex}
@@ -108,7 +115,7 @@ kbd{background:#eef2f6;border:1px solid var(--line);border-bottom-width:2px;bord
 </head>
 <body>
 <header id="topbar">
-  <div class="brand"><span class="logo">Λ</span> PHYS 157 · <b>Course OS</b><span class="crumb">Week 1 · L01 · Pre-class</span></div>
+  <div class="brand"><span class="logo">Λ</span> PHYS 157 · <b>Course OS</b><span class="crumb" id="crumb">Week 1 · L01 · Pre-class</span></div>
   <div class="topright">
     <div class="pwrap"><div class="pbar"><div id="progressbar"></div></div><span id="progresstext"></span></div>
     <button class="btn" onclick="openLibrary()">Concept library (12)</button>
@@ -119,10 +126,11 @@ kbd{background:#eef2f6;border:1px solid var(--line);border-bottom-width:2px;bord
 <div id="shell">
   <nav id="sidebar">
     <div class="modtitle">Module 1 · Week 1 — Thermodynamics begins</div>
-    <a class="sideitem active" href="#" onclick="goto(0);return false;">1.1 · L01 Pre-class reading</a>
-    <a class="sideitem" href="#" onclick="openLibrary();return false;">1.2 · Concept library ↗</a>
-    <a class="sideitem locked">1.3 · L02 Pre-class — locked (awaiting materials)</a>
-    <div class="sidefoot">v0 · this site <b>is</b> the knowledge base now — every blue term opens its concept page here.<br><br>Say “next page” in chat for the L01 deep-dive.</div>
+    <a class="sideitem" id="side-pre" href="#" onclick="setPage(0);return false;">1.1 · L01 Pre-class reading</a>
+    <a class="sideitem" id="side-deep" href="#" onclick="setPage(1);return false;">1.2 · L01 Deep-dive &amp; Quiz prep</a>
+    <a class="sideitem" href="#" onclick="openLibrary();return false;">1.3 · Concept library ↗</a>
+    <a class="sideitem locked">1.4 · L02 Pre-class — locked (awaiting materials)</a>
+    <div class="sidefoot">v0.3 · your handwritten L1 review is graded inside page 1.2.<br><br>L02 materials → drop them in chat anytime.</div>
   </nav>
 
   <main id="main">
@@ -158,7 +166,8 @@ var CONCEPTS = {
     '<p>Worked mappings from L01: object size ↔ average atomic spacing; temperature ↔ average kinetic energy.</p>', rel:['thermodynamics','temperature','kinetic-energy']},
   'temperature': {t:'Temperature', zh:'温度', st:'intro', body:
     '<p>A <b>macroscopic variable</b> and a <b>state variable（状态量）</b>: it describes what a system <i>is</i>, not a transfer. In the model introduced in L01, temperature <b>reflects</b> the average kinetic energy of a system\u2019s particles.</p>'+
-    '<p>It sets the <b>direction</b> of spontaneous heat flow (hot → cold) and defines the endpoint of that flow: thermal equilibrium.</p>', rel:['heat','thermal-equilibrium','kinetic-energy','mm']},
+    '<p>It sets the <b>direction</b> of spontaneous [[HEAT]] flow (hot → cold) and defines the endpoint of that flow: thermal equilibrium.</p>'.replace('[[HEAT]]','<b>heat</b>'),
+    rel:['heat','thermal-equilibrium','kinetic-energy','mm']},
   'volume': {t:'Volume', zh:'体积', st:'intro', body:
     '<p>A <b>macroscopic variable</b>: at the microscopic level it reports the <b>average spacing between atoms/molecules</b>. This mapping is why thermal expansion is visible — raise the temperature, the average spacing grows, the measured size grows.</p>', rel:['temperature','thermal-expansion','mm']},
   'kinetic-energy': {t:'Kinetic Energy', zh:'动能', st:'intro', body:
@@ -237,10 +246,93 @@ function pick(btn){
   fb.className = 'feedback ' + (ok ? 'good' : 'bad');
   fb.innerHTML = (ok ? '✓ ' : '✗ ') + btn.dataset.fb;
 }
-function markDone(){
-  localStorage.setItem('physos_v0_done','1');
+function markDone(pageKey){
+  localStorage.setItem('physos_v1_done_'+pageKey,'1');
   var b = document.getElementById('donebtn');
-  if(b){ b.disabled = true; b.textContent = '✓ Complete — see you at Question 1'; }
+  if(b){ b.disabled = true; b.textContent = '✓ Complete'; }
+}
+
+/* ---------- reusable SVG demos ---------- */
+function demoLattice(){
+  var s = '<svg viewBox="0 0 560 200" width="100%">';
+  s += '<rect x="1" y="1" width="558" height="198" rx="10" fill="#f4f9ff" stroke="#dde5ec"/>';
+  for(var i=0;i<3;i++) for(var j=0;j<5;j++){
+    var x = 75 + j*102, y = 48 + i*50;
+    s += '<line x1="'+(x-13)+'" y1="'+y+'" x2="'+(x+13)+'" y2="'+y+'" stroke="#c9d8e6" stroke-width="1"/>';
+    s += '<line x1="'+x+'" y1="'+(y-13)+'" x2="'+x+'" y2="'+(y+13)+'" stroke="#c9d8e6" stroke-width="1"/>';
+    s += '<g class="vib" style="animation-delay:'+(-(i*5+j)*0.23)+'s"><circle cx="'+x+'" cy="'+y+'" r="9" fill="#2f6fad"/><circle cx="'+x+'" cy="'+y+'" r="3" fill="#0d2c4b"/></g>';
+  }
+  s += '<text x="280" y="190" text-anchor="middle" font-size="12.5" fill="#5b6b7b">SOLID — each atom vibrates about its own equilibrium site (cross = that site)</text>';
+  return s + '</svg>';
+}
+function demoGas(){
+  var s = '<svg viewBox="0 0 560 200" width="100%">';
+  s += '<rect x="1" y="1" width="558" height="198" rx="10" fill="#fff8f4" stroke="#dde5ec"/>';
+  var cols = ['#c0392b','#d35400','#c0392b','#8e44ad','#d35400','#c0392b'];
+  var anims = ['fly1 4.2s linear infinite','fly2 3.4s linear infinite','fly3 5s linear infinite','fly4 3.8s linear infinite','fly5 4.6s linear infinite','fly1 5.6s linear infinite'];
+  var starts = [[150,60],[300,120],[420,60],[220,90],[480,130],[90,130]];
+  for(var k=0;k<6;k++){
+    s += '<g class="fly" style="animation:'+anims[k]+'"><circle cx="'+starts[k][0]+'" cy="'+starts[k][1]+'" r="8" fill="'+cols[k]+'"/></g>';
+  }
+  s += '<text x="280" y="190" text-anchor="middle" font-size="12.5" fill="#5b6b7b">GAS — molecules travel long distances between collisions</text>';
+  return s + '</svg>';
+}
+function demoCurve(){
+  var s = '<svg viewBox="0 0 640 344" width="100%">';
+  s += '<rect x="1" y="1" width="638" height="342" rx="10" fill="#fbfdff" stroke="#dde5ec"/>';
+  s += '<line x1="60" y1="300" x2="580" y2="300" stroke="#9fb0c0" stroke-width="1.5"/>';
+  s += '<line x1="60" y1="40" x2="60" y2="300" stroke="#9fb0c0" stroke-width="1.5"/>';
+  s += '<line x1="60" y1="82" x2="580" y2="82" stroke="#7fa8cd" stroke-width="1.2" stroke-dasharray="7 5"/>';
+  s += '<text x="576" y="76" text-anchor="end" font-size="11.5" fill="#2f6fad">room 20 °C</text>';
+  s += '<line x1="60" y1="129" x2="580" y2="129" stroke="#b3591e" stroke-width="1.2" stroke-dasharray="3 4" opacity=".8"/>';
+  s += '<text x="576" y="145" text-anchor="end" font-size="11.5" fill="#b3591e">0 °C</text>';
+  s += '<rect x="60" y="129" width="180" height="171" fill="#eaf3fd" opacity=".7"/>';
+  s += '<text x="150" y="152" text-anchor="middle" font-size="11" fill="#5b6b7b">below 0 °C: frost survives</text>';
+  s += '<path d="M60,295 C 95,160 135,115 220,98 S 400,85 570,83" fill="none" stroke="#2f6fad" stroke-width="3" stroke-linecap="round"/>';
+  var pts = [[126,'~15 min','frost everywhere',48],[170,'~25 min','corners clear first',30],[324,'~1 hr','frost gone',48]];
+  pts.forEach(function(p){
+    s += '<line x1="'+p[0]+'" y1="300" x2="'+p[0]+'" y2="58" stroke="#dde5ec" stroke-width="1"/>';
+    s += '<text x="'+p[0]+'" y="318" text-anchor="middle" font-size="11.5" fill="#5b6b7b">'+p[1]+'</text>';
+    s += '<text x="'+p[0]+'" y="'+p[3]+'" text-anchor="middle" font-size="10.5" fill="#8296a8">'+p[2]+'</text>';
+  });
+  s += '<text x="320" y="336" text-anchor="middle" font-size="12" fill="#5b6b7b">time →</text>';
+  s += '<text x="26" y="170" font-size="12" fill="#5b6b7b" transform="rotate(-90 26 170)">temperature</text>';
+  s += '<text x="620" y="24" text-anchor="end" font-size="12" fill="#8296a8">qualitative sketch — the shape is what matters, not the numbers</text>';
+  return s + '</svg>';
+}
+function demoTraffic(){
+  function arrow(x,y,w,len,color,dir){
+    var hx = dir ? x+len : x-len;
+    return '<line x1="'+x+'" y1="'+y+'" x2="'+hx+'" y2="'+y+'" stroke="'+color+'" stroke-width="'+w+'" stroke-linecap="round"/>'+
+           '<polygon points="'+(dir? (hx)+','+(y-6-w/2)+' '+(hx+11)+','+y+' '+(hx)+','+(y+6+w/2) : hx+','+(y-6-w/2)+' '+(hx-11)+','+y+' '+hx+','+(y+6+w/2))+'" fill="'+color+'"/>';
+  }
+  var s = '<svg viewBox="0 0 620 190" width="100%">';
+  s += '<rect x="1" y="1" width="618" height="188" rx="10" fill="#fbfdff" stroke="#dde5ec"/>';
+  s += '<rect x="40" y="55" width="86" height="60" rx="8" fill="#fde8dd" stroke="#e5b39b"/><text x="83" y="90" text-anchor="middle" font-size="12" fill="#b3591e">HOT</text>';
+  s += '<rect x="160" y="55" width="86" height="60" rx="8" fill="#e8f1fb" stroke="#a9c6e2"/><text x="203" y="90" text-anchor="middle" font-size="12" fill="#2f6fad">COLD</text>';
+  s += arrow(129,72,5,16,'#c0392b',true);
+  s += arrow(157,102,2,16,'#b0c4d6',false);
+  s += '<text x="143" y="138" text-anchor="middle" font-size="11.5" fill="#5b6b7b">thick = net flow; thin = some returns</text>';
+  s += '<rect x="360" y="55" width="86" height="60" rx="8" fill="#fdeee4" stroke="#e5b39b"/><text x="403" y="90" text-anchor="middle" font-size="12" fill="#b3591e">HOT</text>';
+  s += '<rect x="482" y="55" width="86" height="60" rx="8" fill="#fdeee4" stroke="#e5b39b"/><text x="525" y="90" text-anchor="middle" font-size="12" fill="#b3591e">SAME T</text>';
+  s += arrow(452,85,3,14,'#8aa4bd',true);
+  s += arrow(478,85,3,14,'#8aa4bd',false);
+  s += '<text x="464" y="138" text-anchor="middle" font-size="11.5" fill="#5b6b7b">equal exchange: net = 0, arrows never vanish</text>';
+  s += '<text x="310" y="168" text-anchor="middle" font-size="12" fill="#8296a8">equilibrium = balanced traffic, not an empty road</text>';
+  return s + '</svg>';
+}
+function demoSpectrum(){
+  var s = '<svg viewBox="0 0 620 130" width="100%">';
+  s += '<rect x="1" y="1" width="618" height="128" rx="10" fill="#fbfdff" stroke="#dde5ec"/>';
+  var segs = [['radio',40,90,'#d7dee6'],['IR',130,110,'#b8cfe8'],['visible',240,54,'url(#vis)'],['UV',294,80,'#d9c8f0'],['X-ray',374,90,'#cfd8e3'],['gamma',464,110,'#c2ccd8']];
+  s += '<defs><linearGradient id="vis"><stop offset="0" stop-color="#e74c3c"/><stop offset=".5" stop-color="#f1c40f"/><stop offset="1" stop-color="#8e44ad"/></linearGradient></defs>';
+  segs.forEach(function(g){ s += '<rect x="'+g[1]+'" y="42" width="'+g[2]+'" height="26" rx="4" fill="'+g[3]+'" stroke="#ffffff"/>'; });
+  s += '<rect x="130" y="36" width="110" height="38" rx="6" fill="none" stroke="#2f6fad" stroke-width="2.5"/>';
+  s += '<text x="185" y="28" text-anchor="middle" font-size="11.5" fill="#2f6fad">brick @ room temp radiates here</text>';
+  s += '<text x="267" y="86" text-anchor="middle" font-size="10.5" fill="#5b6b7b">eyes see only this</text>';
+  segs.forEach(function(g){ s += '<text x="'+(g[1]+g[2]/2)+'" y="102" text-anchor="middle" font-size="11" fill="#5b6b7b">'+g[0]+'</text>'; });
+  s += '<text x="310" y="122" text-anchor="middle" font-size="11" fill="#8296a8">wavelength grows ← … wavelength set by temperature … → wavelength shrinks</text>';
+  return s + '</svg>';
 }
 
 /* ---------- concept graph ---------- */
@@ -300,92 +392,9 @@ function drawGraph(){
   });
 }
 
-/* ---------- reusable SVG demos ---------- */
-function demoLattice(){
-  var s = '<svg viewBox="0 0 560 200" width="100%">';
-  s += '<rect x="1" y="1" width="558" height="198" rx="10" fill="#f4f9ff" stroke="#dde5ec"/>';
-  for(var i=0;i<3;i++) for(var j=0;j<5;j++){
-    var x = 75 + j*102, y = 48 + i*50;
-    s += '<line x1="'+(x-13)+'" y1="'+y+'" x2="'+(x+13)+'" y2="'+y+'" stroke="#c9d8e6" stroke-width="1"/>';
-    s += '<line x1="'+x+'" y1="'+(y-13)+'" x2="'+x+'" y2="'+(y+13)+'" stroke="#c9d8e6" stroke-width="1"/>';
-    s += '<g class="vib" style="animation-delay:'+(-(i*5+j)*0.23)+'s"><circle cx="'+x+'" cy="'+y+'" r="9" fill="#2f6fad"/><circle cx="'+x+'" cy="'+y+'" r="3" fill="#0d2c4b"/></g>';
-  }
-  s += '<text x="280" y="190" text-anchor="middle" font-size="12.5" fill="#5b6b7b">SOLID — each atom vibrates about its own equilibrium site (cross = that site)</text>';
-  return s + '</svg>';
-}
-function demoGas(){
-  var s = '<svg viewBox="0 0 560 200" width="100%">';
-  s += '<rect x="1" y="1" width="558" height="198" rx="10" fill="#fff8f4" stroke="#dde5ec"/>';
-  var cols = ['#c0392b','#d35400','#c0392b','#8e44ad','#d35400','#c0392b'];
-  var anims = ['fly1 4.2s linear infinite','fly2 3.4s linear infinite','fly3 5s linear infinite','fly4 3.8s linear infinite','fly5 4.6s linear infinite','fly1 5.6s linear infinite'];
-  var starts = [[150,60],[300,120],[420,60],[220,90],[480,130],[90,130]];
-  for(var k=0;k<6;k++){
-    s += '<g class="fly" style="animation:'+anims[k]+'"><circle cx="'+starts[k][0]+'" cy="'+starts[k][1]+'" r="8" fill="'+cols[k]+'"/></g>';
-  }
-  s += '<text x="280" y="190" text-anchor="middle" font-size="12.5" fill="#5b6b7b">GAS — molecules travel long distances between collisions</text>';
-  return s + '</svg>';
-}
-function demoCurve(){
-  var s = '<svg viewBox="0 0 640 344" width="100%">';
-  s += '<rect x="1" y="1" width="638" height="342" rx="10" fill="#fbfdff" stroke="#dde5ec"/>';
-  s += '<line x1="60" y1="300" x2="580" y2="300" stroke="#9fb0c0" stroke-width="1.5"/>';
-  s += '<line x1="60" y1="40" x2="60" y2="300" stroke="#9fb0c0" stroke-width="1.5"/>';
-  s += '<line x1="60" y1="82" x2="580" y2="82" stroke="#7fa8cd" stroke-width="1.2" stroke-dasharray="7 5"/>';
-  s += '<text x="576" y="76" text-anchor="end" font-size="11.5" fill="#2f6fad">room 20 °C</text>';
-  s += '<line x1="60" y1="129" x2="580" y2="129" stroke="#b3591e" stroke-width="1.2" stroke-dasharray="3 4" opacity=".8"/>';
-  s += '<text x="576" y="145" text-anchor="end" font-size="11.5" fill="#b3591e">0 °C</text>';
-  s += '<rect x="60" y="129" width="180" height="171" fill="#eaf3fd" opacity=".7"/>';
-  s += '<text x="150" y="152" text-anchor="middle" font-size="11" fill="#5b6b7b">below 0 °C: frost survives</text>';
-  s += '<path d="M60,295 C 95,160 135,115 220,98 S 400,85 570,83" fill="none" stroke="#2f6fad" stroke-width="3" stroke-linecap="round"/>';
-  var pts = [[126,'~15 min','frost everywhere',48],[170,'~25 min','corners clear first',30],[324,'~1 hr','frost gone',48]];
-  pts.forEach(function(p){
-    s += '<line x1="'+p[0]+'" y1="300" x2="'+p[0]+'" y2="58" stroke="#dde5ec" stroke-width="1"/>';
-    s += '<text x="'+p[0]+'" y="318" text-anchor="middle" font-size="11.5" fill="#5b6b7b">'+p[1]+'</text>';
-    s += '<text x="'+p[0]+'" y="'+p[3]+'" text-anchor="middle" font-size="10.5" fill="#8296a8">'+p[2]+'</text>';
-  });
-  s += '<text x="320" y="336" text-anchor="middle" font-size="12" fill="#5b6b7b">time →</text>';
-  s += '<text x="26" y="170" font-size="12" fill="#5b6b7b" transform="rotate(-90 26 170)">temperature</text>';
-  s += '<text x="320" y="24" text-anchor="middle" font-size="12" fill="#8296a8">qualitative sketch — the shape is what matters, not the numbers</text>';
-  return s + '</svg>';
-}
-function demoTraffic(){
-  function arrow(x,y,w,len,color,dir){
-    var hx = dir ? x+len : x-len;
-    return '<line x1="'+x+'" y1="'+y+'" x2="'+hx+'" y2="'+y+'" stroke="'+color+'" stroke-width="'+w+'" stroke-linecap="round"/>'+
-           '<polygon points="'+(dir? (hx)+','+(y-6-w/2)+' '+(hx+11)+','+y+' '+(hx)+','+(y+6+w/2) : hx+','+(y-6-w/2)+' '+(hx-11)+','+y+' '+hx+','+(y+6+w/2))+'" fill="'+color+'"/>';
-  }
-  var s = '<svg viewBox="0 0 620 190" width="100%">';
-  s += '<rect x="1" y="1" width="618" height="188" rx="10" fill="#fbfdff" stroke="#dde5ec"/>';
-  s += '<rect x="40" y="55" width="86" height="60" rx="8" fill="#fde8dd" stroke="#e5b39b"/><text x="83" y="90" text-anchor="middle" font-size="12" fill="#b3591e">HOT</text>';
-  s += '<rect x="160" y="55" width="86" height="60" rx="8" fill="#e8f1fb" stroke="#a9c6e2"/><text x="203" y="90" text-anchor="middle" font-size="12" fill="#2f6fad">COLD</text>';
-  s += arrow(129,72,5,16,'#c0392b',true);
-  s += arrow(157,102,2,16,'#b0c4d6',false);
-  s += '<text x="143" y="138" text-anchor="middle" font-size="11.5" fill="#5b6b7b">thick = net flow; thin = some returns</text>';
-  s += '<rect x="360" y="55" width="86" height="60" rx="8" fill="#fdeee4" stroke="#e5b39b"/><text x="403" y="90" text-anchor="middle" font-size="12" fill="#b3591e">HOT</text>';
-  s += '<rect x="482" y="55" width="86" height="60" rx="8" fill="#fdeee4" stroke="#e5b39b"/><text x="525" y="90" text-anchor="middle" font-size="12" fill="#b3591e">SAME T</text>';
-  s += arrow(452,85,3,24,'#8aa4bd',true);
-  s += arrow(478,85,3,24,'#8aa4bd',false);
-  s += '<text x="464" y="138" text-anchor="middle" font-size="11.5" fill="#5b6b7b">equal exchange: net = 0, arrows never vanish</text>';
-  s += '<text x="310" y="168" text-anchor="middle" font-size="12" fill="#8296a8">equilibrium = balanced traffic, not an empty road</text>';
-  return s + '</svg>';
-}
-function demoSpectrum(){
-  var s = '<svg viewBox="0 0 620 130" width="100%">';
-  s += '<rect x="1" y="1" width="618" height="128" rx="10" fill="#fbfdff" stroke="#dde5ec"/>';
-  var segs = [['radio',40,90,'#d7dee6'],['IR',130,110,'#b8cfe8'],['visible',240,54,'url(#vis)'],['UV',294,80,'#d9c8f0'],['X-ray',374,90,'#cfd8e3'],['gamma',464,110,'#c2ccd8']];
-  s += '<defs><linearGradient id="vis"><stop offset="0" stop-color="#e74c3c"/><stop offset=".5" stop-color="#f1c40f"/><stop offset="1" stop-color="#8e44ad"/></linearGradient></defs>';
-  segs.forEach(function(g){ s += '<rect x="'+g[1]+'" y="42" width="'+g[2]+'" height="26" rx="4" fill="'+g[3]+'" stroke="#ffffff"/>'; });
-  s += '<rect x="130" y="36" width="110" height="38" rx="6" fill="none" stroke="#2f6fad" stroke-width="2.5"/>';
-  s += '<text x="185" y="28" text-anchor="middle" font-size="11.5" fill="#2f6fad">brick @ room temp radiates here</text>';
-  s += '<text x="267" y="86" text-anchor="middle" font-size="10.5" fill="#5b6b7b">eyes see only this</text>';
-  segs.forEach(function(g){ s += '<text x="'+(g[1]+g[2]/2)+'" y="102" text-anchor="middle" font-size="11" fill="#5b6b7b">'+g[0]+'</text>'; });
-  s += '<text x="310" y="122" text-anchor="middle" font-size="11" fill="#8296a8">wavelength grows ← … wavelength set by temperature … → wavelength shrinks</text>';
-  return s + '</svg>';
-}
-
-/* ---------- steps ---------- */
-var S = [];
-S.push({tag:'Pre-class · Step 1 / 10', title:'How this works, and the two pillars', html:`
+/* ---------- PAGE 1: L01 pre-class steps ---------- */
+var S_PRE = [];
+S_PRE.push({tag:'Pre-class · Step 1 / 10', title:'How this works, and the two pillars', html:`
 <p>This page is your <b>pre-class reading</b> for L01 — the part to master <i>before</i> re-watching the lecture or the quiz. Ten short steps, each one deeper than the last. Use the <b>Next →</b> button (or <kbd>→</kbd> / <kbd>←</kbd> keys). Progress is saved in this browser.</p>
 <div class="goal"><b>By the end you can:</b>
 <ul>
@@ -401,8 +410,7 @@ S.push({tag:'Pre-class · Step 1 / 10', title:'How this works, and the two pilla
 </div>
 <div class="note">⚠️ L01 contains <b>no formulas</b>. If you catch yourself deriving one here, you're ahead of the lecture — park it.</div>
 `});
-
-S.push({tag:'Pre-class · Step 2 / 10', title:'The cold brick — predict first', html:`
+S_PRE.push({tag:'Pre-class · Step 2 / 10', title:'The cold brick — predict first', html:`
 <p>September 9, Hebb building. Prof pulls a brick out of a cooler. The room's first guess: <i>liquid nitrogen</i>. Wrong — it sat in <b>dry ice</b>, so the brick starts at about <b>−78.5 °C</b>. Then it just sits in the ~20 °C room while everyone talks about it.</p>
 <h2>Predict before you read on</h2>
 <p><i>In the first minute, what do you actually see?</i></p>
@@ -422,8 +430,7 @@ S.push({tag:'Pre-class · Step 2 / 10', title:'The cold brick — predict first'
 <div class="demo">` + demoCurve() + `<div class="cap">The brick's temperature over its hour on the desk. It never jumps to room temperature — it approaches, fast at first, then slower. Frost can only exist while the surface is below the 0 °C line.</div></div>
 <details class="check"><summary>Wording trap: "condensation" vs what physically happened</summary><div class="ans">Slides say <i>condensation</i>, but at −78.5 °C the vapour goes from gas <b>straight to solid</b> — deposition (凝华). The photo is unmistakably frost, not liquid. For the quiz, answer with the instructor's wording; keep "deposition" as your private precision.</div></details>
 `});
-
-S.push({tag:'Pre-class · Step 3 / 10', title:'The macroscopic view', html:`
+S_PRE.push({tag:'Pre-class · Step 3 / 10', title:'The macroscopic view', html:`
 <p><b>Macroscopic</b> = the scale you can see or measure with instruments. In that language, here is everything the brick did — five measurable statements:</p>
 <ul>
 <li><b>Heat flowed in</b> — from everything warmer: the air, the desk it sat on. Big temperature difference → fast flow at the start.</li>
@@ -434,8 +441,7 @@ S.push({tag:'Pre-class · Step 3 / 10', title:'The macroscopic view', html:`
 </ul>
 <div class="note">Notice what this language never mentions: atoms. That's the point — macroscopic variables are chosen so you <i>don't need</i> the atoms. Next step: the same story in the other language.</div>
 `});
-
-S.push({tag:'Pre-class · Step 4 / 10', title:'The microscopic view', html:`
+S_PRE.push({tag:'Pre-class · Step 4 / 10', title:'The microscopic view', html:`
 <p>Same brick, atomic vocabulary — three processes:</p>
 <ul>
 <li><b>The brick's atoms vibrate.</b> It's a solid: atoms are not free to wander — they <b>vibrate about fixed equilibrium positions</b>. Cold brick = slow, low-energy vibrations. (This contrast is quiz-bait.)</li>
@@ -449,8 +455,7 @@ S.push({tag:'Pre-class · Step 4 / 10', title:'The microscopic view', html:`
 <div class="demo">` + demoSpectrum() + `<div class="cap">The electromagnetic spectrum. The brick at room temperature radiates in the infrared band — just left of the tiny slice your eyes can see.</div></div>
 <details class="check"><summary>Go deeper: is energy flowing one way, molecule by molecule?</summary><div class="ans">No — and hold onto this. <b>Individual collisions can transfer energy in either direction.</b> Because the warmer side transfers more energy on average, there is a <b>net energy flow from hot to cold</b> — billions of tiny deliveries adding up. The word doing the work is <b>net</b>. It comes back at equilibrium.</div></details>
 `});
-
-S.push({tag:'Pre-class · Step 5 / 10', title:'The bridge: averages become variables', html:`
+S_PRE.push({tag:'Pre-class · Step 5 / 10', title:'The bridge: averages become variables', html:`
 <p>Why can two such different stories describe one brick? Because of the idea the whole course stands on:</p>
 <div class="chain">
 <span class="cstep">microscopic behaviour</span><span class="arr">→</span>
@@ -465,8 +470,7 @@ S.push({tag:'Pre-class · Step 5 / 10', title:'The bridge: averages become varia
 </ul>
 <div class="goal">That is what <span class="wiki" data-c="thermodynamics">Thermodynamics</span> is: the art of summarizing 10²³ things into a handful of variables, then finding the rules those summaries obey. Measuring the macroscopic scale tells you what the microscopic world is doing <b>on average</b>.</div>
 `});
-
-S.push({tag:'Pre-class · Step 6 / 10', title:'Temperature vs Heat vs Equilibrium', html:`
+S_PRE.push({tag:'Pre-class · Step 6 / 10', title:'Temperature vs Heat vs Equilibrium', html:`
 <p>Three words the quizzes love to blur. Three clean definitions:</p>
 <div class="grid2">
 <div class="pillar"><b><span class="wiki" data-c="temperature">Temperature</span></b><br>A <b>property of the object</b> — a <i>state variable</i> (状态量). It describes what the system <i>is</i> — in the L01 model, the average kinetic energy of its particles.</div>
@@ -480,8 +484,7 @@ S.push({tag:'Pre-class · Step 6 / 10', title:'Temperature vs Heat vs Equilibriu
 <li><b>"At equilibrium everything stops" — wrong.</b> Collisions continue, energy crosses both ways every instant. Equilibrium is <b>balanced traffic, not an empty road</b>.</li>
 </ul>
 `});
-
-S.push({tag:'Pre-class · Step 7 / 10', title:'The waves teaser', html:`
+S_PRE.push({tag:'Pre-class · Step 7 / 10', title:'The waves teaser', html:`
 <p>Last five minutes of L01, and easy to dismiss — don't. The brick was also being hit by <b>sound</b> from every voice in the room and by light from the ceiling. Those are <span class="wiki" data-c="waves">waves</span>:</p>
 <ul>
 <li>a wave is <b>collective motion</b> — enormous numbers of particles moving in coordination, so that <b>energy travels without the material travelling</b>;</li>
@@ -490,16 +493,14 @@ S.push({tag:'Pre-class · Step 7 / 10', title:'The waves teaser', html:`
 </ul>
 <div class="note">Both pillars, one idea: <i>stop tracking individuals; summarize.</i> Thermodynamics does it with averages; waves do it with a wave equation. That parallel is the deepest thing L01 plants.</div>
 `});
-
-S.push({tag:'Pre-class · Step 8 / 10', title:'Your concept graph', html:`
+S_PRE.push({tag:'Pre-class · Step 8 / 10', title:'Your concept graph', html:`
 <p>This is the network your course is building. <b>Click any node</b> — its concept page opens right here. The dashed link is the second pillar, preview-only for now.</p>
 <div id="graphwrap">
 <svg id="graph" viewBox="0 0 940 570" width="100%" style="min-width:760px;display:block"></svg>
 </div>
 <div class="legend">● every node = a concept page (also in <b>Concept library</b>, top right) · dashed = previewed, not yet taught · this graph grows with every lecture.</div>
 `});
-
-S.push({tag:'Pre-class · Step 9 / 10', title:'Check yourself', html:`
+S_PRE.push({tag:'Pre-class · Step 9 / 10', title:'Check yourself', html:`
 <p>Six conceptual questions. Answer out loud <i>first</i>, then open. If you can't say it, you don't have it yet — go back one step.</p>
 <details class="check"><summary>1 · Why is tracking every particle impossible — and why is that fine?</summary><div class="ans">A brick has ~10²³ particles; no one can follow them. It's fine because the <b>averages</b> are all that matter, and averages appear as macroscopic variables (size ↔ spacing, temperature ↔ average kinetic energy). Summaries + rules = thermodynamics.</div></details>
 <details class="check"><summary>2 · How does a brick atom's motion differ from an air molecule's?</summary><div class="ans">Brick atoms are a solid: they <b>vibrate about fixed positions</b>. Gas molecules <b>travel long distances</b> between collisions. "Vibrate" vs "travel" — don't blend the pictures (step 4's two animations).</div></details>
@@ -508,66 +509,168 @@ S.push({tag:'Pre-class · Step 9 / 10', title:'Check yourself', html:`
 <details class="check"><summary>5 · Why did the frost clear from corners and edges first?</summary><div class="ans">Corners/edges have the most <b>exposed surface per amount of brick</b>, so they collect heat fastest and warm first. Geometry controls heat-flow rate.</div></details>
 <details class="check"><summary>6 · The brick radiates constantly — why can't you see it?</summary><div class="ans">At room temperature the emission is mainly <b>infrared</b>: wavelength set by temperature, and the visible band is a narrow slice our eyes evolved for. The radiation is real and carries energy — just not in colors we detect.</div></details>
 `});
-
-S.push({tag:'Pre-class · Step 10 / 10', title:'60-second review — and done', html:`
+S_PRE.push({tag:'Pre-class · Step 10 / 10', title:'60-second review — and done', html:`
 <h2>The whole pre-class, one breath</h2>
 <ul>
 <li>Macroscopic variables = <b>averages</b> over ~10²³ particles; thermodynamics studies the rules of those averages.</li>
 <li><b>Temperature</b> = average kinetic energy of particles <i>in the L01 model</i> — a state variable.</li>
 <li><b>Heat</b> = energy in transit, hot → cold, carried by <b>collisions + radiation</b>; never "stored".</li>
-<li>Cold brick: heat in → warms → expands; frost <b>deposits</b>, clears <b>corners first</b>, gone by ~1 hr.</li>
+<li>Cold brick: heat in → T up → expansion; frost <b>deposits</b>, clears <b>corners first</b>, gone by ~1 hr.</li>
 <li><b>Equilibrium</b>: same temperature, <b>net</b> flow zero, two-way collisions continue.</li>
 <li>Everything radiates; wavelength set by temperature; room-T = infrared, invisible.</li>
 <li>Waves = <b>collective motion</b> — second pillar, same "summarize, don't track" trick.</li>
 </ul>
 <h2>Next</h2>
 <ul>
-<li>In chat: answer <b>Question 1</b> (steel railing vs wooden bench, same 12 °C — why does steel feel colder?).</li>
-<li>Say <b>"next page"</b> and I'll build the L01 lecture deep-dive step.</li>
+<li>Go to <b>page 1.2 — L01 Deep-dive &amp; Quiz prep</b> (left sidebar): your handwritten review is graded there.</li>
 <li>Bring L02 materials whenever — the graph grows on its own.</li>
 </ul>
-<p style="margin-top:22px"><button class="donebtn" id="donebtn" onclick="markDone()">✓ Mark L01 pre-class complete</button></p>
+<p style="margin-top:22px"><button class="donebtn" id="donebtn" onclick="markDone('pre')">✓ Mark L01 pre-class complete</button></p>
 `});
 
-/* ---------- engine ---------- */
-var KEY_V='physos_v0_visited', KEY_D='physos_v0_done';
-var visited = new Set();
-try { JSON.parse(localStorage.getItem(KEY_V)||'[]').forEach(function(i){visited.add(i);}); } catch(e){}
-var cur = 0;
-try { var s = parseInt(localStorage.getItem('physos_v0_step')||'0',10); if(s>=0 && s<S.length) cur = s; } catch(e){}
+/* ---------- PAGE 2: L01 deep-dive & quiz prep ---------- */
+var S_DEEP = [];
+S_DEEP.push({tag:'Deep-dive · Step 1 / 6', title:'Your handwritten review, graded — 8 for 8', html:`
+<p>You sent your handwritten L1 review (the red arrows are the corrected chains). I checked every answer against the post-class slides and the calibrated transcript.</p>
+<div class="goal"><b>Verdict: 8/8 conceptually correct — nothing to unlearn.</b> Two answers got <i>sharpened</i> (precision upgrades, not corrections) — those two are now on your re-test list at the end of this page.</div>
+<div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · The brick's macroscopic picture?</b><br>warmer surroundings → heat flows into brick → temperature increases → brick expands → eventually thermal equilibrium.<br><span style="font-size:12.5px;color:#5b6b7b">Also macroscopic: the frost (a phase change, deposition). Don't forget it exists.</span></div>
+<div class="card"><span class="verdictchip sharp">✓ sharpened</span> &nbsp;<b>Q · The brick's microscopic picture?</b><br>air molecules collide with the brick → energy is transferred → atoms vibrate with higher energy.<br><span style="font-size:12.5px;color:#5b6b7b">Your first draft tangled the transfer and the vibration into one clause ("vibrate with higher energy is transferred to the brick") — the chain separates cause from effect. Chain order matters on written questions.</span></div>
+<div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · Should we know what every single particle is doing?</b><br>too many particles → use averages → describe the whole system.<br><span style="font-size:12.5px;color:#5b6b7b">This IS the sentence thermodynamics stands on. Memorize it verbatim.</span></div>
+<div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · What are the air molecules doing?</b><br>colliding with the brick and transferring energy to it.</div>
+<div class="card"><span class="verdictchip sharp">✓ sharpened</span> &nbsp;<b>Q · Lasting till…?</b><br>net transfer continues until thermal equilibrium — and at equilibrium the <b>net</b> flow is 0 while collisions continue <b>both ways</b>.<br><span style="font-size:12.5px;color:#5b6b7b">Your answer stopped at "thermal equilibrium" — a quiz may push one level deeper: what exactly is zero, and what never stops.</span></div>
+<div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · What determines the macroscopic size?</b><br>the average spacing between its atoms.</div>
+<div class="card"><span class="verdictchip ok">✓ correct</span> &nbsp;<b>Q · What does temperature represent?</b><br>the average kinetic energy of its particles (the L01 model framing — your own note already scopes it correctly).</div>
+<div class="card"><span class="verdictchip sharp">✓ sharpened</span> &nbsp;<b>Q · Must an object be visibly glowing to emit radiation?</b><br><b>All objects emit electromagnetic radiation, regardless of temperature.</b> What temperature decides is the wavelength/frequency — at ordinary temperatures, mainly infrared.<br><span style="font-size:12.5px;color:#5b6b7b">Your draft said objects emit "depending on their temperature" — readable as "only if hot enough". The universal statement is the quiz answer; temperature only tunes the wavelength.</span></div>
+`});
+S_DEEP.push({tag:'Deep-dive · Step 2 / 6', title:'The through-line, slide by slide', html:`
+<p>Post-class slides, walked as one argument. You should be able to say what each contributed:</p>
+<ul>
+<li><b>Slide 3 — the demo question.</b> Cold brick in a warm room: macro (expanding, heat in, warming toward equilibrium) vs micro (atoms vibrate more; air molecules collide and hand over energy).</li>
+<li><b>Slide 4 — the bridge.</b> ~10²³ particles; macroscopic variables (temperature, volume) are the <i>averages</i>; thermodynamics studies how those summaries behave.</li>
+<li><b>Slide 5 — the second pillar.</b> Sound waves, guitar strings, ocean waves: collective motion; transverse &amp; longitudinal; a wave equation will describe it without per-particle tracking.</li>
+<li><b>Slide 6 — the timeline.</b> Frost everywhere (~15 min) → retreating from corners/edges (~25 min, most exposed surface) → nearly clear (~1 hr, equilibrium approaching).</li>
+<li><b>Slides 7–9 — why physics.</b> Observe the universe, understand the rules — quarks to cosmos — and it pays: transistors, screens, MRI.</li>
+<li><b>Slides 10–13 — course mechanics.</b> Weekly cycle; ORCA quizzes; clickers ungraded; homework structure (summarized in the pre-class page's sidebar notes).</li>
+</ul>
+<div class="note">The three-beat structure of every PHYS 157 topic from now on: <b>macro statement → micro mechanism → the average that connects them</b>. Watch for it in L02.</div>
+`});
+S_DEEP.push({tag:'Deep-dive · Step 3 / 6', title:'Deep Phrases — quiz trigger words', html:`
+<p>What a question <i>says</i> → the physics action it is demanding. These phrasings are how the clicker/quiz questions will be worded.</p>
+<table class="phrases">
+<tr><th>If you see…</th><th>Immediately think…</th></tr>
+<tr><td>"at the <b>microscopic</b> level"</td><td>atoms <b>vibrating</b> (solid) / <b>translating &amp; colliding</b> (gas) / radiating</td></tr>
+<tr><td>"at the <b>macroscopic</b> level"</td><td>T, V, dimensions, frost, equilibrium — the measurable summaries</td></tr>
+<tr><td>"reaches <b>thermal equilibrium</b>"</td><td>net flow → 0, temperatures equal, <b>collisions continue both ways</b></td></tr>
+<tr><td>"<b>heat flows</b> from A to B"</td><td>direction set by <b>ΔT</b>, not by who has more total energy</td></tr>
+<tr><td>"feels <b>colder</b> than"</td><td>rate of heat transfer, not temperature</td></tr>
+<tr><td>"temperature rises — <b>size</b>?"</td><td>every linear dimension scales → <span class="wiki" data-c="thermal-expansion">Thermal Expansion</span></td></tr>
+<tr><td>"<b>track every particle</b>?"</td><td>no — 10²³ → averages → that's the whole subject</td></tr>
+<tr><td>"what <b>carries</b> the energy?"</td><td>collisions + radiation, so far</td></tr>
+<tr><td>"does it need to <b>glow</b> to radiate?"</td><td><b>all objects emit</b>, regardless of temperature; wavelength set by T; room-T → infrared</td></tr>
+</table>
+`});
+S_DEEP.push({tag:'Deep-dive · Step 4 / 6', title:'Worked example — the two-brick question', html:`
+<p>This mirrors the demo prof promised for next lecture (two bricks + an IR detector). Work it <i>before</i> opening the reasoning.</p>
+<div class="goal"><b>Brick A</b> sits at 20 °C in a 20 °C room. <b>Brick B</b> sits at 100 °C in the same room.<br>(a) Do both bricks emit electromagnetic radiation?<br>(b) Which emits more?<br>(c) For each brick, state the direction of <b>net</b> heat flow between it and the room air.<br>(d) Brick B slowly cools. What happens to that net flow?</div>
+<details class="check"><summary>(a) Do both emit?</summary><div class="ans"><b>Yes — both.</b> Every object emits electromagnetic radiation regardless of temperature. This is the universal statement from your sharpened answer #8.</div></details>
+<details class="check"><summary>(b) Which emits more?</summary><div class="ans"><b>B, the hotter brick.</b> Temperature sets the radiation's character: hotter objects emit at shorter wavelengths / higher frequencies and pour out more energy. At L01's level: "B emits more, and at different wavelengths."</div></details>
+<details class="check"><summary>(c) Direction of net flow for each?</summary><div class="ans"><b>A:</b> same temperature as the room → already in <b>thermal equilibrium</b> → net flow = 0 (collisions and radiation continue both ways, but cancel).<br><b>B:</b> hotter than the room → <b>net flow from B into the air</b> — the fast side delivers more energy on average.</div></details>
+<details class="check"><summary>(d) As B cools?</summary><div class="ans">The temperature difference shrinks → the <b>net flow shrinks</b> → reaches <b>zero</b> when B hits room temperature. B's cooling curve looks exactly like the brick curve from pre-class step 2: fast at first, then slower — approach, not arrival.</div></details>
+<div class="note">Notice what did the work in every part: <b>temperature difference</b> (direction) and <b>averages</b> (net vs individual). No formulas — L01 is pure concept, and this is exactly how a written question will test it.</div>
+`});
+S_DEEP.push({tag:'Deep-dive · Step 5 / 6', title:'Variations — your turn', html:`
+<p>Same principles, new skins. Answer out loud, then open.</p>
+<details class="check"><summary>V1 · A 1000 kg iceberg (0 °C) and a 50 g nail (800 °C) touch. Which way does heat flow — and does the iceberg's bigger total energy matter?</summary><div class="ans">Direction: <b>nail → iceberg</b>, set by the temperature difference alone. The iceberg's far larger <b>total</b> energy is irrelevant to direction — "who has more energy" never decides heat flow, "who is hotter" does. Eventually both share a common temperature (closer to 0 °C than to 800 °C, because the iceberg is enormously bigger — the quantitative version comes later in the course).<br><b>Re-test tag:</b> this is the "direction ≠ total energy" trap — your review hasn't been tested on it yet.</div></details>
+<details class="check"><summary>V2 · Your review wrote: "energy transfer continues until the brick reaches thermal equilibrium." A quiz asks: at the instant of equilibrium, state precisely what is zero and what is not.</summary><div class="ans"><b>Zero:</b> the <b>net</b> energy flow between brick and room (their average molecular energies have matched).<br><b>Not zero:</b> the individual two-way energy exchanges — collisions and radiation continue in <b>both</b> directions forever. Equilibrium = balanced traffic, not an empty road.</div></details>
+<details class="check"><summary>V3 · The frost on the brick is gone by ~1 hr — but the brick never melted the frost "with heat" the way a stove would. Where did the frost's water go, microscopically?</summary><div class="ans">Two-stage: while the surface was below 0 °C, vapour <b>deposited</b> onto it as solid frost (that's the white layer). As the surface warmed past 0 °C, the frost <b>melted</b> to liquid and then <b>evaporated</b> back into the air — phase changes driven by the brick's rising temperature. The slides' word "condensation" is the loose shorthand; the strict vocabulary is deposition → melt → evaporation.</div></details>
+`});
+S_DEEP.push({tag:'Deep-dive · Step 6 / 6', title:'Ledger & what\u2019s next', html:`
+<h2>Your re-test ledger</h2>
+<p>These are the precision upgrades from your review — expect them again, in new skins, until they pass twice in a row:</p>
+<ul>
+<li><b>① The universal radiation statement.</b> "All objects emit EM radiation regardless of temperature; temperature sets the wavelength/frequency." (Tested once — passed after sharpening.)</li>
+<li><b>② Net vs individual at equilibrium.</b> Net flow = 0; two-way exchanges continue. (Not yet tested — V2 above was the first pass.)</li>
+<li><b>③ Chain order on written answers.</b> Cause → effect, one arrow per step, the way your corrected chains read.</li>
+</ul>
+<h2>What's next</h2>
+<ul>
+<li><b>L02</b>: macroscopic variables &amp; thermal expansion (announced in L01). Drop the week-2 PDFs in chat and the pre-class page builds itself.</li>
+<li><b>Quiz 1</b>: date &amp; scope still unknown — Canvas → Course Schedule. When you know it, the practice engine targets exactly that range.</li>
+<li>Expect the IR-camera demo with two warm bricks in the next lecture — you already know its answer (worked example, step 4).</li>
+</ul>
+<p style="margin-top:22px"><button class="donebtn" id="donebtn" onclick="markDone('deep')">✓ Mark L01 deep-dive complete</button></p>
+`});
+
+var PAGES = [
+  {key:'pre',  crumb:'Week 1 · L01 · Pre-class',    steps:S_PRE},
+  {key:'deep', crumb:'Week 1 · L01 · Deep-dive',    steps:S_DEEP}
+];
+
+/* ---------- engine (multi-page) ---------- */
+var KEY_V = 'physos_v1_visited', KEY_CUR = 'physos_v1_cur';
+var visited = {pre:{}, deep:{}};
+try {
+  var v1 = JSON.parse(localStorage.getItem(KEY_V)||'{}');
+  ['pre','deep'].forEach(function(k){ if(v1[k]) v1[k].forEach(function(i){ visited[k][i]=1; }); });
+} catch(e){}
+/* migrate v0 progress (pre-class page) */
+try {
+  if(!localStorage.getItem(KEY_V) && localStorage.getItem('physos_v0_visited')){
+    JSON.parse(localStorage.getItem('physos_v0_visited')||'[]').forEach(function(i){ visited.pre[i]=1; });
+  }
+} catch(e){}
+var cur = {p:0, s:0};
+try {
+  var c1 = JSON.parse(localStorage.getItem(KEY_CUR)||'{}');
+  if(typeof c1.p === 'number' && PAGES[c1.p] && typeof c1.s === 'number' && c1.s < PAGES[c1.p].steps.length) cur = c1;
+} catch(e){}
 
 function render(){
-  document.getElementById('steptag').textContent = S[cur].tag;
-  document.getElementById('steptitle').textContent = S[cur].title;
-  document.getElementById('content').innerHTML = S[cur].html;
-  visited.add(cur);
-  localStorage.setItem(KEY_V, JSON.stringify(Array.from(visited)));
-  localStorage.setItem('physos_v0_step', String(cur));
-  var pct = Math.round(visited.size / S.length * 100);
+  var P = PAGES[cur.p], st = P.steps[cur.s], vk = P.key;
+  document.getElementById('crumb').textContent = P.crumb;
+  document.getElementById('steptag').textContent = st.tag;
+  document.getElementById('steptitle').textContent = st.title;
+  document.getElementById('content').innerHTML = st.html;
+  visited[vk][cur.s] = 1;
+  persistVisited();
+  localStorage.setItem(KEY_CUR, JSON.stringify(cur));
+  var total = P.steps.length, seen = Object.keys(visited[vk]).length;
+  var pct = Math.round(seen / total * 100);
   document.getElementById('progressbar').style.width = pct + '%';
-  document.getElementById('progresstext').textContent = visited.size + ' / ' + S.length + ' steps';
-  document.getElementById('prevbtn').disabled = (cur === 0);
-  document.getElementById('nextbtn').disabled = (cur === S.length - 1);
+  document.getElementById('progresstext').textContent = seen + ' / ' + total + ' steps';
+  document.getElementById('prevbtn').disabled = (cur.s === 0);
+  document.getElementById('nextbtn').disabled = (cur.s === total - 1);
   var dots = document.getElementById('dots'); dots.innerHTML = '';
-  for (var i=0;i<S.length;i++){
+  for (var i=0;i<total;i++){
     var d = document.createElement('button');
-    d.className = 'dot' + (i===cur ? ' cur' : (visited.has(i) ? ' seen' : ''));
+    d.className = 'dot' + (i===cur.s ? ' cur' : (visited[vk][i] ? ' seen' : ''));
     d.title = 'Step ' + (i+1);
-    d.onclick = function(n){ return function(){ cur = n; render(); }; }(i);
+    d.onclick = function(n){ return function(){ cur.s = n; render(); }; }(i);
     dots.appendChild(d);
   }
-  if (localStorage.getItem(KEY_D) === '1' && cur === S.length-1){
-    var b = document.getElementById('donebtn'); if(b){ b.disabled = true; b.textContent = '✓ Complete — see you at Question 1'; }
+  document.getElementById('side-pre').className  = 'sideitem' + (cur.p===0 ? ' active' : '');
+  document.getElementById('side-deep').className = 'sideitem' + (cur.p===1 ? ' active' : '');
+  if (localStorage.getItem('physos_v1_done_'+vk) === '1' && cur.s === total-1){
+    var b = document.getElementById('donebtn'); if(b){ b.disabled = true; b.textContent = '✓ Complete'; }
   }
-  if (S[cur].title.indexOf('concept graph') !== -1) setTimeout(drawGraph, 30);
+  if (st.title.indexOf('concept graph') !== -1) setTimeout(drawGraph, 30);
   window.scrollTo(0,0);
 }
-function stepFwd(){ if(cur < S.length-1){ cur++; render(); } }
-function stepBack(){ if(cur > 0){ cur--; render(); } }
-function goto(n){ cur = n; render(); }
+function persistVisited(){
+  var out = {};
+  Object.keys(visited).forEach(function(k){ out[k] = Object.keys(visited[k]).map(Number); });
+  localStorage.setItem(KEY_V, JSON.stringify(out));
+}
+function stepFwd(){ if(cur.s < PAGES[cur.p].steps.length-1){ cur.s++; render(); } }
+function stepBack(){ if(cur.s > 0){ cur.s--; render(); } }
+function setPage(p){ if(cur.p !== p){ cur.p = p; cur.s = 0; render(); } }
+function goto(n){ cur.s = n; render(); }
 function resetAll(){
-  localStorage.removeItem(KEY_V); localStorage.removeItem(KEY_D); localStorage.removeItem('physos_v0_step');
-  visited = new Set(); cur = 0; render();
+  localStorage.removeItem(KEY_V); localStorage.removeItem(KEY_CUR);
+  localStorage.removeItem('physos_v0_visited'); localStorage.removeItem('physos_v0_step');
+  localStorage.removeItem('physos_v1_done_pre'); localStorage.removeItem('physos_v1_done_deep');
+  localStorage.removeItem('physos_v0_done');
+  visited = {pre:{}, deep:{}}; cur = {p:0, s:0}; render();
 }
 document.addEventListener('keydown', function(e){
   if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
