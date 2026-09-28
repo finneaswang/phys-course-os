@@ -128,13 +128,14 @@ table.phrases td{border-bottom:0.5pt solid var(--line);padding:6pt 9pt;vertical-
 
 <div id="shell">
   <nav id="sidebar">
-    <div class="modtitle">Module 1 · Week 1 — Thermodynamics begins</div>
+    <div class="modtitle">Module 1 · Weeks 1–2 — Thermodynamics begins</div>
     <a class="sideitem" id="side-pre" href="#" onclick="setPage(0);return false;">1.1 · L01 Pre-class reading</a>
     <a class="sideitem" id="side-deep" href="#" onclick="setPage(1);return false;">1.2 · L01 Deep-dive &amp; Quiz prep</a>
     <a class="sideitem" href="#" onclick="openLibrary();return false;">1.3 · Concept library ↗</a>
     <a class="sideitem" id="side-l02" href="#" onclick="setPage(2);return false;">1.4 · L02 Pre-class reading</a>
     <a class="sideitem" id="side-l02d" href="#" onclick="setPage(3);return false;">1.5 · L02 Deep-dive &amp; Quiz prep</a>
-    <div class="sidefoot">v0.5 · L02 deep-dive is live — Noether twist inside.<br><br>Quiz 1 date/scope → still unknown; check Canvas.</div>
+    <a class="sideitem" id="side-l03" href="#" onclick="setPage(4);return false;">1.6 · L03 Pre-class reading</a>
+    <div class="sidefoot">v0.7 · L03 (Temperature, Sep 14) pre-class is live — 4 clickers in prediction mode.<br><br>iClicker answers now post on Fridays after class.</div>
   </nav>
 
   <main id="main">
@@ -215,7 +216,17 @@ var CONCEPTS = {
     '<p><b>In L02 Clicker 1, the instructor keyed Emmy Noether</b> and used James Joule (the energy unit) as the trap; the lecture connected Noether\u2019s symmetry argument to conservation laws. This is the bookkeeping law under the whole brick demo: what the air loses, the brick gains.</p>', rel:['heat','kinetic-energy','thermodynamics']},
   'zth': {t:'Zeroth Law of Thermodynamics', zh:'热力学第零定律', st:'intro', body:
     '<p>If object A is in thermal equilibrium with object B, and A is in thermal equilibrium with object C, then <b>B and C are in thermal equilibrium with each other</b>.</p>'+
-    '<p>\u201cOtherwise, temperature wouldn\u2019t make sense!\u201d This law is what makes <b>thermometers</b> legitimate: a thermometer in equilibrium with the water reads a temperature you can assign to the water too.</p>', rel:['thermal-equilibrium','temperature']}
+    '<p>\u201cOtherwise, temperature wouldn\u2019t make sense!\u201d This law is what makes <b>thermometers</b> legitimate: a thermometer in equilibrium with the water reads a temperature you can assign to the water too.</p>', rel:['thermal-equilibrium','temperature']},
+  'extint': {t:'Extensive vs Intensive Properties', zh:'广延量与强度量', st:'intro', body:
+    '<p><b>Extensive（广延量）</b> properties depend on the amount of matter: divide the system and the property divides too — <b>mass, volume, energy</b>.</p>'+
+    '<p><b>Intensive（强度量）</b> properties do not depend on amount: divide the system and the property is identical for each part — <b>temperature, density, color, taste, melting/boiling point</b>.</p>'+
+    '<p>Why it matters: temperature is intensive — which is exactly why \u201cwho has more energy\u201d never decided the direction of heat flow, but \u201cwho is hotter\u201d always did.</p>', rel:['temperature','thermodynamics','kinetic-energy']},
+  'idealgas': {t:'Ideal Gas', zh:'理想气体', st:'intro', body:
+    '<p>The <b>simplest material</b>, used to build the cleanest temperature scale: an ideal gas is one where the only interactions between molecules are <b>perfectly elastic collisions</b> — a good approximation at low density.</p>'+
+    '<p>A constant-volume gas thermometer watches <b>pressure changes at fixed volume</b>.</p>', rel:['pressure','thermodynamics']},
+  'pressure': {t:'Pressure', zh:'压强', st:'intro', body:
+    '<p><b>Pressure = force on the wall per unit area:</b> P = F/A. S.I. unit: <b>pascal</b> = N/m².</p>'+
+    '<p>Microscopically (see the PhET simulation): pressure comes from <b>molecules hitting the walls</b> — heat the gas, molecules move faster, pressure increases. Room air is about <b>100 kPa</b>.</p>', rel:['idealgas','kinetic-energy']}
 };
 function cbody(id){
   var c = CONCEPTS[id];
@@ -580,13 +591,17 @@ var NODES = [
   {id:'osc',   c:'oscillations', label:'Oscillations', x:90,  y:330},
   {id:'waves', c:'waves', label:'Waves',                x:80,  y:190},
   {id:'coe',   c:'coe',   label:'Conservation of Energy', x:880, y:90},
-  {id:'zth',   c:'zth',   label:'Zeroth Law',           x:900, y:540}
+  {id:'zth',   c:'zth',   label:'Zeroth Law',           x:900, y:540},
+  {id:'extint',c:'extint',label:'Extensive vs Intensive', x:430, y:20},
+  {id:'idealgas', c:'idealgas', label:'Ideal Gas', x:900, y:310},
+  {id:'pressure', c:'pressure', label:'Pressure', x:920, y:420}
 ];
 var EDGES = [
   ['mm','temp'],['mm','vol'],['temp','ke'],['mm','thermo'],['mm','em'],
   ['thermo','heat'],['heat','eq'],['thermo','phase'],['thermo','exp'],
   ['osc','waves'],['mm','osc','preview'],
-  ['thermo','coe'],['eq','zth']
+  ['thermo','coe'],['eq','zth'],
+  ['temperature','extint'],['thermo','idealgas'],['idealgas','pressure']
 ];
 function drawGraph(){
   var svg = document.getElementById('graph');
@@ -1028,19 +1043,146 @@ S_L02D.push({tag:'Deep-dive · Step 6 / 6', title:'Ledger update & what\u2019s n
 <p style="margin-top:22px"><button class="donebtn" id="donebtn" onclick="markDone('l02d')">✓ Mark L02 deep-dive complete</button></p>
 `});
 
+function demoExtInt(){
+  var s = '<svg viewBox="0 0 620 300" width="100%">';
+  s += '<rect x="1" y="1" width="618" height="298" rx="10" fill="#fbfdff" stroke="#dde5ec"/>';
+  s += '<text x="310" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="#0d2c4b">THE SYSTEM</text>';
+  s += '<rect x="140" y="44" width="340" height="56" rx="8" fill="#e8f1fb" stroke="#a9c6e2"/>';
+  s += '<text x="310" y="68" text-anchor="middle" font-size="11.5" fill="#16324e">mass M · volume V · energy E · temperature T · density ρ</text>';
+  s += '<text x="310" y="86" text-anchor="middle" font-size="10" fill="#5b6b7b">now divide it into two halves…</text>';
+  s += '<line x1="310" y1="106" x2="310" y2="146" stroke="#8296a8" stroke-width="1.5"/><polygon points="304,138 310,148 316,138" fill="#8296a8"/>';
+  s += '<text x="180" y="172" text-anchor="middle" font-size="11.5" font-weight="700" fill="#2f6fad">EXTENSIVE → divided</text>';
+  s += '<text x="440" y="172" text-anchor="middle" font-size="11.5" font-weight="700" fill="#b3591e">INTENSIVE → identical</text>';
+  s += '<rect x="70" y="186" width="220" height="46" rx="8" fill="#f4f9ff" stroke="#dde5ec"/><text x="180" y="206" text-anchor="middle" font-size="11" fill="#16324e">M/2 · V/2 · E/2</text><text x="180" y="222" text-anchor="middle" font-size="10" fill="#8296a8">(these split)</text>';
+  s += '<rect x="330" y="186" width="220" height="46" rx="8" fill="#fdf1e7" stroke="#ecd3bd"/><text x="440" y="206" text-anchor="middle" font-size="11" fill="#16324e">T · ρ · color · m.p.</text><text x="440" y="222" text-anchor="middle" font-size="10" fill="#8296a8">(these don\u2019t change)</text>';
+  s += '<text x="310" y="266" text-anchor="middle" font-size="11" fill="#8296a8">energy is extensive — temperature is intensive. That\u2019s why \u201cwho has more energy\u201d never set the heat-flow direction.</text>';
+  return s + '</svg>';
+}
+function demoVTGraph(){
+  var s = '<svg viewBox="0 0 620 300" width="100%">';
+  s += '<rect x="1" y="1" width="618" height="298" rx="10" fill="#fbfdff" stroke="#dde5ec"/>';
+  s += '<line x1="80" y1="250" x2="560" y2="250" stroke="#9fb0c0" stroke-width="1.5"/>';
+  s += '<line x1="80" y1="250" x2="80" y2="40" stroke="#9fb0c0" stroke-width="1.5"/>';
+  s += '<text x="575" y="255" font-size="13" fill="#31414e">T</text>';
+  s += '<text x="58" y="34" font-size="13" fill="#31414e">V</text>';
+  s += '<text x="80" y="272" font-size="11.5" fill="#5b6b7b">0 °C</text>';
+  s += '<text x="540" y="272" font-size="11.5" fill="#5b6b7b">100 °C</text>';
+  s += '<line x1="72" y1="244" x2="88" y2="244" stroke="#31414e" stroke-width="1.5"/>';
+  s += '<line x1="72" y1="90" x2="88" y2="90" stroke="#31414e" stroke-width="1.5"/>';
+  s += '<text x="66" y="248" text-anchor="end" font-size="10.5" fill="#5b6b7b">V₀</text>';
+  s += '<text x="66" y="94" text-anchor="end" font-size="10.5" fill="#5b6b7b">V₁₀₀</text>';
+  s += '<path d="M80,244 Q 300,230 540,60" fill="none" stroke="#2f6fad" stroke-width="3" stroke-linecap="round"/>';
+  s += '<text x="300" y="264" text-anchor="middle" font-size="11" font-weight="700" fill="#b3591e">reads 50 (mid-mark) → actual T = ?</text>';
+  s += '<text x="320" y="24" text-anchor="middle" font-size="11" fill="#8296a8">V vs T for mercury — not a straight line (slide 10)</text>';
+  return s + '</svg>';
+}
+function demoCupCard(){
+  var s = '<svg viewBox="0 0 620 190" width="100%">';
+  s += '<rect x="1" y="1" width="618" height="188" rx="10" fill="#fbfdff" stroke="#dde5ec"/>';
+  s += '<path d="M60,45 L72,125 L128,125 L140,45" fill="none" stroke="#31414e" stroke-width="2.5"/>';
+  s += '<path d="M68,60 L76,121 L124,121 L132,60 Z" fill="#bfe0f5"/>';
+  s += '<text x="100" y="150" text-anchor="middle" font-size="11" fill="#5b6b7b">cup of water</text>';
+  s += '<path d="M250,45 L262,125 L318,125 L330,45" fill="none" stroke="#31414e" stroke-width="2.5"/>';
+  s += '<path d="M258,60 L266,121 L314,121 L322,60 Z" fill="#bfe0f5"/>';
+  s += '<line x1="242" y1="45" x2="338" y2="45" stroke="#c0392b" stroke-width="5"/>';
+  s += '<text x="290" y="150" text-anchor="middle" font-size="11" fill="#5b6b7b">card on top… then flip</text>';
+  s += '<path d="M440,45 L452,45 L478,125 L556,125" fill="none" stroke="#31414e" stroke-width="2.5"/>';
+  s += '<path d="M456,52 L470,60 L540,60 L548,52 L548,118 L462,118 Z" fill="#bfe0f5"/>';
+  s += '<line x1="448" y1="125" x2="562" y2="125" stroke="#c0392b" stroke-width="5"/>';
+  s += '<text x="505" y="150" text-anchor="middle" font-size="11" fill="#5b6b7b">easily holds up the water!</text>';
+  s += '<text x="310" y="178" text-anchor="middle" font-size="11.5" fill="#31414e">What is really holding the water up?</text>';
+  return s + '</svg>';
+}
+
+/* ---------- PAGE 5: L03 pre-class ---------- */
+var S_L03 = [];
+S_L03.push({tag:'L03 Pre-class · Step 1 / 8', title:'Temperature: from sensing to measuring', html:`
+<p>L2 left temperature <i>comparable</i> (Zeroth Law) and promised measuring methods. L03 delivers the machinery — and a vocabulary split that finally explains the L01 ledger trap.</p>
+<div class="goal"><b>By the end you can:</b>
+<ul>
+<li>classify properties as <b>extensive</b> or <b>intensive</b> — and explain why temperature is the latter;</li>
+<li>describe how a thermometer gets <b>numbers</b>: a standard object + a temperature-dependent property;</li>
+<li>define the <b>ideal gas</b> and the <b>constant-volume gas thermometer</b>;</li>
+<li>work with <b>pressure</b>: P = F/A, pascals, and molecules hitting walls.</li>
+</ul></div>
+<div class="note">New this week: <b>iClicker answers will be posted separately on Fridays after class</b> — prediction pages keep their discipline, and resolutions now have an official home. Also: <b>tutorials begin this week</b>.</div>
+<p>And a returning friend: <b>Clicker 1 today is the thermometer question from L2</b> — the one whose official key stayed unresolved. The course is circling back; your B-with-conditional reasoning is on record in page 1.5. Guess fresh anyway.</p>
+`});
+S_L03.push({tag:'L03 Pre-class · Step 2 / 8', title:'Clicker 1 — the returning thermometer question', html:`
+<p><i>You put a mercury thermometer in a glass of water. If the thermometer reads 20 °C, you can conclude that…</i></p>
+<div class="card"><b>A</b> · The temperature of the water is 20 °C<br><b>B</b> · The temperature of the mercury in the thermometer is 20 °C<br><b>C</b> · Both A and B<br><b>D</b> · Neither A nor B</div>
+<div class="note"><b>Prediction mode.</b> Your L2 reasoning is on record (page 1.5): the reading directly measures the mercury; the water follows only under equilibrium. Guess again fresh — Monday resolves it.</div>
+`});
+S_L03.push({tag:'L03 Pre-class · Step 3 / 8', title:'Clicker 2 — direction vs total energy, again', html:`
+<p><i>Two objects (each initially in equilibrium) are put into thermal contact, thermally insulated from the environment. Heat is observed to flow from A to B. We can say that…</i></p>
+<div class="card"><b>A</b> · Object A initially had more <b>energy</b> than B<br><b>B</b> · Object A initially had a higher <b>temperature</b> than B<br><b>C</b> · Both A and B<br><b>D</b> · Neither can be concluded</div>
+<div class="note"><b>Prediction mode.</b> Ledger item ② says: direction is set by temperature difference, never by total energy. This clicker is that trap wearing a new coat — guess, and hold your reason ready for Monday.</div>
+`});
+S_L03.push({tag:'L03 Pre-class · Step 4 / 8', title:'Extensive vs Intensive — the split that explains it', html:`
+<p>New vocabulary, and it explains the trap above:</p>
+<ul>
+<li><b>Extensive（广延量）</b>: depends on the amount of matter. Divide the system → the property divides. <b>Mass, volume, energy</b>.</li>
+<li><b>Intensive（强度量）</b>: independent of amount. Divide the system → the property is identical in each part. <b>Temperature, density, color, taste, melting/boiling point</b>.</li>
+</ul>
+<div class="demo">` + demoExtInt() + `</div>
+<div class="note">The punchline writes itself: <b>energy is extensive, temperature is intensive</b> — which is exactly why "who has more energy" never decided heat-flow direction, but "who is hotter" always did.</div>
+`});
+S_L03.push({tag:'L03 Pre-class · Step 5 / 8', title:'Thermometry: assigning numbers', html:`
+<p>The slides' move: <b>assign numerical values to temperatures using a temperature-dependent macroscopic property of a standard object</b> — e.g. the <b>volume of liquid in a tube</b>.</p>
+<h3>Discussion question — preserved as an activity</h3>
+<div class="goal"><i>Six unmarked Amazon thermometers (79 ¢ each). You <b>really really</b> want to know the room temperature in °C. How could you figure it out with them?</i><br><b>EXTRA:</b> Will your method give the exact temperature? Why or why not? Are you assuming anything?</div>
+<div class="note">Bring a method to class — the lecture works through it. Hint-free by rule: the fixed reference points you'd need are part of the answer.</div>
+`});
+S_L03.push({tag:'L03 Pre-class · Step 6 / 8', title:'Clicker 3 — calibration is not always linear', html:`
+<p>The graph: <b>volume vs temperature for mercury</b> — notice it is <b>not a straight line</b>. A mercury thermometer with <b>equally spaced</b> temperature markings reads 50 °C. The actual temperature is…?</p>
+<div class="demo">` + demoVTGraph() + `</div>
+<div class="card"><b>A</b> · Exactly 50 °C &nbsp; <b>B</b> · A bit higher &nbsp; <b>C</b> · A bit lower</div>
+<div class="note"><b>Prediction mode.</b> Reason from the graph: what does a curved V–T relationship do to equally spaced markings? The lecture resolves it.</div>
+`});
+S_L03.push({tag:'L03 Pre-class · Step 7 / 8', title:'The ideal gas & pressure', html:`
+<p>Many materials → many possible definitions of T. The <b>simplest material</b> gives the cleanest scale:</p>
+<ul>
+<li>An <b>ideal gas</b>: the only interactions between molecules are <b>perfectly elastic collisions</b> — a good approximation at low density.</li>
+<li><b>Constant-volume gas thermometer:</b> watch <b>pressure changes at fixed volume</b>.</li>
+<li><b>Pressure = force on the wall per unit area: P = F/A.</b> S.I. unit: <b>pascal (Pa) = N/m²</b>.</li>
+</ul>
+<h3>Clicker 4 — pressure estimate</h3>
+<p><i>Room air pressure ≈ 100 kPa. The force of the air on the top of your head (10 cm × 10 cm) is similar to the downward force from…</i></p>
+<div class="card"><b>a</b> · a 100 g mass &nbsp; <b>b</b> · a 1 kg mass &nbsp; <b>c</b> · a 10 kg mass &nbsp; <b>d</b> · a 100 kg mass &nbsp; <b>e</b> · a 1000 kg mass</div>
+<div class="note"><b>Prediction mode</b> — and this one you can estimate before guessing: pressure × area = force (in newtons), and 1 kg pulls down with ~10 N. The lecture resolves it.</div>
+`});
+S_L03.push({tag:'L03 Pre-class · Step 8 / 8', title:'Demo + PhET + 60-second review', html:`
+<h3>Demo (try at home!): the inverted cup</h3>
+<p>Cup of water, card on top, flip — <b>the card easily holds up the water</b>. What is really holding it? Prediction mode — the answer involves the same ~100 kPa from Clicker 4.</p>
+<div class="demo">` + demoCupCard() + `</div>
+<h3>PhET: see pressure happen</h3>
+<p>The slides use the <b>PhET "Gas Properties"</b> simulation: pressure is literally <b>molecules hitting the walls</b>; heat the gas → molecules move faster → pressure increases. Play with it: phet.colorado.edu/en/simulation/gas-properties.</p>
+<h2>60-second review</h2>
+<ul>
+<li><b>Extensive</b> (mass, volume, energy: divide → divide) vs <b>intensive</b> (temperature, density: divide → identical).</li>
+<li>Energy is extensive, temperature is intensive → heat-flow direction never followed total energy.</li>
+<li>Thermometry = <b>standard object + temperature-dependent property</b> (e.g. liquid volume).</li>
+<li>Calibration can be <b>nonlinear</b> — equally spaced markings can lie (Clicker 3).</li>
+<li><b>Ideal gas:</b> only perfectly elastic collisions; good at low density → constant-volume gas thermometer reads pressure.</li>
+<li><b>P = F/A</b> (pascal = N/m²); microscopically: molecules hitting walls; atmosphere ≈ 100 kPa.</li>
+</ul>
+<p style="margin-top:22px"><button class="donebtn" id="donebtn" onclick="markDone('l03')">✓ Mark L03 pre-class complete</button></p>
+`});
+
 var PAGES = [
   {key:'pre',  crumb:'Week 1 · L01 · Pre-class',    steps:S_PRE},
   {key:'deep', crumb:'Week 1 · L01 · Deep-dive',    steps:S_DEEP},
   {key:'l02',  crumb:'Week 1 · L02 · Pre-class',    steps:S_L02},
-  {key:'l02d', crumb:'Week 1 · L02 · Deep-dive',    steps:S_L02D}
+  {key:'l02d', crumb:'Week 1 · L02 · Deep-dive',    steps:S_L02D},
+  {key:'l03',  crumb:'Week 2 · L03 · Pre-class',    steps:S_L03}
 ];
 
 /* ---------- engine (multi-page) ---------- */
 var KEY_V = 'physos_v1_visited', KEY_CUR = 'physos_v1_cur';
-var visited = {pre:{}, deep:{}, l02:{}, l02d:{}};
+var visited = {pre:{}, deep:{}, l02:{}, l02d:{}, l03:{}};
 try {
   var v1 = JSON.parse(localStorage.getItem(KEY_V)||'{}');
-  ['pre','deep','l02','l02d'].forEach(function(k){ if(v1[k]) v1[k].forEach(function(i){ visited[k][i]=1; }); });
+  ['pre','deep','l02','l02d','l03'].forEach(function(k){ if(v1[k]) v1[k].forEach(function(i){ visited[k][i]=1; }); });
 } catch(e){}
 /* migrate v0 progress (pre-class page) */
 try {
@@ -1081,6 +1223,7 @@ function render(){
   document.getElementById('side-deep').className = 'sideitem' + (cur.p===1 ? ' active' : '');
   document.getElementById('side-l02').className  = 'sideitem' + (cur.p===2 ? ' active' : '');
   document.getElementById('side-l02d').className = 'sideitem' + (cur.p===3 ? ' active' : '');
+  document.getElementById('side-l03').className  = 'sideitem' + (cur.p===4 ? ' active' : '');
   if (localStorage.getItem('physos_v1_done_'+vk) === '1' && cur.s === total-1){
     var b = document.getElementById('donebtn'); if(b){ b.disabled = true; b.textContent = '✓ Complete'; }
   }
@@ -1100,8 +1243,8 @@ function resetAll(){
   localStorage.removeItem(KEY_V); localStorage.removeItem(KEY_CUR);
   localStorage.removeItem('physos_v0_visited'); localStorage.removeItem('physos_v0_step');
   localStorage.removeItem('physos_v1_done_pre'); localStorage.removeItem('physos_v1_done_deep');
-  localStorage.removeItem('physos_v1_done_l02'); localStorage.removeItem('physos_v1_done_l02d'); localStorage.removeItem('physos_v0_done');
-  visited = {pre:{}, deep:{}, l02:{}, l02d:{}}; cur = {p:0, s:0}; render();
+  localStorage.removeItem('physos_v1_done_l02'); localStorage.removeItem('physos_v1_done_l02d'); localStorage.removeItem('physos_v1_done_l03'); localStorage.removeItem('physos_v0_done');
+  visited = {pre:{}, deep:{}, l02:{}, l02d:{}, l03:{}}; cur = {p:0, s:0}; render();
 }
 document.addEventListener('keydown', function(e){
   if (e.target && /INPUT|TEXTAREA/.test(e.target.tagName)) return;
